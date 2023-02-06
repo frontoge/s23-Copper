@@ -3,23 +3,35 @@ import React from 'react';
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 
+
 function LogIn() {
     return (
-        <div className = "test">
+        <div className="logInPage">
             <Box
             sx={{
             //my: 10,
-            //backgroundColor: '#afcfcf',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            height: 1,
+            margin: 0,
             }}>
 
             <h1>Grocery Genie</h1>
+            <img src={require ('../images/genie_black.png')} alt = "Logo" height="400px"></img>
             <h1>Log In</h1>
-            <TextField id="outlined-basic" label="Username" variant="outlined" />
-            <TextField id="outlined-basic" label="Password" variant="outlined" />
+
+
+            <TextField id="outlined-basic" 
+            label="Username" 
+            variant="outlined"
+            margin="normal"/>
+
+            <TextField id="outlined-basic" 
+            label="Password" 
+            variant="outlined"
+            margin="normal"
+            type="password"/>
+
             </Box>
         </div>
     )
