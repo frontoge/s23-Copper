@@ -28,6 +28,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build
         run: |
-          sudo make install
+          sudo npm install
           make build
           sudo cp -r build/static/* /var/www/html/s23copper/
