@@ -28,6 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build
         run: |
+          cd grocery-genie
           sudo npm install
           make build
           sudo cp -r build/static/* /var/www/html/s23copper/
