@@ -1,5 +1,4 @@
 import React from 'react';
-import AddIcon from "@mui/icons-material/Add";
 import IconButton from '@mui/material/IconButton';
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -15,24 +14,31 @@ import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
+import Paper from '@mui/material/Paper';
+import { white } from '@mui/material/colors';
 
-
+const Demo = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.background.purple,
+}));
 export default function Household_Profile()
 {
-    const back = styled('div')(({ theme }) => ({
-        backgroundColor: theme.palette.backgroundColor.paper,
-      }));
+
     return(
-        <Box sx={{ flexGrow: 1, maxWidth: 752}}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
-                <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                    Dad
+      <Paper sx={{ backgroundColor:'#afcfcf'}}>
+              <Typography sx={{ mt: 4, mb: 2 }} variant="h3" component="div" align="center">
+                    My Household 
                 </Typography>
-                <back>
-                    <List>
-                    <ListItem
+            <Grid container rowSpacing={2}
+                align="center"
+                justify="center"
+                direction="column">
+                <Grid item sm={12} md={6}>
+                    <List  sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
+                                      <FormGroup>
+                     <FormControlLabel control={<Checkbox/>} label="Dad" />
+                     </FormGroup>
+                    
+                    <ListItem alignItems='center'
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
                       <DeleteIcon />
@@ -45,15 +51,19 @@ export default function Household_Profile()
                         </ListItem>
                     
                     </List>
-                    </back>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                    Mom
-                </Typography>
-                <back>
-                    <List>
-                    <ListItem 
+               </Grid>
+               <Grid container 
+               rowSpacing={2}
+               align="center"
+               justify="center"
+               direction="column">
+                <Grid item sm={12} md={6}>
+                    <List sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
+                    <FormGroup>
+                     <FormControlLabel control={<Checkbox/>} label="Mom" />
+                     </FormGroup>
+                    <ListItem alignItems='center'
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
                       <DeleteIcon />
@@ -76,15 +86,18 @@ export default function Household_Profile()
                         
                     
                     </List>
-                    </back>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                    George
-                </Typography>
-                <back>
-                    <List>
-                    <ListItem 
+                </Grid>
+                <Grid container rowSpacing={2}
+                    align="center"
+                    justify="center"
+                    direction="column">
+                <Grid item sm={12} md={6}>
+                    <List sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
+                    <FormGroup>
+                     <FormControlLabel control={<Checkbox/>} label="George" />
+                     </FormGroup>
+                    <ListItem alignItems='center'
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
                       <DeleteIcon />
@@ -97,11 +110,10 @@ export default function Household_Profile()
                         
                     
                     </List>
-                    </back>
                 </Grid>
                 </Grid>
-                </Box>
-    
 
+                </Paper>
+               
     );
 }
