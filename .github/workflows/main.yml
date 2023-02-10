@@ -33,4 +33,4 @@ jobs:
           cd grocery-genie
           sudo npm install
           sudo make build
-          sudo cp -r build/static/* /var/www/html/s23copper/
+          sudo cp -r build/* /var/www/html/s23copper/
