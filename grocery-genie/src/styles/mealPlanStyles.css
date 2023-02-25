@@ -1,0 +1,53 @@
+.mealPlanPage {
+    width: 50%;
+    margin: auto;
+}
+
+.dayOfTheWeek{
+    margin: 0;
+}
+
+.dayLabel{
+    background-color: #f19082;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.dayLabel a {
+    float: right;
+}
+
+body {
+    /*background-color: #efe4c8;*/
+    background-color: #f9f5eb;
+}
+
+.addButton {
+    float: right;
+}
+
+.dayMeals {
+    border-right: 5px solid #f19082;
+    border-left: 5px solid #f19082;
+}
+
+.mealLabel {
+    margin-left: 10px;
+}
+
+.recipeName {
+    margin: 0 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    text-align: center;
+}
+
+button {
+    border: none;
+    background-color: #f9f5eb;
+}
