@@ -1,0 +1,9 @@
+.test {
+    display: flex;
+    flex-wrap: wrap;
+    
+    justify-content: space-around;
+}
+.recipe {
+    margin: 10px;
+}
