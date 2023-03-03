@@ -7,3 +7,23 @@
 .recipe {
     margin: 10px;
 }
+
+.daySelection {
+    position: fixed; 
+    top: 7%;
+    left: 45%;
+    background-color: #afcfcf;
+    padding: 1% 2%;
+    border-radius: 10px;
+  }
+  
+  .daySelection li {
+      list-style-type: none;
+      padding: 5px;
+      border: 2px solid #f19082;
+      margin: 5px 0;
+      border-radius: 10px;
+  }
+  .daySelection li:hover {
+      background-color: white;
+  }
