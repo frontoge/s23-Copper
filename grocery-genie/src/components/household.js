@@ -1,12 +1,14 @@
 import React from 'react';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
-import Checkbox from "@mui/material/Checkbox";
+import Switch from '@mui/material/Switch';
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import DeleteIcon from '@mui/icons-material/Delete';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,19 +16,15 @@ import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import { white } from '@mui/material/colors';
+import Stack from '@mui/material/Stack';
 
-const Demo = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.background.purple,
-}));
 export default function Household_Profile()
 {
 
     return(
-      <Paper sx={{ backgroundColor:'#afcfcf'}}>
+      <Stack direction="column" spacing={2}>
               <Typography sx={{ mt: 4, mb: 2 }} variant="h3" component="div" align="center">
-                    My Household 
+                    Household Profile
                 </Typography>
             <Grid container rowSpacing={2}
                 align="center"
@@ -35,9 +33,11 @@ export default function Household_Profile()
                 <Grid item sm={12} md={6}>
                     <List  sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
                                       <FormGroup>
-                     <FormControlLabel control={<Checkbox/>} label="Dad" />
+                     <FormControlLabel control={<Switch/>} label="Dad" />
                      </FormGroup>
-                    
+                     <Typography allign='left'>
+                        Diet:
+                     </Typography>
                     <ListItem alignItems='center'
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
@@ -52,7 +52,9 @@ export default function Household_Profile()
                     
                     </List>
                 </Grid>
+             
                </Grid>
+
                <Grid container 
                rowSpacing={2}
                align="center"
@@ -61,8 +63,11 @@ export default function Household_Profile()
                 <Grid item sm={12} md={6}>
                     <List sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
                     <FormGroup>
-                     <FormControlLabel control={<Checkbox/>} label="Mom" />
+                     <FormControlLabel control={<Switch/>} label="Mom" />
                      </FormGroup>
+                     <Typography allign='left'>
+                        Allergies:
+                     </Typography>
                     <ListItem alignItems='center'
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
@@ -95,8 +100,11 @@ export default function Household_Profile()
                 <Grid item sm={12} md={6}>
                     <List sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
                     <FormGroup>
-                     <FormControlLabel control={<Checkbox/>} label="George" />
+                     <FormControlLabel control={<Switch/>} label="George" />
                      </FormGroup>
+                     <Typography allign='left'>
+                        Allergies:
+                     </Typography>
                     <ListItem alignItems='center'
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
@@ -111,9 +119,9 @@ export default function Household_Profile()
                     
                     </List>
                 </Grid>
-                </Grid>
 
-                </Paper>
-               
+                </Grid>
+                <Button variant="contained" size="medium">Add Profile</Button> 
+               </Stack>
     );
 }
