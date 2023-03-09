@@ -13,5 +13,22 @@ function getGroceryItem() {
         console.log("error");
       });
   }
+  return (
+    <div>
+      <h1 className="title">Ingredient List</h1>
+      <button onClick={getGroceryItem}>Get Grocery List</button>
+      <div>
+        {groceries
+          ? groceries.map((grocery) => {
+              return grocery.extendedIngredients.map((item) => (
+                <li key={item.id}>{item.name},{item.amount},{item.unit}</li>
+              ));
+            })
+          : null}
+      </div>
+      <button onClick={changePage}>Change Page</button>
+    </div>
+  );
+}
 }
 export default Grocery;
