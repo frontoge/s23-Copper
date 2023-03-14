@@ -8,6 +8,7 @@ import Recipe from "./components/recipe"
 import "./styles/recipe.css"
 
 function  App () {
+    const [mealData, setMealData] = useState(null);
     const [mealList, setMealList] = useState([
         { id: 1, name: ""},
         { id: 2, name: ""},
@@ -38,6 +39,8 @@ function  App () {
             <div>
                 { recipe ? ( 
                 <Recipe
+                    mealData = {mealData}
+                    setMealData = {setMealData}
                    mealList = {mealList} 
                    setMealList = {setMealList}
 

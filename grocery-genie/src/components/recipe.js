@@ -9,14 +9,13 @@ function Recipe(props) {
     
   const [showPopUp, setShowPopUp] = useState(false)
     const [mealId, setMealId] = useState(null);
-    const [mealData, setMealData] = useState(null)
     const [mealTemp, setMealTemp] = useState("test")
     let diet = "vegetarian";
     let exclude = "peanut,egg,diary";
     
 
 
-    function updateMeal(title, id, index) {
+    function updateMeal(title, id) {
       setMealId(id)
       setMealTemp(title)
       console.log("mealId ", mealId)
@@ -39,10 +38,10 @@ function Recipe(props) {
         )
         .then(response => response.json())
         .then(data => {
-            setMealData(data)
+            props.setMealData(data)
         })
         .catch(() => {
-            console.log("error")
+            console.log("error here")
         })
     }
 
@@ -53,14 +52,16 @@ function Recipe(props) {
       <button onClick={getMealData}>Get Recipes</button>
     <div >
        
-       <div className="test">
+       <div className="displayRecipes">
        { 
-       mealData ? (
-          mealData.results.map(
-            meal =>
-              <p className="recipe" key={meal.id}>{meal.title} <br></br>
+       props.mealData ? (
+          props.mealData.results.map(
+            meal => 
+            <div className="recipe">
+              <p className="recipeNameLabel" key={meal.id}>{meal.title}</p>
               
-              <img src={meal.image} onClick={() => {updateMeal(meal.title, meal.id)}}></img></p>
+              <img src={meal.image} onClick={() => {updateMeal(meal.title, meal.id)}}></img>
+              </div>
             )
         ) : null
         }
@@ -73,7 +74,7 @@ function Recipe(props) {
           <li onClick={() => {updateMealList(mealTemp, mealId, 0)}}>Sunday Breakfast</li>
           <li onClick={() => {updateMealList(mealTemp, mealId,1)}}>Sunday Lunch</li>
           <li onClick={() => {updateMealList(mealTemp, mealId,2)}} >Sunday Dinner</li>
-          <li onClick={() => {updateMealList(mealTemp, mealId,3)}}>Monnday Breakfast</li>
+          <li onClick={() => {updateMealList(mealTemp, mealId,3)}}>Monday Breakfast</li>
           <li onClick={() => {updateMealList(mealTemp, mealId,4)}}>Monday Lunch</li>
           <li onClick={() => {updateMealList(mealTemp, mealId,5)}} >Monday Dinner</li>
           <li onClick={() => {updateMealList(mealTemp, mealId, 6)}}>Tuesday Breakfast</li>
