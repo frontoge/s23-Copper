@@ -34,7 +34,7 @@ function LogIn() {
             margin="normal"
             type="password"/>
 
-            <Button variant="contained" href="/home">Login</Button>
+            <Button variant="contained" href="/">Login</Button>
             
 
             </Box>
