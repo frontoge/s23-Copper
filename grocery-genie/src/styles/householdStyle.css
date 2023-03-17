@@ -1,3 +1,10 @@
 body {
     background-color: #afcfcf;
 }
+
+.hide{
+    display:none;
+}
+.show{
+    display:block;
+}
