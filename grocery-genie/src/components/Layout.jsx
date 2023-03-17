@@ -14,7 +14,7 @@ const Layout = () => {
       <BottomNavigation showLabels onChange={(event, newVal) => {
           switch (newVal) {
               case 0:
-                  routeChange("/login")
+                  routeChange("/home")
                   break;
               case 1:
                   routeChange("/");
