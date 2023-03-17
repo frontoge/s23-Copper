@@ -1,7 +1,9 @@
 import React, {useState} from "react"
 import ReactDOM from "react-dom/client"
-/*import LogIn from "./components/logIn"*/
-/*import "./styles/logInStyles.css"*/
+import LogIn from "./components/logIn"
+import "./styles/logInStyles.css"
+import Grocery from "./components/groceryList"
+import "./styles/groceryStyles.css"
 import MealPlan from "./components/mealPlan"
 import "./styles/mealPlanStyles.css"
 import Recipe from "./components/recipe"
@@ -37,6 +39,7 @@ function  App () {
     {
         return (
             <div>
+                <Grocery/>
                 { recipe ? ( 
                 <Recipe
                     mealData = {mealData}
@@ -59,7 +62,6 @@ function  App () {
                    
                 />
                 ) : null}
-                 
             </div>
         )
     }
