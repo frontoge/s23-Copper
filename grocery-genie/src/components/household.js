@@ -23,125 +23,34 @@ import Stack from '@mui/material/Stack';
 import { Icon } from '@mui/material';
 import AddCircle from '@mui/icons-material/AddCircle';
 
- function Household_Profile()
-{
+ function Household_Profile(){
+
+ function addToList(){
+  var a = document.getElementById("list");
+  var restriction = document.getElementById("restriction");
+  var li = document.createElement("li");
+  li.setAttribute('id', restriction.value);
+  li.appendChild(document.createTextNode(restriction.value))
+  a.appendChild(li);
+  
+ }
+function deleteItem(){
+  var a = document.getElementById("list");
+  var restriction = document.getElementById("restriction");
+  var item = document.getElementById(restriction.value);
+  a.removeChild(item); 
+}
   
 
     return(
      
       <Stack direction="column" spacing={2}>
-              <Typography sx={{ mt: 4, mb: 2 }} variant="h3" component="div" align="center">
-                    Household Profile
-                </Typography>
-            <Grid container rowSpacing={2}
-                align="center"
-                justify="center"
-                direction="column">
-                <Grid item sm={12} md={6}>
-                    <List  sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
-                                      <FormGroup>
-                     <FormControlLabel control={<Switch/>} label="Dad" />
-                     </FormGroup>
-                     <Typography allign='left'>
-                        <input type="text" id="dietInput"/> <IconButton aria-label="Add" component="label" onClick= "inputText(list)"
-                        > <AddCircle /> </IconButton>
-                     </Typography>
-                    
-                    <ListItem alignItems='center' component = "list"
-                  secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  } 
-                  >
-                        
-                        </ListItem>
-                    
-                    </List>
-                </Grid>
-             
-               </Grid>
-
-               <Grid container 
-               rowSpacing={2}
-               align="center"
-               justify="center"
-               direction="column">
-                <Grid item sm={12} md={6}>
-                    <List sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
-                    <FormGroup>
-                     <FormControlLabel control={<Switch/>} label="Mom" />
-                     </FormGroup>
-                     <Typography allign='left'>
-                        Allergies: <IconButton aria-label="Add" component="label"> <AddCircle /> </IconButton>
-                     </Typography>
-                    <ListItem alignItems='center'
-                  secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                  >
-                        <ListItemText primary="Eggs"/>
-
-                        </ListItem>
-                        <ListItem 
-                    secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                  >
-                        <ListItemText primary="Dairy"/>
-
-                        </ListItem>
-                        
-                    
-                    </List>
-                </Grid>
-                </Grid>
-                <Grid container rowSpacing={2}
-                    align="center"
-                    justify="center"
-                    direction="column">
-                <Grid item sm={12} md={6}>
-                    <List sx={{ flexGrow: 1, maxWidth: 752, bgcolor: 'white' }}>
-                    <FormGroup>
-                     <FormControlLabel control={<Switch/>} label="George" />
-                     </FormGroup>
-                     <Typography allign='left'>
-                        Allergies: <IconButton aria-label="Add" component="label"> <AddCircle /> </IconButton>
-                     </Typography>
-                    <ListItem alignItems='center'
-                  secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                  >
-                        <ListItemText primary="Peanuts"/>
-
-                        </ListItem>
-                        
-                    
-                    </List>
-                </Grid>
-
-                </Grid>
+               <ul id = "list" ></ul>
+               <input text="text" id="restriction"/>
+               <button onClick={addToList} class="buttonClass">Add</button>
+               <button onClick={deleteItem} class="buttonClass">delete</button>
                 <Button variant="contained" size="medium">Add Profile</Button> 
                </Stack>
     );
-    function inputText(list)
-  {
-    var text = "";
-    var inputs = document.querySelectorAll("input[type=text]");
-    for (var i = 0; i < inputs.length; i++) {
-        text += inputs[i].value;
-    }
-    var li = document.createElement("li");
-    var node = document.createTextNode(text);
-    li.appendChild(node);
-    document.getElementById("list").appendChild(li);
-  }
 }
 export default Household_Profile;

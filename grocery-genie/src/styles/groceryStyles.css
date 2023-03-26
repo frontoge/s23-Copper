@@ -1,0 +1,15 @@
+.groceryList {
+    display: flex;
+    justify-content: space-between;
+    width:60%;
+    margin: auto;
+}
+
+.groceryList li {
+    list-style: none;
+    margin: 5px;
+}
+
+.groceryList button {
+    margin: 5px;
+}
