@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-function Grocery() {
+function Grocery(props) {
   const [groceries, setGroceries] = useState(null);
-  const [groceryList, setGroceryList] = useState(null);
   const [value, setValue] = useState(null);
 
 
   function getGroceryItem() {
     fetch(
-      `https://api.spoonacular.com/recipes/informationBulk?apiKey=ce57a3f8165c4485a55fb8654a2ba593&&ids=715538,716429,715497,644387`
+      `https://api.spoonacular.com/recipes/informationBulk?apiKey=ce57a3f8165c4485a55fb8654a2ba593&&ids=${props.grSearch}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -22,22 +21,41 @@ function Grocery() {
 
   function addToList() {
     let temp = { id: value, name: value };
-    if (!groceryList) {
-      setGroceryList(temp);
+    if (!props.groceryList) {
+      props.setGroceryList(temp);
     }
     else {
-      const temp1 = [...groceryList];
-      temp1.push(temp);
-      setGroceryList(temp1);
+      const temp = [...props.groceryList];
+      let temp1 = { id: value, name: value}
+      temp.push(temp1);
+      props.setGroceryList(temp);
     }
   }
 
   function deleteItem(id) {
-    let tempList = groceryList.filter(item => item.id !== id)
-    setGroceryList(tempList)
+    let tempList = props.groceryList.filter(item => item.id !== id)
+    props.setGroceryList(tempList)
   }
 
-  console.log(groceries)
+    function getGroceryString() {
+    let temp = ""
+    props.mealList.forEach((element) => {
+      if(element.id){
+        if(!temp) {
+          temp = element.id
+        }
+        else {
+          temp += "," + element.id 
+        }
+      }
+    })
+    props.setGrSearch(temp)
+  }
+
+  function getGroceries() {
+    getGroceryString()
+    getGroceryItem()
+  }
 
   function createGroceryList(data) {
     let l = []
@@ -47,17 +65,16 @@ function Grocery() {
         l.push(item)
       })
     })
-    setGroceryList(l)
-    console.log("createGroceryList", groceryList)
+    props.setGroceryList(l)
   }
 
   return (
     <div>
       <h1 className="title">Ingredient List</h1>
-      <button onClick={getGroceryItem}>Get Grocery List</button>
+      <button onClick={getGroceries}>Get Grocery List</button>
       <div>
-        {groceryList
-          ? groceryList.map((grocery) => (
+        {props.groceryList
+          ? props.groceryList.map((grocery) => (
               <div className="groceryList">
                 <li key={grocery.id}>{grocery.name}</li><button onClick={() => { deleteItem(grocery.id) }}> Delete</button>
               </div>
