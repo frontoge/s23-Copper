@@ -17,10 +17,10 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
+import "../styles/householdStyle.css";
 
 export default function Household_Profile()
 {
-
     return(
       <Stack direction="column" spacing={2}>
               <Typography sx={{ mt: 4, mb: 2 }} variant="h3" component="div" align="center">

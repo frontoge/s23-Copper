@@ -1,15 +1,13 @@
-import React, {useState} from "react"
-import ReactDOM from "react-dom/client"
-import LogIn from "./components/logIn"
-import "./styles/logInStyles.css"
-import Grocery from "./components/groceryList"
-import "./styles/groceryStyles.css"
-import MealPlan from "./components/mealPlan"
-import "./styles/mealPlanStyles.css"
-import Recipe from "./components/recipe"
-import "./styles/recipe.css"
+import React, {useState} from "react";
+import Grocery from "./groceryList"
+import "../styles/groceryStyles.css"
+import MealPlan from "./mealPlan"
+import "../styles/mealPlanStyles.css"
+import Recipe from "./recipe"
+import "../styles/recipe.css"
 
-function  App () {
+
+export function  Home () {
     const [mealData, setMealData] = useState(null);
     const [mealList, setMealList] = useState([
         { id: 1, name: ""},
@@ -66,8 +64,3 @@ function  App () {
         )
     }
 }
-
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-    <App/>
-)
