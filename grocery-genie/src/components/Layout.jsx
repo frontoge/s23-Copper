@@ -1,8 +1,9 @@
-import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import HouseIcon from '@mui/icons-material/House';
-import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
+import {AppBar, BottomNavigation, BottomNavigationAction, Toolbar, Tooltip} from "@mui/material";
 import {Outlet, Link, useNavigate} from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Typography from "@mui/material/Typography";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Layout = () => {
     let navigate = useNavigate();
@@ -11,28 +12,28 @@ const Layout = () => {
     }
   return (
     <>
-      <BottomNavigation showLabels onChange={(event, newVal) => {
-          switch (newVal) {
-              case 0:
-                  routeChange("/home")
-                  break;
-              case 1:
-                  routeChange("/");
-                  break;
-              case 2:
-                  routeChange("/settings");
-                  break;
-              default:
-                  break;
-
-          }
-        //Redirect pages here based on the index of newVal
-      }}>
-        <BottomNavigationAction label="Home" icon={<HouseIcon />} />
-        <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
-        <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
-
-      </BottomNavigation>
+      <AppBar color="primary" position={"fixed"} sx={{left: "0", width: "100%"}}>
+        <Toolbar>
+            <Tooltip title={"Menu"}>
+                <IconButton
+                    size="large"
+                    edge={"start"}
+                    color={"secondary"}
+                    aria-label={"menu"}
+                >
+                    <MenuIcon />
+                </IconButton>
+            </Tooltip>
+            <Typography variant={"h6"} component={"div"} sx={{flexGrow: 1}}>
+                Grocery Genie
+            </Typography>
+            <Tooltip title={"Account"}>
+                <IconButton>
+                    <AccountCircleIcon color={"secondary"}/>
+                </IconButton>
+            </Tooltip>
+        </Toolbar>
+      </AppBar>
 
       <Outlet />
     </>
