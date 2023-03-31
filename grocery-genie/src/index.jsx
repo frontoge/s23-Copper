@@ -20,7 +20,6 @@ class App extends React.Component {
                     <Route index element={<Household_Profile />} />
                     <Route path="/home" element={<Home />} />
                     <Route path={"/settings"} element={<Settings />} />
-
                 </Route>
             </Routes>
             </BrowserRouter>
