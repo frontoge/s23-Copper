@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import ReactDOM from "react-dom/client"
 import Household_Profile from "./components/household"
-import LogIn from "./components/logIn"
 import "./styles/logInStyles.css"
 import Grocery from "./components/groceryList"
 import "./styles/groceryStyles.css"
@@ -40,33 +39,7 @@ function  App () {
     {
         return (
             <div>
-<<<<<<< HEAD
                 <Household_Profile/>
-=======
-                <Grocery/>
-                { recipe ? ( 
-                <Recipe
-                    mealData = {mealData}
-                    setMealData = {setMealData}
-                   mealList = {mealList} 
-                   setMealList = {setMealList}
-
-                   setRecipe = {setRecipe}
-                   
-                   setMeal = {setMeal}
-                />
-                ) : null}
-                { meal ? (
-                <MealPlan
-                   mealList = {mealList} 
-                   setMealList = {setMealList}
-
-                   setRecipe = {setRecipe}
-                   setMeal = {setMeal}
-                   
-                />
-                ) : null}
->>>>>>> e8891ae640ba27a6e0b26a420fd7ddb4d48d9614
             </div>
         )
     }
