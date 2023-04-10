@@ -15,10 +15,7 @@ function Upload(props) {
   { id: "6", name: "1 teaspoon garlic powder" },
   { id: "7", name: "2 tablespoons butter melted" },
 ]);
-  function changePage() {
-    props.setUpload(false);
-    props.setRecipe(true);
-  }
+
   function getSubString(value, location) {
     subString = value;
     loc = location
@@ -26,7 +23,7 @@ function Upload(props) {
   }
 
 
-  function test(name) {
+  function updateRecipe(name) {
     let temp = [...ingredients];
     temp[loc]= {id: "" , name: name}
     setIngredients(temp)
@@ -46,17 +43,9 @@ function Upload(props) {
       });
   }
   return (
-    <div className="uploadImage"><br></br><br></br>
-      <div
-        style={{
-          backgroundColor: "white",
-          width: "556px",
-          borderRadius: "10px",
-          margin: "auto",
-          boxShadow: "10px 10px 10px #afcfcf",
-          border: '2px solid #afcfcf'
-        }}
-      > 
+    <div className="backgroundImage"><br></br><br></br>
+      <div className="top">
+
         <h1 className="uploadTitle">Instant Pot Buffalo Garlic Butter Wings</h1>
         <div className="image-container">
           <img
@@ -66,18 +55,7 @@ function Upload(props) {
           ></img>
         </div>
       </div><br></br><br></br>
-      <div
-        className="RecipeInstruction"
-        style={{
-          display: "flex",
-          marginLeft: '10%',
-          marginRight: '5%',
-          justifyContent: "space-between",
-          backgroundColor: "white",
-          borderRadius: "10px",
-          boxShadow: "10px 10px 10px #afcfcf",
-        }}
-      >
+      <div className="RecipeInstruction">
         <div>
         <h3>Ingredients</h3>
         <ul ><br></br><br></br>
@@ -151,7 +129,7 @@ function Upload(props) {
             ? props.subList.substitutes.map((subs, index) => (
                 <>
                   <p className="title" onClick={() => {
-                    test( subs)
+                    updateRecipe( subs)
                   }} key={index}>
                     {subs} {index}
                   </p>
@@ -161,7 +139,6 @@ function Upload(props) {
               ))
             : null}
         </div>
-        <button onClick={changePage}>Back to Recipe</button>
       </div>
     </div>
   );

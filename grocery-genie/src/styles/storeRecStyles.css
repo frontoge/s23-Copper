@@ -1,0 +1,38 @@
+.Recommendations {
+    margin: auto;
+    width: 50%;
+    padding-top: 5%;
+}
+
+.Information {
+    margin-right: 50px;
+    
+}
+
+.Store {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    border: 2px solid #afcfcf;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+    align-items: center;
+}
+
+.AldiPic {
+    width: 90%;
+}
+
+.WalmartPic {
+    width: 100%;
+    margin-top: 10%;
+}
+
+.KrogerPic {
+    width: 100%
+}
+
+.link {
+    width: 30%;
+}

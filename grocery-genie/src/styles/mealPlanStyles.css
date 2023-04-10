@@ -51,5 +51,13 @@ body {
 
 button {
     border: none;
-    background-color: #f9f5eb;
+    background-color: transparent;
+}
+
+.backgroundImage {
+    background-image: url('../images/gray1.png');
+    
+    
+    
+    min-height: 93vh;
 }

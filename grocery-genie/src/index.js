@@ -13,20 +13,24 @@ import "./styles/recipe.css"
 import Navigation from "./components/navigation"
 import "./styles/navigationStyles.css"
 import Upload from "./components/upload"
+import "./styles/uploadStyles.css"
+import StoreRec from "./components/storeRecs"
+import "./styles/storeRecStyles.css"
 
 function App() {
     const [mealData, setMealData] = useState(null);
-    const [mealData1, setMealData1] = useState(null);
     const [groceryList, setGroceryList] = useState([]);
     const [subList, setSubList] = useState(null);
     const [logIn, setLogIn] = useState(true);
     const [profile, setProfile] = useState(false);
     const [recipe, setRecipe] = useState(false);
     const [meal, setMeal] = useState(false);
-    const [sub, setSub] = useState(false);
     const [grocery, setGrocery] = useState(false);
     const [grSearch, setGrSearch] = useState(false);
     const [upload, setUpload] = useState(false);
+    const [nav, setNav] = useState(false);
+    const [sub, setSub] = useState(false);
+    const [store, setStore] = useState(false);
     const [mealList, setMealList] = useState([
         { id: "", name: "" },
         { id: "", name: "" },
@@ -55,17 +59,25 @@ function App() {
     {
         return (
             <div>
-                <Navigation 
-                setLogIn={setLogIn}
-                setProfile={setProfile}
-                setRecipe={setRecipe}
-                setMeal={setMeal}
-                setGrocery={setGrocery}/>
+                {nav ? (<Navigation
+          setLogIn={setLogIn}
+          setProfile={setProfile}
+          setNav={setNav}
+          setRecipe={setRecipe}
+          setUpload = {setUpload}
+          setMeal={setMeal}
+          setSub={setSub}
+          setGrocery={setGrocery}
+          setStore={setStore}
+        />
+           ) : null
+        }
             
                 {logIn ? (
                     <LogIn
                         setLogIn={setLogIn}
                         setProfile={setProfile}
+                        setNav={setNav}
                     />
                 ) : null}
                 {profile ? (
@@ -75,8 +87,6 @@ function App() {
                     <Recipe
                         mealData={mealData}
                         setMealData={setMealData}
-                        mealData1={mealData1}
-                        setMealData1={setMealData1}
                         mealList={mealList}
                         setGrocery={setGrocery}
                         setMealList={setMealList}
@@ -94,7 +104,6 @@ function App() {
                         setLogIn={setLogIn}
                         setRecipe={setRecipe}
                         setMeal={setMeal}
-                        setSub={setSub}
                         setGrocery={setGrocery}
                         setGroceryList={setGroceryList}
                         setGrSearch={setGrSearch}
@@ -116,13 +125,14 @@ function App() {
                 ) : null}
                 {upload ? <Upload
                     setRecipe={setRecipe}
-                    setSub={setSub}
                     subList={subList}
                     setSubList={setSubList}
                     setUpload={setUpload}
                     setGrocery={setGrocery}
                     groceryList={groceryList}
                     setGroceryList={setGroceryList}
+                /> : null}
+                {store ? <StoreRec
                 /> : null}
 
             </div>

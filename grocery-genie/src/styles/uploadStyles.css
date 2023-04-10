@@ -1,0 +1,66 @@
+.top {
+    background-color: white;
+    width: 556px;
+    border-radius: 10px;
+    margin: auto;
+    box-shadow: 10px 10px 10px #afcfcf;
+    border: 2px solid #afcfcf;
+}
+
+.uploadImage {
+    background-image: url('../images/background.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    
+}
+
+.instruction {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h3 {
+    text-align: center;
+}
+
+.uploadTitle {
+    text-align: center;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+
+ .image-container img {
+    border: 2px solid #afcfcf;
+    border-radius: 10px;
+ }
+
+ .subs {
+    position: fixed; 
+    top: 15%;
+    left: 35%;
+    background-color: white;
+    border: 2px solid #f19082;
+    border-radius: 10px;
+ }
+
+ .uploadTitle {
+     text-align: center;
+ }
+
+ .RecipeInstruction {
+    display: flex;
+    margin-left: 10%;
+    margin-right: 5%;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px #afcfcf;
+ }
