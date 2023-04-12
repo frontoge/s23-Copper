@@ -7,6 +7,7 @@ import "./styles/logInStyles.css"
 import Household_Profile from "./components/household";
 import {Settings} from "./components/settings";
 import {Home} from "./components/home";
+import Grocery from "./components/groceryList";
 
 class App extends React.Component {
     render(){
@@ -19,6 +20,7 @@ class App extends React.Component {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Household_Profile />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="/grocery" element={<Grocery />} />
                     <Route path={"/settings"} element={<Settings />} />
                 </Route>
             </Routes>
