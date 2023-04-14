@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 
 function Grocery() {
   const [groceries, setGroceries] = useState(null);
@@ -21,7 +23,7 @@ function Grocery() {
   }
 
   function addToList() {
-    let temp = { id: value, name: value };
+    let temp = { id: value, nameClean: value, amount: 1 };
     if (!groceryList) {
       setGroceryList(temp);
     }
@@ -37,7 +39,19 @@ function Grocery() {
     setGroceryList(tempList)
   }
 
-  console.log(groceries)
+
+  function addAmount(index) {
+    const temp = [...groceryList];
+    temp[index].amount++;
+    setGroceryList(temp)
+
+  }
+
+  function subAmount(index) {
+    const temp = [...groceryList];
+    temp[index].amount--;
+    setGroceryList(temp)
+  }
 
   function createGroceryList(data) {
     let l = []
@@ -57,13 +71,28 @@ function Grocery() {
       <button onClick={getGroceryItem}>Get Grocery List</button>
       <div>
         {groceryList
-          ? groceryList.map((grocery) => (
-              <div className="groceryList">
-                <li key={grocery.id}>{grocery.name}</li><button onClick={() => { deleteItem(grocery.id) }}> Delete</button>
+          ? groceryList.map((grocery, index) => (
+            <div className="groceryList">
+              <li key={grocery.id}>
+                {grocery.amount} {grocery.nameClean}
+              </li>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <button className="deleteButton" onClick={() => { deleteItem(grocery.id) }}> Delete</button>
+
+                <div className="addDeleteDisplay">
+                  <button className="PlusMinusButtons" onClick={() => addAmount(index)}>
+                    <AddIcon />
+                  </button>
+                  <button className="PlusMinusButtons" onClick={() => subAmount(index)}>
+                    <RemoveIcon />
+                  </button>
+                </div>
               </div>
-            ))
-            
-           : null}
+            </div>
+
+          ))
+
+          : null}
       </div>
       <div className="groceryList">
         <input value={value} onChange={(e) => { setValue(e.target.value) }} />

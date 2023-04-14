@@ -13,3 +13,18 @@
 .groceryList button {
     margin: 5px;
 }
+
+.deleteButton {
+    border-radius: 5px;
+    height: 50%;
+}
+
+.addDeleteDisplay {
+    display: block;
+    width: 40px;
+}
+
+.PlusMinusButtons {
+    margin: 0 3px;
+    border: none;
+}
