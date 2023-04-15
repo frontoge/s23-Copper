@@ -1,25 +1,36 @@
 import React from 'react';
-//import Button from "@mui/material/Button";
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { Outlet } from "react-router-dom";
-import { Button } from '@mui/material';
 
 
-function LogIn() {
+function LogIn(props) {
+    function changeProfile() {
+        props.setLogIn(false)
+        props.setProfile(true)
+        props.setNav(true)
+    }
+    function changeAccount() {
+        props.setLogIn(false)
+        props.setAccount(true)
+    }
     return (
         <div className="logInPage">
+            <div style= {{
+                display: 'flex',
+                justifyContent: 'space-between'
+            }}>
             <Box
             sx={{
-            //my: 10,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             margin: 0,
             }}>
 
-            <h1>Grocery Genie</h1>
-            <img src={require ('../images/genie_black.png')} alt = "Logo" height="400px"></img>
+            <h1 className="logInTitle">Grocery Genie</h1>
+            <img className="logoImg" src={require ('../images/genie_outline_gr.png')} alt = "Logo" ></img>
             <h1>Log In</h1>
 
 
@@ -34,12 +45,17 @@ function LogIn() {
             margin="normal"
             type="password"/>
 
-
-            <Button variant="contained" href="/home">Login</Button>
-            
-
+            <div style= {{
+                display: 'flex',
+                justifyContent: 'space-between'
+            }}><Button onClick={() => {changeProfile()}}>Log In</Button>
+               <Button onClick={() => {changeAccount()}}>Create Account</Button>
+            </div>
             </Box>
-            <Outlet />
+
+
+            <img className="manShopping" src={require ('../images/MamShopping.png')} alt = "Logo" ></img>
+        </div>
         </div>
     )
 }

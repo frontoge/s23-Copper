@@ -6,28 +6,29 @@ import Layout from "./components/Layout"
 import "./styles/logInStyles.css"
 import Household_Profile from "./components/household";
 import {Settings} from "./components/settings";
-import {Home} from "./components/home";
+import Home from "./components/home";
 import Grocery from "./components/groceryList";
+import Recipe from "./components/recipe";
 
-class App extends React.Component {
-    render(){
-        return (
-            <BrowserRouter>
-            <Routes>
-                <Route path="/login">
-                    <Route index element={<LogIn />}/>
-                </Route>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Household_Profile />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/grocery" element={<Grocery />} />
-                    <Route path={"/settings"} element={<Settings />} />
-                </Route>
-            </Routes>
-            </BrowserRouter>
-            
-        )
-    }
+
+function App(props) {
+    return (
+        <BrowserRouter>
+        <Routes>
+            <Route path="/login">
+                <Route index element={<LogIn />}/>
+            </Route>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Household_Profile />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/grocery" element={<Grocery />} />
+                <Route path={"/settings"} element={<Settings />} />
+                <Route path={"/recipes"} element={<Recipe />} />
+            </Route>
+        </Routes>
+        </BrowserRouter>
+
+    )
 }
 
 

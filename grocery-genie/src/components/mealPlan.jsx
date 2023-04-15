@@ -7,10 +7,6 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 
 function MealPlan(props) {
 
-    function changePage() {
-      props.setMeal(false)
-      props.setRecipe(true)
-    }
     function changeToRecipe() {
       
       props.setRecipe(true)
@@ -26,6 +22,7 @@ function MealPlan(props) {
     }
     
     return (
+      <div className="backgroundImage">
       <div className="mealPlanPage">
         <h1 className="title">Meal Plan</h1>
         <div className="dayOfTheWeek">
@@ -319,7 +316,7 @@ function MealPlan(props) {
            
           </p></> )}
         </div>
-        <button onClick={changePage}>Change Page</button>
+      </div>
       </div>
     );
   }

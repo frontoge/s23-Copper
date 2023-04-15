@@ -1,8 +1,38 @@
-.logInh1{
-    color:blueviolet;
+body {
+    margin: 0;
+    padding: 0;
 }
 
-body {
-    background-color: #afcfcf;
+.logInPage {
+    background-image: url('../images/background.png');
+    background-attachment: fixed;
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.logoImg {
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    width:25%;
+    height: 20%;
+}
+
+.login {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 50%;
+}
+
+.logInTitle {
+    margin-top: 25%;
+}
+
+.manShopping {
+    margin-top: 10%;
+    margin-right: 5%;
+    min-width: 40%;
 }
 

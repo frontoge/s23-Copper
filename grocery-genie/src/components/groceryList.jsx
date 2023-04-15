@@ -2,15 +2,30 @@ import React, { useState } from "react";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
-function Grocery() {
+
+let grocerySearch = "";
+
+function Grocery(props) {
   const [groceries, setGroceries] = useState(null);
-  const [groceryList, setGroceryList] = useState(null);
   const [value, setValue] = useState(null);
+
+
+  function getGroceryString() {
+    props.mealList.forEach((element) => {
+      if (element.id) {
+        if (!grocerySearch) {
+          grocerySearch = element.id;
+        } else {
+          grocerySearch += "," + element.id;
+        }
+      }
+    });
+  }
 
 
   function getGroceryItem() {
     fetch(
-      `https://api.spoonacular.com/recipes/informationBulk?apiKey=ce57a3f8165c4485a55fb8654a2ba593&&ids=715538,716429,715497,644387`
+      `https://api.spoonacular.com/recipes/informationBulk?apiKey=ce57a3f8165c4485a55fb8654a2ba593&&ids=${grocerySearch}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -23,35 +38,45 @@ function Grocery() {
   }
 
   function addToList() {
-    let temp = { id: value, nameClean: value, amount: 1 };
-    if (!groceryList) {
-      setGroceryList(temp);
-    }
-    else {
-      const temp1 = [...groceryList];
-      temp1.push(temp);
-      setGroceryList(temp1);
+    if (!props.groceryList) {
+      let temp = { id: value, nameClean: value, amount: 1 };
+      props.setGroceryList(temp);
+    } else {
+      const temp = [...props.groceryList];
+      let temp1 = { id: value, nameClean: value, amount: 1 };
+      temp.push(temp1);
+      props.setGroceryList(temp);
     }
   }
 
   function deleteItem(id) {
-    let tempList = groceryList.filter(item => item.id !== id)
-    setGroceryList(tempList)
+    let tempList = props.groceryList.filter(item => item.id !== id)
+    props.setGroceryList(tempList)
   }
 
+
+
+  function getGroceries() {
+
+    getGroceryString()
+    if (grocerySearch)
+      getGroceryItem()
+  }
 
   function addAmount(index) {
-    const temp = [...groceryList];
+    const temp = [...props.groceryList];
     temp[index].amount++;
-    setGroceryList(temp)
+    props.setGroceryList(temp)
 
-  }
+   }
 
-  function subAmount(index) {
-    const temp = [...groceryList];
+   function subAmount(index) {
+    const temp = [...props.groceryList];
     temp[index].amount--;
-    setGroceryList(temp)
-  }
+    props.setGroceryList(temp)
+   }
+
+
 
   function createGroceryList(data) {
     let l = []
@@ -61,42 +86,52 @@ function Grocery() {
         l.push(item)
       })
     })
-    setGroceryList(l)
-    console.log("createGroceryList", groceryList)
+    props.setGroceryList(l)
   }
 
   return (
-    <div>
+    <div className="backgroundImage">
       <h1 className="title">Ingredient List</h1>
-      <button onClick={getGroceryItem}>Get Grocery List</button>
+      <div className="groceryPage">
+          <button className ="groceryButton"
+            onClick={() => {
+              getGroceries();
+            }}
+          >
+            Get Grocery List{" "}
+          </button>
+        </div>
       <div>
-        {groceryList
-          ? groceryList.map((grocery, index) => (
+        {props.groceryList
+          ? props.groceryList.map((grocery, index) => (
             <div className="groceryList">
               <li key={grocery.id}>
-                {grocery.amount} {grocery.nameClean}
-              </li>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <button className="deleteButton" onClick={() => { deleteItem(grocery.id) }}> Delete</button>
-
-                <div className="addDeleteDisplay">
+                  {grocery.amount} {grocery.nameClean}
+                </li>
+                <div style={{display: 'flex', alignItems: 'center'}}>
+                <button className="deleteButton"
+                  onClick={() => {
+                    deleteItem(grocery.id);
+                  }}
+                >
+                  Delete
+                </button>
+                <div className = "addDeleteDisplay">
                   <button className="PlusMinusButtons" onClick={() => addAmount(index)}>
-                    <AddIcon />
+                      <AddIcon style={{color: "#609f9f", fontSize: '1.25em', margin: '0'}}/>
                   </button>
                   <button className="PlusMinusButtons" onClick={() => subAmount(index)}>
-                    <RemoveIcon />
+                      <RemoveIcon style={{color: "#609f9f", fontSize: '1.25em', margin: '0'}}/>
                   </button>
                 </div>
+                </div>
               </div>
-            </div>
 
-          ))
-
-          : null}
+            ))  : null}
       </div>
       <div className="groceryList">
-        <input value={value} onChange={(e) => { setValue(e.target.value) }} />
-        <button onClick={addToList}>Add</button>
+        <input className="inputs" value={value} onChange={(e) => { setValue(e.target.value) }} />
+        <button className="addButton" onClick={addToList}>Add</button>
       </div>
     </div>
   );
