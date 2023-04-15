@@ -1,0 +1,70 @@
+.displayRecipes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+.recipe {
+    margin: 10px;
+    width: 312px;
+    background-color: white;
+    box-shadow: 10px 10px 5px #afcfcf;
+    border-radius: 5px;
+}
+
+.recipeNameLabel {
+    padding-top: 5px;
+    display: block;
+    height: 30px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.daySelection {
+    position: fixed; 
+    top: 1%;
+    left: 45%;
+    background-color: white;
+    border: 2px solid #f19082;
+    padding: 1% 2%;
+    border-radius: 10px;
+  }
+  
+  .daySelection li {
+      list-style-type: none;
+      padding: 3px;
+      border: 2px solid #8fbcbc;
+      margin: 3px 0;
+      border-radius: 10px;
+  }
+
+  .daySelection li:hover {
+      background-color: #cfe2e2;
+  }
+
+.recipe img{
+    margin-top: 15px;
+    height: 231px;
+    width: 312px;
+}
+
+.title {
+    margin-top: 0;
+    padding-top: 3%;
+}
+
+.buttonDisplay {
+    display: flex;
+    margin: auto;
+    width: 400;
+    flex-wrap: wrap;
+    float: right;
+    justify-content: space-around;
+}
+
+.recipePageButtons {
+    background-color: #afcfcf;
+    color: white;
+    font-size: 1.25em;
+    margin: 0 10px;
+}

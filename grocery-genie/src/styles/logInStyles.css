@@ -1,0 +1,45 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.banner {
+    max-width: 100%;
+    margin-bottom: 5%;
+    border-radius: 0.5rem;
+}
+
+.logInPage {
+    background-image: url('../images/background.png');
+    background-attachment: fixed;
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.logoImg {
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    width:25%;
+    height: 20%;
+}
+
+.login {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 50%;
+}
+
+.logInTitle {
+    margin-top: 25%;
+}
+
+.manShopping {
+    margin-top: 10%;
+    margin-right: 5%;
+    min-width: 40%;
+}
+

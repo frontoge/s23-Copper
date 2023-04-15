@@ -1,0 +1,67 @@
+.groceryList {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: auto;
+    padding: 5px 0;
+    border-bottom: 1px solid #afcfcf;
+    align-items: center;
+}
+
+.groceryList li {
+    list-style: none;
+    margin: 5px;
+}
+
+.groceryList button {
+    margin: 5px;
+}
+
+.groceryPage {
+    display: flex;
+    width: 50%;
+    margin: auto;
+    justify-content: center;
+}
+
+.groceryButton {
+    background-color: #afcfcf;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.deleteButton {
+    background-color: #afcfcf;
+    border-radius: 5px;
+    height: 50%;
+}
+
+.addDeleteDisplay {
+    display: block;
+    width: 40px;
+}
+
+.PlusMinusButtons {
+    color: #afcfcf; 
+    background-color: transparent; 
+    padding: 0 3px; 
+    margin: 0 3px;
+    border: none;
+}
+
+.addDeleteIcon {
+    color: #609f9f; 
+    font-size: 0.5em;
+}
+
+.inputs {
+    border: 2px solid #afcfcf;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.addButton {
+    background-color: #afcfcf;
+    border-radius: 5px;
+    margin-right: 50px;
+}
