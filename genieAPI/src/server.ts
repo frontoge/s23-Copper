@@ -3,6 +3,7 @@ import http from 'http';
 import express, { Express } from 'express';
 import morgan from 'morgan';
 import exampleRoutes from './routes/example';
+import userRoutes from './routes/accounts';
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -31,6 +32,7 @@ router.use((req, res, next) => {
 
 /** Routes */
 router.use('/api/examples', exampleRoutes);
+router.use('/api/accounts', userRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
