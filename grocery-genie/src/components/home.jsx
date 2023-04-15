@@ -17,7 +17,9 @@ import "../styles/uploadStyles.css"
 import StoreRec from "./storeRecs"
 import "../styles/storeRecStyles.css"
 
-export default function Home() {
+import {Outlet} from "react-router-dom";
+
+function Home(props) {
     const [mealData, setMealData] = useState(null);
     const [groceryList, setGroceryList] = useState([]);
     const [subList, setSubList] = useState(null);
@@ -58,85 +60,90 @@ export default function Home() {
 
     {
         return (
-            <div>
-                {nav ? (<Navigation
-          setLogIn={setLogIn}
-          setProfile={setProfile}
-          setNav={setNav}
-          setRecipe={setRecipe}
-          setUpload = {setUpload}
-          setMeal={setMeal}
-          setSub={setSub}
-          setGrocery={setGrocery}
-          setStore={setStore}
-        />
-           ) : null
-        }
-            
-                {logIn ? (
-                    <LogIn
-                        setLogIn={setLogIn}
-                        setProfile={setProfile}
-                        setNav={setNav}
-                    />
-                ) : null}
-                {profile ? (
-                    <Household_Profile setProfile={setProfile} setRecipe={setRecipe} />
-                ) : null}
-                {recipe ? (
-                    <Recipe
-                        mealData={mealData}
-                        setMealData={setMealData}
-                        mealList={mealList}
-                        setGrocery={setGrocery}
-                        setMealList={setMealList}
-                        setLogIn={setLogIn}
+            <>
+                <div>
+                    {nav ? (<Navigation
+                            setLogIn={setLogIn}
+                            setProfile={setProfile}
+                            setNav={setNav}
+                            setRecipe={setRecipe}
+                            setUpload = {setUpload}
+                            setMeal={setMeal}
+                            setSub={setSub}
+                            setGrocery={setGrocery}
+                            setStore={setStore}
+                        />
+                    ) : null
+                    }
+
+                    {logIn ? (
+                        <LogIn
+                            setLogIn={setLogIn}
+                            setProfile={setProfile}
+                            setNav={setNav}
+                        />
+                    ) : null}
+                    {profile ? (
+                        <Household_Profile setProfile={setProfile} setRecipe={setRecipe} />
+                    ) : null}
+                    {recipe ? (
+                        <Recipe
+                            mealData={mealData}
+                            setMealData={setMealData}
+                            mealList={mealList}
+                            setGrocery={setGrocery}
+                            setMealList={setMealList}
+                            setLogIn={setLogIn}
+                            setRecipe={setRecipe}
+                            setUpload={setUpload}
+                            recipe={recipe}
+                            setMeal={setMeal}
+                        />
+                    ) : null}
+                    {meal ? (
+                        <MealPlan
+                            mealList={mealList}
+                            setMealList={setMealList}
+                            setLogIn={setLogIn}
+                            setRecipe={setRecipe}
+                            setMeal={setMeal}
+                            setGrocery={setGrocery}
+                            setGroceryList={setGroceryList}
+                            setGrSearch={setGrSearch}
+                            grSearch={grSearch}
+                        />
+                    ) : null}
+                    {grocery ? (
+                        <Grocery
+                            grSearch={grSearch}
+                            setGrSearch={setGrSearch}
+                            mealList={mealList}
+                            setMealList={setMealList}
+                            groceryList={groceryList}
+                            setGroceryList={setGroceryList}
+                            setGrocery={setGrocery}
+                            setLogIn={setLogIn}
+                            setUpload={setUpload}
+                        />
+                    ) : null}
+                    {upload ? <Upload
                         setRecipe={setRecipe}
+                        subList={subList}
+                        setSubList={setSubList}
                         setUpload={setUpload}
-                        recipe={recipe}
-                        setMeal={setMeal}
-                    />
-                ) : null}
-                {meal ? (
-                    <MealPlan
-                        mealList={mealList}
-                        setMealList={setMealList}
-                        setLogIn={setLogIn}
-                        setRecipe={setRecipe}
-                        setMeal={setMeal}
                         setGrocery={setGrocery}
-                        setGroceryList={setGroceryList}
-                        setGrSearch={setGrSearch}
-                        grSearch={grSearch}
-                    />
-                ) : null}
-                {grocery ? (
-                    <Grocery
-                        grSearch={grSearch}
-                        setGrSearch={setGrSearch}
-                        mealList={mealList}
-                        setMealList={setMealList}
                         groceryList={groceryList}
                         setGroceryList={setGroceryList}
-                        setGrocery={setGrocery}
-                        setLogIn={setLogIn}
-                        setUpload={setUpload}
-                    />
-                ) : null}
-                {upload ? <Upload
-                    setRecipe={setRecipe}
-                    subList={subList}
-                    setSubList={setSubList}
-                    setUpload={setUpload}
-                    setGrocery={setGrocery}
-                    groceryList={groceryList}
-                    setGroceryList={setGroceryList}
-                /> : null}
-                {store ? <StoreRec
-                /> : null}
+                    /> : null}
+                    {store ? <StoreRec
+                    /> : null}
 
-            </div>
+                </div>
+                <Outlet />
+            </>
         )
     }
 }
+
+export default Home;
 

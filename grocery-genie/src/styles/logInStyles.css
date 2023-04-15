@@ -1,6 +1,13 @@
-body {
-    margin: 0;
-    padding: 0;
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.banner {
+    max-width: 100%;
+    margin-bottom: 5%;
+    border-radius: 0.5rem;
 }
 
 .logInPage {

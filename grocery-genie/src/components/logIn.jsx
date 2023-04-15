@@ -1,63 +1,39 @@
-import React from 'react';
-import Button from "@mui/material/Button";
+import React, {useState} from 'react';
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import { Outlet } from "react-router-dom";
-
+import Button from "@mui/material/Button";
+import "../styles/logInStyles.css"
+import banner from "../images/branding/banner.png"
 
 function LogIn(props) {
-    function changeProfile() {
-        props.setLogIn(false)
-        props.setProfile(true)
-        props.setNav(true)
-    }
-    function changeAccount() {
-        props.setLogIn(false)
-        props.setAccount(true)
-    }
+
+    const [user, setUser] = useState(undefined);
+    const [pass, setPass] = useState(undefined);
+
     return (
-        <div className="logInPage">
-            <div style= {{
-                display: 'flex',
-                justifyContent: 'space-between'
-            }}>
-            <Box
-            sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            margin: 0,
-            }}>
+        <Box sx={{
+            position: "absolute",
+            width: "20%",
+            left: "20%",
+            bottom: "25%",
+            display: "flex",
+            flexDirection: "column",
+            padding: "0.5rem",
+            gap: "0.5rem",
+            alignItems: "center"
 
-            <h1 className="logInTitle">Grocery Genie</h1>
-            <img className="logoImg" src={require ('../images/genie_outline_gr.png')} alt = "Logo" ></img>
-            <h1>Log In</h1>
-
-
-            <TextField id="outlined-basic" 
-            label="Username" 
-            variant="outlined"
-            margin="normal"/>
-
-            <TextField id="outlined-basic" 
-            label="Password" 
-            variant="outlined"
-            margin="normal"
-            type="password"/>
-
-            <div style= {{
-                display: 'flex',
-                justifyContent: 'space-between'
-            }}><Button onClick={() => {changeProfile()}}>Log In</Button>
-               <Button onClick={() => {changeAccount()}}>Create Account</Button>
+        }}>
+            <img src={banner} alt={"grocery genie banner"} aria-label={"grocery genie, shop smarter."} class={"banner"}/>
+            <TextField label={"Username"} color={"primary"} variant={"outlined"} type={"username"} sx={{width: "75%"}}/>
+            <TextField label={"Password"} color={"primary"} variant={"outlined"} type={"password"} sx={{width: "75%"}}/>
+            <div className={"buttons"}>
+                <Button>Log In</Button>
+                <Button>Create Account</Button>
             </div>
-            </Box>
+        </Box>
 
-
-            <img className="manShopping" src={require ('../images/MamShopping.png')} alt = "Logo" ></img>
-        </div>
-        </div>
     )
+
 }
 
 
