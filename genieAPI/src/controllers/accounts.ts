@@ -11,6 +11,7 @@ const db = mysql.createConnection({
 })
 
 interface User {
+    id: string
     username: string
 }
 
