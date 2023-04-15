@@ -3,6 +3,6 @@ import controller from '../controllers/example'
 
 const router = express.Router();
 
-router.get('/api/examples/exampleEndp', controller.exampleEndpoint);
+router.get('/exampleEndp', controller.exampleEndpoint);
 
 export = router;
