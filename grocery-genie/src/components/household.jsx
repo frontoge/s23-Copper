@@ -88,8 +88,9 @@ function Household_Profile(props) {
                   <FormControlLabel control={<Switch defaultChecked />} label="Active" />
                 </FormGroup>
 
-                <DeleteIcon onClick = {deleteProfile}/>
+
                 Dad
+                <DeleteIcon onClick = {deleteProfile}/>
               </Box>
               <Box component="ul" aria-labelledby="category-a" sx={{ pl: 2 }}>
                 <ul id="list"></ul>
