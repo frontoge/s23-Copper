@@ -1,18 +1,25 @@
-import {NextFunction, Request, Response} from "express";
-import db from "../db_connect"
+import { Request, Response, NextFunction } from "express";
+import db from "../db_connect";
 
 interface HouseholdMember {
-    active: boolean,
-    restrictions: JSON
-    name: string
-    owner: number
+    name: string,
+    diet: string,
+    restrictions: string,
+    active: boolean
 }
 
-const getHousehold = async (req: Request, res: Response, next: NextFunction) => {
-    await db.connect((err: Error) =>{
+const getHousehold = (req: Request, res: Response, next: NextFunction) => {
+    db.connect((err: Error) =>{
         if (err) throw err;
-        db.query(`SELECT * FROM profiles WHERE owner = ${req.params.userID}`, (err: Error, result: Array<HouseholdMember>) =>{
-            //Do something
+        db.query(`SELECT name, diet, restrictions, active FROM profiles WHERE owner = ${req.params.userID}`, (err: Error, results: Array<HouseholdMember>, fields: Array<any>) => {
+            if (err) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            } 
+            return res.status(200).json({
+                data: results
+            })
         })
     })
 }
