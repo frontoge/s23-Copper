@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import IconButton from "@mui/material/IconButton";
 import Heart from "@mui/icons-material/Favorite";
+import Grid from "@mui/material/Unstable_Grid2";
 
 
 function Recipe(props) {
@@ -119,6 +120,7 @@ function Recipe(props) {
 
         <div style={{ clear: "right" }}>
         <div className="displayRecipes">
+        <Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {mealData
             ? mealData.results.map((meal, index) => (
                 <div className="recipe">
@@ -158,6 +160,7 @@ function Recipe(props) {
                 </div>
               ))
             : null}
+            </Grid>
 
         </div>
 
