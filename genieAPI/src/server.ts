@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import exampleRoutes from './routes/example';
 import userRoutes from './routes/accounts';
 import householdRoutes from './routes/households';
+import mealPlanRoutes from "./routes/mealplans";
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -36,6 +37,7 @@ router.use((req, res, next) => {
 router.use('/api/examples', exampleRoutes);
 router.use('/api/accounts', userRoutes);
 router.use('/api/households', householdRoutes);
+router.use('/api/mealplans', mealPlanRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
