@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
@@ -44,6 +44,7 @@ function Household_Profile(props) {
   };
 
   const open = Boolean(anchorEl);
+  const [dad, setDad] = useState(true);
   const id = open ? "simple-popover" : undefined;
   function addToList(l, r) {
     var a = document.getElementById(l);
@@ -61,6 +62,10 @@ function Household_Profile(props) {
     a.removeChild(item);
   }
 
+  function deleteProfile() {
+    setDad(false);
+  }
+
   function changePage() {
      props.setRecipe(true)
      props.setProfile(false)
@@ -70,7 +75,7 @@ function Household_Profile(props) {
   return (
     <div className="backgroundImage">
       <h1 style={{ marginTop: '0', textAlign: 'center', padding: '3%'}}>Household Profile</h1>
-      <Grid container spacing={2}>
+      {dad ? <> <Grid container spacing={2}>
         
         <Grid container xs={12} md={7} lg={8} spacing={4}>
           <Grid xs={6} lg={3}>
@@ -82,6 +87,8 @@ function Household_Profile(props) {
                 <FormGroup>
                   <FormControlLabel control={<Switch defaultChecked />} label="Active" />
                 </FormGroup>
+
+                <DeleteIcon onClick = {deleteProfile}/>
                 Dad
               </Box>
               <Box component="ul" aria-labelledby="category-a" sx={{ pl: 2 }}>
@@ -104,11 +111,11 @@ function Household_Profile(props) {
                 >
                   delete
                 </button>
-              </Box>
+              </Box> {/*</>: null }*/}
             </Item>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> </>: null }
 
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
         Add Profile
