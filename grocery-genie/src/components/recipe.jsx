@@ -9,6 +9,7 @@ function Recipe(props) {
   const [showPopUp, setShowPopUp] = useState(false)
   const [mealId, setMealId] = useState(null);
   const [mealTemp, setMealTemp] = useState("test")
+  const [mealData, setMealData] = useState(null);
   const refArray = useRef([]);
 
   function getUpload() {
@@ -50,7 +51,7 @@ function Recipe(props) {
     )
       .then(response => response.json())
       .then(data => {
-        props.setMealData(data)
+        setMealData(data)
       })
       .catch(() => {
         console.log("error here")
@@ -118,8 +119,8 @@ function Recipe(props) {
 
         <div style={{ clear: "right" }}>
         <div className="displayRecipes">
-        {props.mealData
-            ? props.mealData.results.map((meal, index) => (
+        {mealData
+            ? mealData.results.map((meal, index) => (
                 <div className="recipe">
                   <p
                     className="recipeNameLabel"
