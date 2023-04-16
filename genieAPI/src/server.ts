@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import exampleRoutes from './routes/example';
 import userRoutes from './routes/accounts';
 import householdRoutes from './routes/households';
+import grocerylists from './routes/grocerylists';
 import recipeRoutes from "./routes/recipes";
 import mealPlanRoutes from "./routes/mealplans";
 
@@ -37,6 +38,7 @@ router.use((req, res, next) => {
 /** Routes */
 router.use('/api/examples', exampleRoutes);
 router.use('/api/accounts', userRoutes);
+router.use('/api/grocerylists',grocerylists);
 router.use('/api/households', householdRoutes);
 router.use('/api/recipes', recipeRoutes);
 router.use('/api/mealplans', mealPlanRoutes);
