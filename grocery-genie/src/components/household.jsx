@@ -79,6 +79,9 @@ function Household_Profile(props) {
                 id="category-a"
                 sx={{ fontSize: "12px", textTransform: "uppercase" }}
               >
+                <FormGroup>
+                  <FormControlLabel control={<Switch defaultChecked />} label="Active" />
+                </FormGroup>
                 Dad
               </Box>
               <Box component="ul" aria-labelledby="category-a" sx={{ pl: 2 }}>
