@@ -5,7 +5,8 @@ import morgan from 'morgan';
 import exampleRoutes from './routes/example';
 import userRoutes from './routes/accounts';
 import householdRoutes from './routes/households';
-import households from "./controllers/households";
+import grocerylists from './routes/grocerylists';
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -35,7 +36,8 @@ router.use((req, res, next) => {
 /** Routes */
 router.use('/api/examples', exampleRoutes);
 router.use('/api/accounts', userRoutes);
-router.use('/api/households', householdRoutes);
+
+router.use('/api/grocerylists',grocerylists);
 
 /** Error handling */
 router.use((req, res, next) => {
