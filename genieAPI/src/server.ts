@@ -5,8 +5,8 @@ import morgan from 'morgan';
 import exampleRoutes from './routes/example';
 import userRoutes from './routes/accounts';
 import householdRoutes from './routes/households';
-import households from "./controllers/households";
 import mealPlanRoutes from "./routes/mealplans";
+
 const dotenv = require("dotenv");
 dotenv.config();
 
