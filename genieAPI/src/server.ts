@@ -5,11 +5,14 @@ import morgan from 'morgan';
 import exampleRoutes from './routes/example';
 import userRoutes from './routes/accounts';
 import householdRoutes from './routes/households';
+const bodyParser = require("body-parser")
 
 const dotenv = require("dotenv");
 dotenv.config();
 
 const router: Express = express();
+
+router.use(bodyParser.urlencoded({ extended: true }))
 
 /** Logging */
 router.use(morgan('dev'));

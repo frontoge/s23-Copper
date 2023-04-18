@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/:userID', controller.getHousehold);
 
+router.post("/", controller.createHousehold)
+
 export = router;
