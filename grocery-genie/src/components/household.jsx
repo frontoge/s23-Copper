@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
@@ -24,6 +24,8 @@ import Stack from "@mui/material/Stack";
 import { Icon } from "@mui/material";
 import AddCircle from "@mui/icons-material/AddCircle";
 import Popover from "@mui/material/Popover";
+//import "../../../genieAPI/src/controllers/households";
+//import "../../../genieAPI/src/server";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -42,6 +44,36 @@ function Household_Profile(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const [profiles, setProfiles] = useState(null)
+
+  function displayProfiles() {
+
+    fetch(
+
+
+      `http://localhost:4000/api/households/1`
+    )
+      .then(response => response.json())
+      .then(data => {
+        setProfiles(data)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+  }
+
+  //componentDidMount() 
+
+
+  /*displayProfiles()*/
+
+  useEffect(() => {
+   // getHousehold(1)
+    displayProfiles()
+    // console.log("test", test)
+    console.log("profiles", profiles)
+  }, []);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -66,6 +98,7 @@ function Household_Profile(props) {
      props.setProfile(false)
      props.setNav(true)
   }
+  console.log("por", profiles)
 
   return (
     <div className="backgroundImage">
@@ -74,6 +107,17 @@ function Household_Profile(props) {
         
         <Grid container xs={12} md={7} lg={8} spacing={4}>
           <Grid xs={6} lg={3}>
+
+
+            {profiles ? profiles.data.map((profile) => (
+                <>
+                  <p>{profile.name}</p>
+                  <p>{profile.diet}</p>
+                <p>{profile.restrictions}</p>
+            
+              
+                </>
+            )) : null}
             <Item>
               <Box
                 id="category-a"
