@@ -17,7 +17,7 @@ function App(props) {
     return (
         <BrowserRouter>
         <Routes>
-            <Route path={"/login"} element={<LogIn />} />
+            <Route path={"/"} element={<LogIn />} />
             <Route path="/" element={<Layout />}>
                 <Route path={"grocerylist"} element={<GroceryList />}></Route>
                 <Route path={"household"} element={<Household_Profile />}></Route>
