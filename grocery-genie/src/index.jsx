@@ -10,6 +10,7 @@ import Household_Profile from "./components/household";
 import Recipe from "./components/recipe";
 import MealPlan from "./components/mealPlan";
 import StoreRec from "./components/storeRecs";
+import Account from "./components/account"
 import {Settings} from "./components/settings";
 import "./styles/mealPlanStyles.css"
 
@@ -25,6 +26,7 @@ function App(props) {
                 <Route path={"mealplan"} element={<MealPlan />}></Route>
                 <Route path={"stores"} element={<StoreRec />}></Route>
                 <Route path={"settings"} element={<Settings />}></Route>
+                <Route path={"account"} element={<Account />}></Route>
             </Route>
         </Routes>
         </BrowserRouter>

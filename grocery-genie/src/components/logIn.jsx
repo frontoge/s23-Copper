@@ -47,6 +47,10 @@ function LogIn(props) {
         setShowForgotPassword(false)
     }
 
+    function create() {
+        nav("/account")
+    }
+
     window.id = userID
     console.log("window.id", window.id)
     console.log(userID)
@@ -67,15 +71,15 @@ function LogIn(props) {
 
         }}>
             <img src={banner} alt={"grocery genie banner"} aria-label={"grocery genie, shop smarter."} class={"banner"}/>
-            <TextField label={"Username"} color={"primary"} variant={"outlined"} type={"username"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px" }, 
+            <TextField label={"Username"} color={"primary"} variant={"outlined"} type={"username"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px", color: "black" }, 
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}} value ={user} onChange = {(e) => {setUser(e.target.value)}}/>
-            <TextField label={"Password"} color={"primary"} variant={"outlined"} type={"password"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px" }, 
+            <TextField label={"Password"} color={"primary"} variant={"outlined"} type={"password"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px", color: "black" }, 
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}}/>
             <Box>
             <div className={"buttons"}>
                 <Button onClick = {validateSignIn}>Log In</Button>
                 <Button onClick = {forgotPassword}>Forgot Password?</Button>
-                <Button>Create Account</Button>
+                <Button onClick= {create}>Create Account</Button>
             </div>
             </Box>
         </Box>
