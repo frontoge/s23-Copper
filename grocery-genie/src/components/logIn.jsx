@@ -43,24 +43,33 @@ function LogIn(props) {
     console.log(userID)
     return (
         <Box sx={{
-            position: "absolute",
-            width: "20%",
-            left: "20%",
-            bottom: "25%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+        }}>
+        <Box sx={{
+            width: "50%",
             display: "flex",
             flexDirection: "column",
             padding: "0.5rem",
             gap: "0.5rem",
-            alignItems: "center"
+            alignItems: "center",
+            justifyContent: "center"
 
         }}>
             <img src={banner} alt={"grocery genie banner"} aria-label={"grocery genie, shop smarter."} class={"banner"}/>
-            <TextField label={"Username"} color={"primary"} variant={"outlined"} type={"username"} sx={{width: "75%"}} value ={user} onChange = {(e) => {setUser(e.target.value)}}/>
-            <TextField label={"Password"} color={"primary"} variant={"outlined"} type={"password"} sx={{width: "75%"}}/>
+            <TextField label={"Username"} color={"primary"} variant={"outlined"} type={"username"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px" }, 
+            input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}} value ={user} onChange = {(e) => {setUser(e.target.value)}}/>
+            <TextField label={"Password"} color={"primary"} variant={"outlined"} type={"password"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px" }, 
+            input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}}/>
+            <Box>
             <div className={"buttons"}>
                 <Button onClick = {validateSignIn}>Log In</Button>
+                <Button>Forgot Password?</Button>
                 <Button>Create Account</Button>
             </div>
+            </Box>
+        </Box>
         </Box>
 
     )

@@ -11,7 +11,7 @@ import Recipe from "./components/recipe";
 import MealPlan from "./components/mealPlan";
 import StoreRec from "./components/storeRecs";
 import {Settings} from "./components/settings";
-
+import "./styles/mealPlanStyles.css"
 
 function App(props) {
     return (
