@@ -56,8 +56,8 @@ function Household_Profile(props) {
             
           }}
           sx={{
-            "& .MuiInputLabel-root": { fontSize: "25px" }, //styles the label
-            input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}
+            "& .MuiInputLabel-root": { fontSize: "25px", color: "black" }, //styles the label
+            input: {color: "#468656", fontWeight: "bold", fontSize: "1.00em"}
           }}
           label={"Name"}
           variant={"outlined"}
@@ -80,8 +80,8 @@ function Household_Profile(props) {
           variant={"outlined"}
           sx={{
             width: "55%",
-            "& .MuiInputLabel-root": { fontSize: "25px" }, //styles the label
-            input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}
+            "& .MuiInputLabel-root": { fontSize: "25px", color: "black" }, //styles the label
+            input: {color: "#468656", fontWeight: "bold", fontSize: "1.00em"}
           }}
           value={diet}
           onChange={(e) => {
@@ -97,11 +97,11 @@ function Household_Profile(props) {
           }}
           label={"Allergies"}
           color={"primary"}
-          variant={"outlined"}
+          variant={"filled"}
           sx={{
             width: "55%",
-            "& .MuiInputLabel-root": { fontSize: "25px" }, //styles the label
-            input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}
+            "& .MuiInputLabel-root": { fontSize: "25px",  color: "black"}, //styles the label
+            input: {color: "#468656", fontWeight: "bold", fontSize: "1.00em"}
           }}
           value={allergy}
           onChange={(e) => {

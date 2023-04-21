@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import image from "../images/garlicButterWing.jpg";
 let subString = "";
 let loc = ""
 
@@ -6,6 +7,7 @@ let loc = ""
 
 function Upload(props) {
   
+  const [subList, setSubList] = useState(false)
   const [ingredients, setIngredients] = useState([
   { id: "1", name: "3 pounds chicken drumettes or wings" },
   { id: "2", name: "½ tablespoon seasoned salt" },
@@ -23,11 +25,12 @@ function Upload(props) {
   }
 
 
+
   function updateRecipe(name) {
     let temp = [...ingredients];
     temp[loc]= {id: "" , name: name}
     setIngredients(temp)
-    props.setSubList(null);
+    setSubList(null);
   }
 
   function getSub() {
@@ -36,7 +39,7 @@ function Upload(props) {
     )
       .then((response) => response.json())
       .then((data) => {
-        if (data.status === "success") props.setSubList(data);
+        if (data.status === "success") setSubList(data);
       })
       .catch(() => {
         console.log("error");
@@ -50,7 +53,7 @@ function Upload(props) {
         <div className="image-container">
           <img
             className="uploadImg"
-            src={require("../images/garlicButterWing.jpg")}
+            src={image}
             alt="Recipe Image"
           ></img>
         </div>
@@ -118,15 +121,15 @@ function Upload(props) {
       </div>
       <div>
         <div className="subs">
-          {props.subList ? (
+          {subList ? (
             <>
               <h2 className="title">Substitutions</h2>
-              <h2 className="title">{props.subList.ingredient}</h2>
+              <h2 className="title">{subList.ingredient}</h2>
               <hr></hr>
             </>
           ) : null}
-          {props.subList
-            ? props.subList.substitutes.map((subs, index) => (
+          {subList
+            ? subList.substitutes.map((subs, index) => (
                 <>
                   <p className="title" onClick={() => {
                     updateRecipe( subs)

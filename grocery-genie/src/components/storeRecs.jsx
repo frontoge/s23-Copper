@@ -1,4 +1,7 @@
 import React from 'react';
+import walmartLogo from "../images/walmart_logo.png";
+import krogerLogo from "../images/kroger_logo.png";
+import aldiLogo from "../images/aldi_logo.jpg";
 
 
 function StoreRec() {
@@ -9,7 +12,7 @@ function StoreRec() {
             <div className="Recommendations">
                 <div className="Store">
                     <a className="link" href="https://www.walmart.com/">
-                        <img className="WalmartPic" src={require ('../images/walmart_logo.png')} alt = " Walmart Logo" ></img>
+                        <img className="WalmartPic" src={walmartLogo} alt = " Walmart Logo" ></img>
                     </a>
                     <div className="Information">
                         <h2>
@@ -29,7 +32,7 @@ function StoreRec() {
 
                 <div className="Store">
                     <a className="link" href="https://www.kroger.com/">
-                        <img className="KrogerPic" src={require ('../images/kroger_logo.png')} alt = "Kroger Logo" ></img>
+                        <img className="KrogerPic" src={krogerLogo} alt = "Kroger Logo" ></img>
                     </a>
                     <div className="Information">
                         <h2>
@@ -49,7 +52,7 @@ function StoreRec() {
 
                 <div className="Store">
                     <a className="link" href="https://www.aldi.us/">
-                        <img className="AldiPic" src={require ('../images/aldi_logo.jpg')} alt = "Aldi Logo" ></img>
+                        <img className="AldiPic" src={aldiLogo} alt = "Aldi Logo" ></img>
                     </a>
                     <div className="Information">
                         <h2>

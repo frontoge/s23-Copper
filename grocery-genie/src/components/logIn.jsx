@@ -6,23 +6,51 @@ import "../styles/logInStyles.css"
 import banner from "../images/branding/banner.png"
 import {useNavigate} from "react-router-dom"
 
-window.id = ""
+window.mealList = [
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+    {id: "", name: "", ingredients: {}},
+]
 
 function LogIn(props) {
 
     const [user, setUser] = useState(undefined);
-    const [userID, setUserID] = useState(undefined);
     const [pass, setPass] = useState(undefined);
+    const [userInfo, setUserInfo] = useState(undefined);
     const [showForgotPassword, setShowForgotPassword] =useState(false)
     var nav = useNavigate()
 
-    function getUserInfo() {
-        fetch (
+    localStorage.setItem('meal', JSON.stringify(window.mealList));
+
+
+    async function getUserInfo() {
+        await fetch (
             `http://localhost:4000/api/accounts/${user}`
         )
         .then(response => response.json())
         .then(data => {
-            setUserID(data)
+            setUserInfo(data)
+            localStorage.setItem('User_ID', JSON.stringify(data.id))
+
+            console.log("get data function", localStorage.getItem('User_ID'))
         })
         .catch((err) => {
             console.log(err.message)
@@ -30,12 +58,11 @@ function LogIn(props) {
     }
 
     function validateSignIn() {
-        getUserInfo()
-        if (userID){
+        if (user) {
+            getUserInfo()
+        }
+        if (userInfo) {
             nav("/household")
-            window.id = userID[0]
-            console.log("window.id", window.id)
-            console.log(userID)
         }
     }
 
@@ -51,9 +78,6 @@ function LogIn(props) {
         nav("/account")
     }
 
-    window.id = userID
-    console.log("window.id", window.id)
-    console.log(userID)
     return (
         <Box sx={{
             display: "flex",

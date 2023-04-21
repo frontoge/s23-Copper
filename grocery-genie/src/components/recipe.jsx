@@ -3,17 +3,20 @@ import Button from "@mui/material/Button";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import IconButton from "@mui/material/IconButton";
 import Heart from "@mui/icons-material/Favorite";
+import {useNavigate} from "react-router-dom";
 
 
 function Recipe(props) {
   const [showPopUp, setShowPopUp] = useState(false)
   const [mealId, setMealId] = useState(null);
   const [mealTemp, setMealTemp] = useState("test")
+  const [mealData, setMealData] = useState(null)
   const refArray = useRef([]);
 
+  var move = useNavigate()
+
   function getUpload() {
-    props.setUpload(true);
-    props.setRecipe(false);
+    move("/upload")
   }
 
   const triggerHandler = (index) => {
@@ -35,9 +38,9 @@ function Recipe(props) {
   }
 
   function updateMealList(name, id, index) {
-    const temp = [...props.mealList]
-    temp[index] = { id: id, name: name }
-    props.setMealList(temp)
+    var meal = JSON.parse(localStorage.getItem('meal'))
+    meal[index] = {id: id, name: name, ingredients: {}}
+    localStorage.setItem('meal', JSON.stringify(meal));
     setShowPopUp(false)
   }
 
@@ -50,7 +53,7 @@ function Recipe(props) {
     )
       .then(response => response.json())
       .then(data => {
-        props.setMealData(data)
+        setMealData(data)
       })
       .catch(() => {
         console.log("error here")
@@ -73,7 +76,7 @@ function Recipe(props) {
         </Button>
         <Button style={{
           backgroundColor: "#afcfcf", color: 'white', height: '90%', margin: '0 10px'
-          }} onClick={getUpload}>Upload Recipe
+          }} onClick={getUpload}>My Recipes
         </Button>
         <input
           type="file"
@@ -88,7 +91,7 @@ function Recipe(props) {
             style={{
               backgroundColor: "#afcfcf",
               margin: '0 10px'
-            }}
+            }} 
           >
             Upload
           </Button>
@@ -118,8 +121,8 @@ function Recipe(props) {
 
         <div style={{ clear: "right" }}>
         <div className="displayRecipes">
-        {props.mealData
-            ? props.mealData.results.map((meal, index) => (
+        {mealData
+            ? mealData.results.map((meal, index) => (
                 <div className="recipe">
                   <p
                     className="recipeNameLabel"
