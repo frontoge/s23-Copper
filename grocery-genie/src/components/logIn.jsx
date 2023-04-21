@@ -13,6 +13,7 @@ function LogIn(props) {
     const [user, setUser] = useState(undefined);
     const [userID, setUserID] = useState(undefined);
     const [pass, setPass] = useState(undefined);
+    const [showForgotPassword, setShowForgotPassword] =useState(false)
     var nav = useNavigate()
 
     function getUserInfo() {
@@ -36,6 +37,14 @@ function LogIn(props) {
             console.log("window.id", window.id)
             console.log(userID)
         }
+    }
+
+    function forgotPassword() {
+        setShowForgotPassword(true)
+    }
+
+    function closePopup() {
+        setShowForgotPassword(false)
     }
 
     window.id = userID
@@ -65,12 +74,20 @@ function LogIn(props) {
             <Box>
             <div className={"buttons"}>
                 <Button onClick = {validateSignIn}>Log In</Button>
-                <Button>Forgot Password?</Button>
+                <Button onClick = {forgotPassword}>Forgot Password?</Button>
                 <Button>Create Account</Button>
             </div>
             </Box>
         </Box>
+        { showForgotPassword ? (
+        <Box sx={{position: "fixed", margin: "auto", backgroundColor: "white", display: "block", justifyContent: "center"}}>
+            <p>We will send you an email with a link to reset your password</p>
+            <TextField label={"Email Address"} color={"primary"} variant ={"outlined"} sx={{marginLeft: "25%", border: "1px solid #79b989", input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}}></TextField> <br></br>
+            <Button onClick={closePopup} sx={{marginLeft: "40%"}}>Send</Button>
         </Box>
+        ) : null }
+        </Box>
+
 
     )
 
