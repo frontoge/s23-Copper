@@ -8,10 +8,12 @@ let grocerySearch = "";
 function Grocery(props) {
   const [groceries, setGroceries] = useState(null);
   const [value, setValue] = useState(null);
+  const [groceryList, setGroceryList] = useState(null)
 
 
   function getGroceryString() {
-    props.mealList.forEach((element) => {
+    var meal = JSON.parse(localStorage.getItem('meal'))
+    meal.forEach((element) => {
       if (element.id) {
         if (!grocerySearch) {
           grocerySearch = element.id;
@@ -38,20 +40,20 @@ function Grocery(props) {
   }
 
   function addToList() {
-    if (!props.groceryList) {
+    if (!groceryList) {
       let temp = { id: value, nameClean: value, amount: 1 };
-      props.setGroceryList(temp);
+      setGroceryList(temp);
     } else {
-      const temp = [...props.groceryList];
+      const temp = [...groceryList];
       let temp1 = { id: value, nameClean: value, amount: 1 };
       temp.push(temp1);
-      props.setGroceryList(temp);
+      setGroceryList(temp);
     }
   }
 
   function deleteItem(id) {
-    let tempList = props.groceryList.filter(item => item.id !== id)
-    props.setGroceryList(tempList)
+    let tempList = groceryList.filter(item => item.id !== id)
+    setGroceryList(tempList)
   }
 
 
@@ -64,16 +66,16 @@ function Grocery(props) {
   }
 
   function addAmount(index) {
-    const temp = [...props.groceryList];
+    const temp = [...groceryList];
     temp[index].amount++;
-    props.setGroceryList(temp)
+    setGroceryList(temp)
 
    }
 
    function subAmount(index) {
-    const temp = [...props.groceryList];
+    const temp = [...groceryList];
     temp[index].amount--;
-    props.setGroceryList(temp)
+    setGroceryList(temp)
    }
 
 
@@ -86,7 +88,7 @@ function Grocery(props) {
         l.push(item)
       })
     })
-    props.setGroceryList(l)
+    setGroceryList(l)
   }
 
   return (
@@ -102,8 +104,8 @@ function Grocery(props) {
           </button>
         </div>
       <div>
-        {props.groceryList
-          ? props.groceryList.map((grocery, index) => (
+        {groceryList
+          ? groceryList.map((grocery, index) => (
             <div className="groceryList">
               <li key={grocery.id}>
                   {grocery.amount} {grocery.nameClean}

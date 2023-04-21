@@ -17,6 +17,7 @@ import "./styles/mealPlanStyles.css"
 import "./styles/uploadStyles.css"
 import "./styles/recipe.css";
 import "./styles/storeRecStyles.css";
+import "./styles/groceryStyles.css";
 
 function App(props) {
     return (
