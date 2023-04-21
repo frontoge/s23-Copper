@@ -8,6 +8,7 @@ import householdRoutes from './routes/households';
 import grocerylists from './routes/grocerylists';
 import recipeRoutes from "./routes/recipes";
 import mealPlanRoutes from "./routes/mealplans";
+const bodyParser = require("body-parser");
 
 const dotenv = require("dotenv");
 dotenv.config();
