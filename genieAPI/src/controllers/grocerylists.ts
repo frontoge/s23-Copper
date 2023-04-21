@@ -23,5 +23,31 @@ const getGroceryList = (req: Request, res: Response, next: NextFunction)=>{
     })
 }
 
+const creategrocerylist = (req: Request, res: Response, next: NextFunction)=>{
 
-export default{getGroceryList}
+    const owner = req.body.owner;
+    const item = req.body.item;
+    const quantity = req.body.quantity;
+    if (owner === undefined || item === undefined){
+        return res.status(400).json({
+            message: "Missing required parameters for create"
+        })
+    }
+    db.connect((err: Error)=>{
+        if(err) throw err;
+        console.log(`INSERT INTO grocerylist(owner,item,quantity) VALUES (${owner},${item},${quantity})`)
+        db.query(`INSERT INTO grocerylist (owner,item,quantity) VALUES (${owner},${item},${quantity})`),
+        (err: Error, results: Array<grocerylist>) => {
+            if (err){
+                return res.status(400).json ({
+                    message: `Failed to make SQL query: ${err.message}`
+                })
+            }
+            return res.status(200).json({
+                message: "Successful added"
+            })
+        }
+    })
+}
+
+export default{getGroceryList, creategrocerylist}

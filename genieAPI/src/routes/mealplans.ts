@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/:userID', controller.getMealPlan);
 
+router.post("/", controller.createMealPlan);
+
 export = router;

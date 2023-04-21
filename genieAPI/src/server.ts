@@ -9,6 +9,7 @@ import grocerylists from './routes/grocerylists';
 import recipeRoutes from "./routes/recipes";
 import mealPlanRoutes from "./routes/mealplans";
 import favStoreRoutes from "./routes/favoriteStores";
+const bodyParser = require("body-parser");
 
 const dotenv = require("dotenv");
 dotenv.config();
