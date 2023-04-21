@@ -8,6 +8,7 @@ import householdRoutes from './routes/households';
 import grocerylists from './routes/grocerylists';
 import recipeRoutes from "./routes/recipes";
 import mealPlanRoutes from "./routes/mealplans";
+import favStoreRoutes from "./routes/favoriteStores";
 const bodyParser = require("body-parser");
 
 const dotenv = require("dotenv");
@@ -43,6 +44,7 @@ router.use('/api/grocerylists',grocerylists);
 router.use('/api/households', householdRoutes);
 router.use('/api/recipes', recipeRoutes);
 router.use('/api/mealplans', mealPlanRoutes);
+router.use('/api/favoriteStores', favStoreRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
