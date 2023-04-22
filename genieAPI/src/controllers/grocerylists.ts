@@ -81,4 +81,4 @@ const updateGrocerylist = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-export default{getGroceryList, creategrocerylist}
+export default{getGroceryList, creategrocerylist, updateGrocerylist}
