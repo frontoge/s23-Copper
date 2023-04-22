@@ -50,4 +50,35 @@ const creategrocerylist = (req: Request, res: Response, next: NextFunction)=>{
     })
 }
 
+const updateGrocerylist = (req: Request, res: Response, next: NextFunction) => {
+    const data = req.body
+    const owner = req.body.owner
+    if (data.item === undefined || data.quantity === undefined){
+        return res.status(400).json({
+            message: "Missing body parameters"
+        })
+    }
+
+    if (req.params.owner === undefined || req.params.name === undefined) {
+        return res.status(400).json({
+            message: "Invalid parameters to query"
+        })
+    }
+    console.log(`UPDATE profiles SET item = '${data.item}', quantities = '${data.quantity}', active = ${data.active} WHERE owner = ${req.params.owner} `)
+    db.connect((err: Error) =>{
+        if (err) throw err;
+        db.query(`UPDATE profiles SET item = '${data.item}', quantity = '${data.quantity}', active = ${data.active ? 1 : 0} WHERE owner = ${req.params.owner} '`,
+            (err: Error, results: Array<grocerylist>) => {
+                if (err) {
+                    return res.status(400).json({
+                        message: `Invalid SQL Query: ${err.message}`
+                    });
+                }
+                return res.status(200).json({
+                    message: "Successfully updated"
+                })
+            })
+    })
+}
+
 export default{getGroceryList, creategrocerylist}
