@@ -7,5 +7,6 @@ router.get('/:userID', controller.getHousehold);
 
 router.post("/", controller.createHousehold)
 router.put('/:owner&:name', controller.updateHousehold)
+router.delete("/:owner&:name", controller.deleteHousehold)
 
 export = router;
