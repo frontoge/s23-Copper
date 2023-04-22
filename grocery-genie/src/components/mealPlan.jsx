@@ -20,6 +20,8 @@ function MealPlan(props) {
         tempCopy[index] = {id: "", name: ""}
         props.setMealList(tempCopy)
     }
+
+    console.log(mealList)
     
     return (
       <div className="backgroundImage">
