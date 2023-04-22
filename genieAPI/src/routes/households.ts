@@ -6,5 +6,6 @@ const router = express.Router();
 router.get('/:userID', controller.getHousehold);
 
 router.post("/", controller.createHousehold)
+router.put('/:owner&:name', controller.updateHousehold)
 
 export = router;
