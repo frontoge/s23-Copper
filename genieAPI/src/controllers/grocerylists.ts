@@ -81,4 +81,26 @@ const updateGrocerylist = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-export default{getGroceryList, creategrocerylist, updateGrocerylist}
+const deleteGroceylist = (req: Request, res: Response, next: NextFunction) => {
+    const params = req.params;
+    db.connect((err: Error) => {
+        if (err) {
+            return res.status(400).json({
+                message: `Failed to connect to DB: ${err.message}`
+            })
+        }
+        db.query(`DELETE FROM profiles WHERE owner = ${params.owner} AND item = '${params.item}'`, (err: Error, results: Array<grocerylist>) =>{
+            if (err) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+            return res.status(200).json({
+                message: "Successfully deleted."
+            })
+        })
+    })
+}
+
+
+export default{getGroceryList, creategrocerylist, updateGrocerylist, deleteGroceylist}
