@@ -88,4 +88,25 @@ const updateMealPlan = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-export default {getMealPlan, createMealPlan, updateMealPlan}
+const deleteMealPlan = (req: Request, res: Response, next: NextFunction) => {
+    const params = req.params;
+    db.connect((err: Error) => {
+        if (err) {
+            return res.status(400).json({
+                message: `Failed to connect to DB: ${err.message}`
+            })
+        }
+        db.query(`DELETE FROM mealplan WHERE owner = ${params.owner} AND recpieID = '${params.recpieID}'`, (err: Error, results: Array<MealPlan>) =>{
+            if (err) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+            return res.status(200).json({
+                message: "Successfully deleted."
+            })
+        })
+    })
+}
+
+export default {getMealPlan, createMealPlan, updateMealPlan, deleteMealPlan}

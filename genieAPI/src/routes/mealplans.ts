@@ -9,4 +9,6 @@ router.post("/", controller.createMealPlan);
 
 router.put('/:owner&:recpieID', controller.updateMealPlan)
 
+router.delete("/:owner&:recpieID", controller.deleteMealPlan)
+
 export = router;
