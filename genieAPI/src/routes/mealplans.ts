@@ -7,4 +7,6 @@ router.get('/:userID', controller.getMealPlan);
 
 router.post("/", controller.createMealPlan);
 
+router.put('/:owner&:recpieID', controller.updateMealPlan)
+
 export = router;
