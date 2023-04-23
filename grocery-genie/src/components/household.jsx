@@ -22,13 +22,14 @@ import { createTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { Icon } from "@mui/material";
+import axios from 'axios';
 
-function Household_Profile(props) {
+function Household_Profile() {
   const [userId, setUserId] = useState(null);
   const [profiles, setProfiles] = useState(null);
   const [inputList, setInputList] = useState([]);
   const [name, setName] = useState(null);
-  const [diet, setDiett] = useState(null);
+  const [diet, setDiet] = useState(null);
   const [allergy, setAllergy] = useState(null);
 
   //const onAddBtnClick = (event) => {
@@ -108,7 +109,7 @@ function Household_Profile(props) {
             setAllergy(e.target.value);
           }}
         />
-        <Button variant="contained" onClick={onAddBtnClick}>
+        <Button variant="contained" onClick={addMember}>
           Create Profile
         </Button>
       </Box>
@@ -138,6 +139,31 @@ function Household_Profile(props) {
         console.log(err.message);
       });
   }
+
+  function addMember() {
+     fetch(
+       `http://localhost:4000/api/households/`, {
+         method: "POST",
+         headers: { 'Content-Type': 'application/json'},
+         body: JSON.stringify({owner: 2, name: "Bob"})
+       }
+     )
+       .then(response => response.json())
+       .then(data => {
+         console.log(data.message)
+       })
+       .catch((err) => {
+         console.log(err.message)
+       })
+   }
+
+   function add() {
+     axios.post(`http://localhost:4000/api/households`, {
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({owner: 2, name: "Bob"})
+     })
+   }
+  
 
   function deleteRestriction(allergy, index) {
     var temp = restrict;

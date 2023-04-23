@@ -6,25 +6,12 @@ import banner from "../images/branding/banner.png";
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function Account(props) {
+function Account() {
   const [pass, setPass] = useState(null);
   const [user, setUser] = useState(null);
   const [input, setInput] = useState(null)
   var nav = useNavigate()
-  function createUser() {
-     setInput({pass: pass, user: user })
-     console.log(input)
-    fetch(
-      `http://localhost:4000/api/accounts/${user},${pass}`
-    )
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.message)
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
-  }
+
 
   function changePage() {
     nav("/");
