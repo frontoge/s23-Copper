@@ -6,6 +6,12 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 
 
 function MealPlan(props) {
+  const d = new Date()
+  const [startdate, setstartDate] = useState(d.getDate() - d.getDay())
+  const [enddate, setendDate] = useState(d.getDate() + (6 - d.getDay()))
+  console.log(enddate.toString())
+  console.log(startdate.toString()) 
+  
 
     function changeToRecipe() {
       
