@@ -4,44 +4,55 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { color, textAlign, width } from '@mui/system';
 
-
+<link rel="stylesheet" href="../styles/storeRecStyles.css"></link>
 
 function StoreRec() {
-function visitWalmart(){
-    window.location="https://www.walmart.com/cp/976759?&adid=22222222220221176149&wmlspartner=wmtlabs&wl0=e&wl1=g&wl2=c&wl3=193590193349&wl4=aud-1651068664266:kwd-667579415&wl5=9008553&wl6=&wl7=&wl8=&veh=sem&gclid=CjwKCAjwrpOiBhBVEiwA_473dBKP0ffG4wqCJX38ZbJUwECrYGszdswQGq1i8Ch47dpGU1S_GgsylRoCeEoQAvD_BwE&gclsrc=aw.ds";
-
-}
     { 
         return (
-<div            
-sx={{
-                position: "absoulute"
-
-            }}>
+<div clasname="stores">
         <div className='storeinfo'>
+
             <Box
             sx={{
               width: 300,
               height: 300,
+              position: 'relative',
               backgroundColor: 'primary.dark',
               '&:hover': {
                 backgroundColor: 'primary.main',
                 opacity: [0.9, 0.8, 0.7],
-              },
+                
+              }
             }}
           >
-            <h2>Walmart</h2>
+<       h2>Walmart</h2> 
+            <div 
+            sx={{
+                position: 'relative',
+                top:0,
+                end:0
+            }}
+            >
+           <h5>5.5 mi</h5>
+        
+            </div>
             <p>
                                 In Stock Items:
                             </p>
                             <p>
                                 Total Price: 
                             </p>
-            <Button variant="contained" onClick={(e)=> {
+            <Button variant="contained" 
+            sx={{
+                position: 'absolute',
+                right:0,
+                bottom:0
+            }}onClick={(e)=> {
                 window.location.href='https://www.walmart.com/cp/976759?&adid=22222222220221176149&wmlspartner=wmtlabs&wl0=e&wl1=g&wl2=c&wl3=193590193349&wl4=aud-1651068664266:kwd-667579415&wl5=9008553&wl6=&wl7=&wl8=&veh=sem&gclid=CjwKCAjwrpOiBhBVEiwA_473dBKP0ffG4wqCJX38ZbJUwECrYGszdswQGq1i8Ch47dpGU1S_GgsylRoCeEoQAvD_BwE&gclsrc=aw.ds'
             }}>Go to Walmart</Button>
             </Box>
             </div>
+
             <div className='storeinfo'
                     sx={{
                         alignItems: "center", 
@@ -51,15 +62,28 @@ sx={{
                     sx={{
                       width: 300,
                       height: 300,
+                      position: 'relative',
                       backgroundColor: 'primary.dark',
                       '&:hover': {
                         backgroundColor: 'primary.main',
                         opacity: [0.9, 0.8, 0.7],
+                        
                       },
                     }}
                   >
                     <h2>Kroger</h2>
-                    <Button variant="contained" onClick={(e)=> {
+                    <p>
+                                In Stock Items:
+                            </p>
+                            <p>
+                                Total Price: 
+                            </p>
+                    <Button variant="contained" 
+                       sx={{
+                position: 'absolute',
+                right:0,
+                bottom:0
+            }}onClick={(e)=> {
                 window.location.href='https://www.kroger.com/pr/pickup-delivery-savings-4?ds_rl=1281562&ds_rl=1281680&cid=ps_adw_ogs_15x1savoffer_t:krogerclick&gclid=CjwKCAjwrpOiBhBVEiwA_473dFDZrwW3aTGjQaQwviSQy7rjNQwTiJkl1vDpK0YPb9cE5A0d8EM16xoCN20QAvD_BwE&gclsrc=aw.ds'
             }}>Go to Kroger</Button>
                     </Box>
@@ -74,6 +98,7 @@ sx={{
                             sx={{
                               width: 300,
                               height: 300,
+                              position: 'relative',
                               backgroundColor: 'primary.dark',
                               '&:hover': {
                                 backgroundColor: 'primary.main',
@@ -82,8 +107,19 @@ sx={{
                             }}
                           >
                             <h2>Aldi</h2>
+                            <p>
+                                In Stock Items:
+                            </p>
+                            <p>
+                                Total Price: 
+                            </p>
 
-                            <Button variant="contained" onClick={(e)=> {
+                            <Button variant="contained" 
+                            sx={{
+                                position: 'absolute',
+                                right:0,
+                                bottom:0  
+                            }}onClick={(e)=> {
                 window.location.href='https://www.aldi.us/?utm_source=google&utm_medium=sem&utm_campaign=brand&utm_term=aldi&gclid=CjwKCAjwrpOiBhBVEiwA_473dMx0IJIjK0_ys11If1jVm80YPOLbXhfDPAlyt26YwahkrRHvkiCNfRoCtAgQAvD_BwE&gclsrc=aw.ds'
                          }}>Go to Aldi</Button>
                             </Box>
@@ -98,6 +134,7 @@ sx={{
                             sx={{
                               width: 300,
                               height: 300,
+                              position: 'relative',
                               backgroundColor: 'primary.dark',
                               '&:hover': {
                                 backgroundColor: 'primary.main',
@@ -106,7 +143,18 @@ sx={{
                             }}
                           >
                             <h2>Target</h2>
-                            <Button variant="contained" onClick={(e)=> {
+                            <p>
+                                In Stock Items:
+                            </p>
+                            <p>
+                                Total Price: 
+                            </p>
+                            <Button variant="contained" 
+                            sx={{
+                                position: 'absolute',
+                                right:0,
+                                bottom:0  
+                            }}onClick={(e)=> {
                 window.location.href='https://www.target.com/c/grocery/-/N-5xt1a'
             }}>Go to Target</Button>
                             </Box>
