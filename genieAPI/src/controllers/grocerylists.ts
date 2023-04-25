@@ -1,11 +1,25 @@
 import {Request, Response, NextFunction} from "express";
 import db from "../db_connect";
+import Cookies from "universal-cookie"
 
 interface grocerylist {
     item: string,
     quantity: number
 
 }
+
+function ExampleComponent(props) {
+    const cookies = Cookies();
+  
+    //Code to actually get the login stuff
+    const userData = cookies.get("login")
+    //userData should be an object formatted like: {id: xxxx} now.
+    return (
+      <div>
+        ...
+      </div>
+    )
+  }
 
 const getGroceryList = (req: Request, res: Response, next: NextFunction)=>{
     db.connect((err: Error) =>{
