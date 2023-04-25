@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 function Account() {
   const [pass, setPass] = useState(null);
   const [user, setUser] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [confirm, setConfirm] = useState(null);
   const [input, setInput] = useState(null)
   var nav = useNavigate()
 
@@ -47,14 +49,14 @@ function Account() {
           }}
           label={"Email Address"}
           variant={"filled"}
-          type={"username"}
+          type={"Email"}
           sx={{ width: "25%",
             "& .MuiInputLabel-root": {fontSize: "25px", color: "black"},//styles the label
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.00em"}
           }}
-          value={user}
+          value={email}
           onChange={(e) => {
-            setUser(e.target.value);
+            setEmail(e.target.value);
           }}
         />
         <TextField
@@ -102,14 +104,14 @@ function Account() {
           }}
           label={"Confirm Password"}
           variant={"filled"}
-          type={"username"}
+          type={"password"}
           sx={{ width: "25%",
             "& .MuiInputLabel-root": {fontSize: "25px", color: "black"},//styles the label
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.00em"}
           }}
-          value={user}
+          value={confirm}
           onChange={(e) => {
-            setUser(e.target.value);
+            setConfirm(e.target.value);
           }}
         />
         <Button

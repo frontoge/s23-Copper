@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
@@ -22,22 +22,80 @@ import { createTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { Icon } from "@mui/material";
-import axios from 'axios';
+import {useNavigate} from "react-router-dom"
+import Cookies from "universal-cookie"
 
 function Household_Profile() {
   const [userId, setUserId] = useState(null);
   const [profiles, setProfiles] = useState(null);
   const [inputList, setInputList] = useState([]);
-  const [name, setName] = useState(null);
-  const [diet, setDiet] = useState(null);
-  const [allergy, setAllergy] = useState(null);
+  //const [name, setName] = useState(null);
+  //const [diet, setDiet] = useState(null);
+  //const [allergy, setAllergy] = useState(null);
+  const [owner, setOwner] = useState(null);
+  const [istrue, Setistrue] = useState(false);
+
+  const cookies = new Cookies();
+  console.log("login cookie", cookies.get('login'))
+  const userData = cookies.get("login")
+
+
+  const [memberInfo, setMemberInfo] = useState({
+    name: "",
+    diet: "",
+    allery: "",
+  });
+
+
+  const nameForm = useRef(null)
+
+  
+  
 
   //const onAddBtnClick = (event) => {
   //setInputList(inputList.concat(<Profile key={Profile.length} />));
   //};
 
   const Profile = () => {
+    const [memberInfo, setMemberInfo] = useState({
+      name: "",
+      diet: "",
+      allergy: "",
+    });
+    var nav = useNavigate()
+    //const cookies = Cookies();
+    //console.log("login cookie", cookies.get('login'))
+    //const userData = cookies.get("login")
+
+    function addMember() {
+   
+    console.log(memberInfo.name, memberInfo.diet, memberInfo.allergy)
+     fetch(
+       `http://localhost:4000/api/households/`, {
+         method: "POST",
+         headers: { 'Content-Type': 'application/json'},
+         body: JSON.stringify({owner: userData.id, name: memberInfo.name, diet: memberInfo.diet, restrictions: memberInfo.allergy})
+       }
+     )
+       .then(response => response.json())
+       .then(data => {
+         console.log(data.message)
+       })
+       .catch((err) => {
+         console.log(err.message)
+       })
+   }
+
+    const handleClickEvent = (event) => {
+      event.preventDefault();
+      console.log(memberInfo)
+    
+      addMember()
+      setMemberInfo({ name: "", diet: "", allergy: "" });
+      nav("/household")
+   }
     return (
+     
       <Box
         sx={{
 
@@ -47,7 +105,8 @@ function Household_Profile() {
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
+      >   
+       <form onSubmit={handleClickEvent}>
         <TextField
           style={{
             width: "20%",
@@ -62,9 +121,9 @@ function Household_Profile() {
           }}
           label={"Name"}
           variant={"outlined"}
-          value={name}
+          value={memberInfo.name}
           onChange={(e) => {
-            setName(e.target.value);
+            setMemberInfo({ ...memberInfo, name: e.target.value });
           }}
         />
         <TextField
@@ -84,9 +143,9 @@ function Household_Profile() {
             "& .MuiInputLabel-root": { fontSize: "25px", color: "black" }, //styles the label
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.00em"}
           }}
-          value={diet}
+          value={memberInfo.diet}
           onChange={(e) => {
-            setDiet(e.target.value);
+            setMemberInfo({ ...memberInfo, diet: e.target.value });
           }}
         />
         <TextField
@@ -104,14 +163,14 @@ function Household_Profile() {
             "& .MuiInputLabel-root": { fontSize: "25px",  color: "black"}, //styles the label
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.00em"}
           }}
-          value={allergy}
+          value={memberInfo.allergy}
           onChange={(e) => {
-            setAllergy(e.target.value);
+            setMemberInfo({ ...memberInfo, allergy: e.target.value });
           }}
         />
-        <Button variant="contained" onClick={addMember}>
-          Create Profile
-        </Button>
+         <input type="submit" value="Submit" />
+         </form >
+        
       </Box>
     );
   };
@@ -119,6 +178,9 @@ function Household_Profile() {
   const onAddBtnClick = (event) => {
     setInputList(inputList.concat(<Profile key={Profile.length} />));
   };
+
+
+ 
 
   useEffect(() => {
     //console.log("household page id", userId)
@@ -129,8 +191,13 @@ function Household_Profile() {
     //}
   }, []);
 
+
+ 
+
+ 
+
   async function displayProfiles() {
-    await fetch(`http://localhost:4000/api/households/2`)
+    await fetch(`http://localhost:4000/api/households/${userData.id}`)
       .then((response) => response.json())
       .then((data) => {
         setProfiles(data);
@@ -140,51 +207,25 @@ function Household_Profile() {
       });
   }
 
-  function addMember() {
-     fetch(
-       `http://localhost:4000/api/households/`, {
-         method: "POST",
-         headers: { 'Content-Type': 'application/json'},
-         body: JSON.stringify({owner: 2, name: "Bob"})
-       }
-     )
-       .then(response => response.json())
+  
+
+  function deleteMember(name) {
+    fetch(
+      `http://localhost:4000/api/households/${userData.id}&${name}`, {
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json'}
+      }
+    )
+    .then(response => response.json())
        .then(data => {
          console.log(data.message)
        })
        .catch((err) => {
          console.log(err.message)
        })
-   }
-
-   function add() {
-     axios.post(`http://localhost:4000/api/households`, {
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({owner: 2, name: "Bob"})
-     })
-   }
+  }
   
 
-  function deleteRestriction(allergy, index) {
-    var temp = restrict;
-    var temp2 = profiles;
-    temp.filter((item) => {
-      return item !== allergy;
-    });
-    restrict = temp;
-    temp2[index] = temp;
-    setProfiles(temp2);
-
-    //console.log("restrict is here", restrict)
-  }
-
-  function setArr(array) {
-    console.log(array);
-    restrict = array.restrictions.split(",");
-  }
-  console.log("pro", profiles);
-
-  var hide = false;
 
   return (
     <div className="backgroundImage">
@@ -212,7 +253,7 @@ function Household_Profile() {
                 }} disableTypography
               >
                 <Box sx={{display: "flex", justifyContent:"space-evenly"}}>
-                <DeleteIcon sx={{alignSelf:"start"}}></DeleteIcon>
+                <DeleteIcon sx={{alignSelf:"start"}} onClick={() => {deleteMember(profile.name);}}></DeleteIcon>
                 Name: {profile.name}
                 <FormControlLabel control={<Switch defaultChecked color="secondary"/>} label="Active" labelPlacement="end" sx={{alignSelf:"end"}}/>
               </Box>
@@ -224,7 +265,7 @@ function Household_Profile() {
                     Diet: {profile.diet}
                   </ListItemText>
                   <TextField color="primary" sx={{backgroundColor: "white", input: {color: "black"}}}></TextField>
-                  <Button variant="contained" onClick={onAddBtnClick}>
+                  <Button variant="contained" >
                     Update Diet
                   </Button>
                 </Box>
@@ -234,7 +275,7 @@ function Household_Profile() {
                   </ListItemText>
 
                   <TextField color="primary" sx={{backgroundColor: "white", input: {color: "black"}}}></TextField>
-                  <Button variant="contained" onClick={onAddBtnClick}>
+                  <Button variant="contained">
                     Update Allergies
                   </Button>
                 </Box>

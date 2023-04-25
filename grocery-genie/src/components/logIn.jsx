@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import "../styles/logInStyles.css"
 import banner from "../images/branding/banner.png"
 import {useNavigate} from "react-router-dom"
+import Cookies from "universal-cookie";
 
 window.mealList = [
     {id: "", name: "", ingredients: {}},
@@ -34,7 +35,25 @@ function LogIn(props) {
 
     const [user, setUser] = useState(undefined);
     const [pass, setPass] = useState(undefined);
-    const [userInfo, setUserInfo] = useState(undefined);
+
+    const cookies = new Cookies();
+    const login = async () => {
+        console.log("username", user)
+        const res = await fetch(`http://localhost:4000/api/accounts/${user}`);
+        if (res.status === 404){
+            //Some code to display invalid login here.
+        } else {
+            console.log("else triggered")
+            const data = await res.json();
+            console.log("data.id is ", data.id)
+            cookies.set('login', {...data}, {path: "/"})
+            console.log("cookie is ", cookies.get('login'))
+            nav("/household")
+        }
+    }
+
+
+    //const [userInfo, setUserInfo] = useState(undefined);
     const [showForgotPassword, setShowForgotPassword] =useState(false)
     var nav = useNavigate()
 
@@ -101,7 +120,7 @@ function LogIn(props) {
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}}/>
             <Box>
             <div className={"buttons"}>
-                <Button onClick = {validateSignIn}>Log In</Button>
+                <Button onClick={login}>Log In</Button>
                 <Button onClick = {forgotPassword}>Forgot Password?</Button>
                 <Button onClick= {create}>Create Account</Button>
             </div>
