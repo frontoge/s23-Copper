@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from "express";
 import db from "../db_connect";
-import Cookies from "universal-cookie"
+//import Cookies from "universal-cookie"
 
 interface grocerylist {
     item: string,
@@ -8,7 +8,7 @@ interface grocerylist {
 
 }
 
-function ExampleComponent(props) {
+/*function ExampleComponent(props) {
     const cookies = Cookies();
   
     //Code to actually get the login stuff
@@ -20,7 +20,7 @@ function ExampleComponent(props) {
       </div>
     )
   }
-
+*/
 const getGroceryList = (req: Request, res: Response, next: NextFunction)=>{
     db.connect((err: Error) =>{
         if (err) throw err;
@@ -48,9 +48,13 @@ const creategrocerylist = (req: Request, res: Response, next: NextFunction)=>{
         })
     }
     db.connect((err: Error)=>{
-        if(err) throw err;
-        console.log(`INSERT INTO grocerylist(owner,item,quantity) VALUES (${owner},${item},${quantity})`)
-        db.query(`INSERT INTO grocerylist (owner,item,quantity) VALUES (${owner},${item},${quantity})`),
+        if(err) {
+            return res.status(400).json({
+                message:err.message
+            })
+        }
+        console.log(`INSERT INTO grocerylist(owner,item,quantity) VALUES (${owner},'${item}',${quantity})`)
+        db.query(`INSERT INTO grocerylist (owner,item,quantity) VALUES (${owner},'${item}',${quantity})`,
         (err: Error, results: Array<grocerylist>) => {
             if (err){
                 return res.status(400).json ({
@@ -60,28 +64,23 @@ const creategrocerylist = (req: Request, res: Response, next: NextFunction)=>{
             return res.status(200).json({
                 message: "Successful added"
             })
-        }
+        })
     })
 }
 
 const updateGrocerylist = (req: Request, res: Response, next: NextFunction) => {
     const data = req.body
-    const owner = req.body.owner
-    if (data.item === undefined || data.quantity === undefined){
+   
+    if (data.quantity === undefined){
         return res.status(400).json({
             message: "Missing body parameters"
         })
     }
-
-    if (req.params.owner === undefined || req.params.name === undefined) {
-        return res.status(400).json({
-            message: "Invalid parameters to query"
-        })
-    }
-    console.log(`UPDATE profiles SET item = '${data.item}', quantities = '${data.quantity}', active = ${data.active} WHERE owner = ${req.params.owner} `)
+    
+    
     db.connect((err: Error) =>{
         if (err) throw err;
-        db.query(`UPDATE profiles SET item = '${data.item}', quantity = '${data.quantity}', active = ${data.active ? 1 : 0} WHERE owner = ${req.params.owner} '`,
+        db.query(`UPDATE grocerylist SET quantity = ${data.quantity} WHERE owner = ${req.params.owner} and item = '${req.params.item}'`,
             (err: Error, results: Array<grocerylist>) => {
                 if (err) {
                     return res.status(400).json({
@@ -103,7 +102,7 @@ const deleteGroceylist = (req: Request, res: Response, next: NextFunction) => {
                 message: `Failed to connect to DB: ${err.message}`
             })
         }
-        db.query(`DELETE FROM profiles WHERE owner = ${params.owner} AND item = '${params.item}'`, (err: Error, results: Array<grocerylist>) =>{
+        db.query(`DELETE FROM grocerylist WHERE owner = ${params.owner} AND item = '${params.item}'`, (err: Error, results: Array<grocerylist>) =>{
             if (err) {
                 return res.status(400).json({
                     message: err.message
