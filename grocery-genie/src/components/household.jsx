@@ -26,35 +26,25 @@ import {useNavigate} from "react-router-dom"
 import Cookies from "universal-cookie"
 
 function Household_Profile() {
-  const [userId, setUserId] = useState(null);
   const [profiles, setProfiles] = useState(null);
   const [inputList, setInputList] = useState([]);
-  //const [name, setName] = useState(null);
-  //const [diet, setDiet] = useState(null);
-  //const [allergy, setAllergy] = useState(null);
-  const [owner, setOwner] = useState(null);
-  const [istrue, Setistrue] = useState(false);
+  const [diet, setDiet] = useState(null);
+  const [restrictions, setRestrictions] = useState(null);
+  const [status, setStatus] = useState(null);
 
   const cookies = new Cookies();
-  console.log("login cookie", cookies.get('login'))
   const userData = cookies.get("login")
 
 
   const [memberInfo, setMemberInfo] = useState({
     name: "",
     diet: "",
-    allery: "",
+    allergy: "",
   });
 
 
-  const nameForm = useRef(null)
+  //const nameForm = useRef(null)
 
-  
-  
-
-  //const onAddBtnClick = (event) => {
-  //setInputList(inputList.concat(<Profile key={Profile.length} />));
-  //};
 
   const Profile = () => {
     const [memberInfo, setMemberInfo] = useState({
@@ -62,10 +52,7 @@ function Household_Profile() {
       diet: "",
       allergy: "",
     });
-    var nav = useNavigate()
-    //const cookies = Cookies();
-    //console.log("login cookie", cookies.get('login'))
-    //const userData = cookies.get("login")
+
 
     function addMember() {
    
@@ -92,7 +79,6 @@ function Household_Profile() {
     
       addMember()
       setMemberInfo({ name: "", diet: "", allergy: "" });
-      nav("/household")
    }
     return (
      
@@ -225,6 +211,22 @@ function Household_Profile() {
        })
   }
   
+  function updateProfile(name, diet, allergy, status) {
+    fetch(
+      `http://localhost:4000/api/households/${userData.id}&${name}`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({diet: diet, restrictions: allergy, active: status})
+      }
+    )
+    .then(response => response.json())
+       .then(data => {
+         console.log(data.message)
+       })
+       .catch((err) => {
+         console.log(err.message)
+       })
+  }
 
 
   return (
@@ -264,8 +266,10 @@ function Household_Profile() {
                   <ListItemText sx={{ backgroundColor: "#79b989", padding: "10px", fontWeight: "bold" }} disableTypography>
                     Diet: {profile.diet}
                   </ListItemText>
-                  <TextField color="primary" sx={{backgroundColor: "white", input: {color: "black"}}}></TextField>
-                  <Button variant="contained" >
+                  <TextField color="primary" sx={{backgroundColor: "white", input: {color: "black"}}} 
+                  onChange={(diet) => setDiet(diet.target.value)}></TextField>
+                  <Button variant="contained" 
+                  onClick={() => {updateProfile(profile.name, diet, profile.restrictions, profile.active);}}>
                     Update Diet
                   </Button>
                 </Box>
@@ -274,8 +278,10 @@ function Household_Profile() {
                     Allergies: {profile.restrictions}
                   </ListItemText>
 
-                  <TextField color="primary" sx={{backgroundColor: "white", input: {color: "black"}}}></TextField>
-                  <Button variant="contained">
+                  <TextField color="primary" sx={{backgroundColor: "white", input: {color: "black"}}} 
+                  onChange={(restrictions) => setRestrictions(restrictions.target.value)}></TextField>
+                  <Button variant="contained" 
+                  onClick={() => {updateProfile(profile.name, profile.diet, restrictions, profile.active);}}>
                     Update Allergies
                   </Button>
                 </Box>
