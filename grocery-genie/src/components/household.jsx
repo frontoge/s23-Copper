@@ -228,6 +228,50 @@ function Household_Profile() {
        })
   }
 
+  function updateStatus(name, diet, allergy, status) {
+
+    var condition = 0;
+    console.log("status.data[0] ", status.data[0])
+    if (status.data[0] === 1) {
+      condition = 0;
+    }
+    else {
+      console.log("triggering else")
+      condition = 1;
+    }
+    console.log("condition: ", condition)
+    fetch(
+      `http://localhost:4000/api/households/${userData.id}&${name}`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({diet: diet, restrictions: allergy, active: condition})
+      }
+    )
+    .then(response => response.json())
+       .then(data => {
+         console.log(data.message)
+       })
+       .catch((err) => {
+         console.log(err.message)
+       })
+  }
+
+  function displaySwitch(name, diet, restrictions, status) {
+    if (status.data[0] === 0) {
+      console.log("triggering if")
+      return(
+        <FormControlLabel control={<Switch defaultUnchecked color="secondary" 
+        onClick={() => updateStatus(name, diet, restrictions, status)}/>} label="Inactive" labelPlacement="end" sx={{alignSelf:"end"}}/>
+      )
+    }
+    else {
+      console.log("triggering else")
+      return(
+      <FormControlLabel control={<Switch defaultChecked color="secondary" 
+      onClick={() => updateStatus(name, diet, restrictions, status)}/>} label="Active" labelPlacement="end" sx={{alignSelf:"end"}}/>
+      )
+    }
+  }
 
   return (
     <div className="backgroundImage">
@@ -257,7 +301,7 @@ function Household_Profile() {
                 <Box sx={{display: "flex", justifyContent:"space-evenly"}}>
                 <DeleteIcon sx={{alignSelf:"start"}} onClick={() => {deleteMember(profile.name);}}></DeleteIcon>
                 Name: {profile.name}
-                <FormControlLabel control={<Switch defaultChecked color="secondary"/>} label="Active" labelPlacement="end" sx={{alignSelf:"end"}}/>
+                {displaySwitch(profile.name, profile.diet, profile.restrictions, profile.active)}
               </Box>
               </ListItemText>
               </FormGroup>
