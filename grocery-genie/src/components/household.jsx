@@ -188,7 +188,6 @@ function Household_Profile() {
     var dietString = ""
     var excludeString = ""
     data.data.forEach((item ) => {
-      console.log("active ", item.active.data[0])
       // if the profile is active, we'll use their diet data
       if(item.active.data[0]) { 
         // if two people have the same diet (like vegetarian),
@@ -200,13 +199,11 @@ function Household_Profile() {
             // add a comma and add the next diet to the string
             if(dietString) {
               dietString = dietString + "," + item.diet
-              console.log("diet ", item.diet)
             }
             // otherwise if the diet string is empty just 
             // set it to the diet
             else {
             dietString = item.diet
-            console.log("diet ", item.diet)
             }
           }
       
@@ -215,11 +212,9 @@ function Household_Profile() {
         
         if(excludeString) {
           excludeString = excludeString + "," + item.restrictions
-          console.log("exclude " , item.restrictions)
         }
         else {
           excludeString = item.restrictions
-          console.log(" exlcude ", item.restrictions)
         }
 
       }
@@ -227,11 +222,8 @@ function Household_Profile() {
     });
     // remove all of the spaces so it will work with API call
     var revised = excludeString.split(" ").join("");
-    console.log("diet ", dietString, " exlcude ", revised)
     cookies.set('restrictions', revised, {path: "/"})
-    console.log("cookie is ", cookies.get('restrictions'))
     cookies.set('diet', dietString, {path: "/"})
-    console.log("cookie is ", cookies.get('diet'))
 
   }
 
@@ -265,12 +257,13 @@ function Household_Profile() {
       `http://localhost:4000/api/households/${userData.id}&${name}`, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({diet: diet, restrictions: allergy, active: status})
+        body: JSON.stringify({diet: diet, restrictions: allergy, active: status.data[0]})
       }
     )
     .then(response => response.json())
        .then(data => {
          console.log(data.message)
+         console.log("status is ", status)
        })
        .catch((err) => {
          console.log(err.message)
