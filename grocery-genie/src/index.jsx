@@ -11,13 +11,14 @@ import MealPlan from "./components/mealPlan";
 import StoreRec from "./components/storeRecs";
 import {Settings} from "./components/settings";
 import "./styles/recipe.css";
+import Account from "./components/account";
 
 
 function App(props) {
     return (
         <BrowserRouter>
         <Routes>
-            <Route path={"/login"} element={<LogIn />} />
+            <Route path={"/"} element={<LogIn />} />
             <Route path="/" element={<Layout />}>
                 <Route path={"grocerylist"} element={<GroceryList />}></Route>
                 {/*<Route path={"household"} element={<Household_Profile />}></Route>*/}
@@ -25,6 +26,7 @@ function App(props) {
                 <Route path={"mealplan"} element={<MealPlan />}></Route>
                 <Route path={"stores"} element={<StoreRec />}></Route>
                 <Route path={"settings"} element={<Settings />}></Route>
+                <Route path={"account"} element={<Account />}></Route>
             </Route>
         </Routes>
         </BrowserRouter>
