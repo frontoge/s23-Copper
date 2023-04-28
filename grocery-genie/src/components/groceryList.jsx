@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -10,6 +10,10 @@ function Grocery(props) {
   const [value, setValue] = useState(null);
   const [groceryList, setGroceryList] = useState(null)
 
+  useEffect(() => {
+    getGroceryString()
+    getGroceryItem()
+  }, []);
 
   function getGroceryString() {
     var meal = JSON.parse(localStorage.getItem('meal'))
@@ -33,6 +37,7 @@ function Grocery(props) {
       .then((data) => {
         setGroceries(data);
         createGroceryList(data);
+        console.log("groceries", groceries)
       })
       .catch(() => {
         console.log("error");
@@ -56,15 +61,6 @@ function Grocery(props) {
     setGroceryList(tempList)
   }
 
-
-
-  function getGroceries() {
-
-    getGroceryString()
-    if (grocerySearch)
-      getGroceryItem()
-  }
-
   function addAmount(index) {
     const temp = [...groceryList];
     temp[index].amount++;
@@ -85,6 +81,7 @@ function Grocery(props) {
 
     data.forEach((element) => {
       return element.extendedIngredients.forEach((item) => {
+        item.amount = 1;
         l.push(item)
       })
     })
@@ -95,13 +92,6 @@ function Grocery(props) {
     <div className="backgroundImage">
       <h1 className="title">Ingredient List</h1>
       <div className="groceryPage">
-          <button className ="groceryButton"
-            onClick={() => {
-              getGroceries();
-            }}
-          >
-            Get Grocery List{" "}
-          </button>
         </div>
       <div>
         {groceryList

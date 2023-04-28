@@ -22,7 +22,7 @@ import { createTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { Icon } from "@mui/material";
-import {useNavigate} from "react-router-dom"
+import {createSearchParams, useNavigate} from "react-router-dom"
 import Cookies from "universal-cookie"
 
 function Household_Profile() {
@@ -34,16 +34,6 @@ function Household_Profile() {
 
   const cookies = new Cookies();
   const userData = cookies.get("login")
-
-
-  const [memberInfo, setMemberInfo] = useState({
-    name: "",
-    diet: "",
-    allergy: "",
-  });
-
-
-  //const nameForm = useRef(null)
 
 
   const Profile = () => {
@@ -187,11 +177,64 @@ function Household_Profile() {
       .then((response) => response.json())
       .then((data) => {
         setProfiles(data);
+        createSearch(data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }
+
+  function createSearch(data) {
+    var dietString = ""
+    var excludeString = ""
+    data.data.forEach((item ) => {
+      console.log("active ", item.active.data[0])
+      // if the profile is active, we'll use their diet data
+      if(item.active.data[0]) { 
+        // if two people have the same diet (like vegetarian),
+        // don't repeat it in search string
+        if(!dietString.match(item.diet)) {
+          // use diet data if it isn't null
+          if(item.diet !== "") {
+            // if string of diets already has something in it,
+            // add a comma and add the next diet to the string
+            if(dietString) {
+              dietString = dietString + "," + item.diet
+              console.log("diet ", item.diet)
+            }
+            // otherwise if the diet string is empty just 
+            // set it to the diet
+            else {
+            dietString = item.diet
+            console.log("diet ", item.diet)
+            }
+          }
+      
+        }
+      
+        
+        if(excludeString) {
+          excludeString = excludeString + "," + item.restrictions
+          console.log("exclude " , item.restrictions)
+        }
+        else {
+          excludeString = item.restrictions
+          console.log(" exlcude ", item.restrictions)
+        }
+
+      }
+
+    });
+    // remove all of the spaces so it will work with API call
+    var revised = excludeString.split(" ").join("");
+    console.log("diet ", dietString, " exlcude ", revised)
+    cookies.set('restrictions', revised, {path: "/"})
+    console.log("cookie is ", cookies.get('restrictions'))
+    cookies.set('diet', dietString, {path: "/"})
+    console.log("cookie is ", cookies.get('diet'))
+
+  }
+
 
   
 
@@ -212,6 +255,12 @@ function Household_Profile() {
   }
   
   function updateProfile(name, diet, allergy, status) {
+    if (diet === null) {
+      diet = "";
+    }
+    if (allergy === null) {
+      allergy = "";
+    }
     fetch(
       `http://localhost:4000/api/households/${userData.id}&${name}`, {
         method: "PUT",

@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Button from "@mui/material/Button";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import IconButton from "@mui/material/IconButton";
 import Heart from "@mui/icons-material/Favorite";
 import {useNavigate} from "react-router-dom";
+import Cookies from "universal-cookie";
 
 
 function Recipe(props) {
@@ -12,6 +13,9 @@ function Recipe(props) {
   const [mealTemp, setMealTemp] = useState("test")
   const [mealData, setMealData] = useState(null)
   const refArray = useRef([]);
+  const cookies = new Cookies();
+  const dietString = cookies.get("diet");
+  const excludeString = cookies.get("restrictions");
 
   var move = useNavigate()
 
@@ -25,8 +29,6 @@ function Recipe(props) {
     else refArray.current[index].style.visibility = "visible";
   };
 
-  let diet = "vegetarian";
-  let exclude = "peanut,egg,diary";
 
 
 
@@ -49,7 +51,7 @@ function Recipe(props) {
     fetch(
 
 
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=ce57a3f8165c4485a55fb8654a2ba593&&diet=${diet}&&excludeIngredients=${exclude}`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=ce57a3f8165c4485a55fb8654a2ba593&diet=${dietString}&excludeIngredients=${excludeString}`
     )
       .then(response => response.json())
       .then(data => {
@@ -60,9 +62,9 @@ function Recipe(props) {
       })
   }
 
-  function getMeals() {
+  useEffect(() => {
     getMealData();
-  }
+  }, []);
 
 
   return (
@@ -70,10 +72,6 @@ function Recipe(props) {
       <h1 className="title">Recipes</h1>
       <div className="buttonDisplay">
 
-        <Button style={{
-          backgroundColor: "#afcfcf", color: 'white', height: '90%', margin: '0 10px'
-          }} onClick={getMeals}>Get Recipes
-        </Button>
         <Button style={{
           backgroundColor: "#afcfcf", color: 'white', height: '90%', margin: '0 10px'
           }} onClick={getUpload}>My Recipes
