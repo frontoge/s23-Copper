@@ -3,37 +3,48 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from '@mui/icons-material/Add';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-
+function SetDate(start){
+  const date = new Date()
+  if (start){
+    date.setDate(date.getDate() - date.getDay())
+  }
+  else {
+    date.setDate(date.getDate() + (6 - date.getDay()))
+  }
+  return date
+}
 
 function MealPlan(props) {
   const d = new Date()
-  const [startdate, setstartDate] = useState(d.getDate() - d.getDay())
-  const [enddate, setendDate] = useState(d.getDate() + (6 - d.getDay()))
+  const [startdate, setstartDate] = useState(SetDate(true))
+  const [enddate, setendDate] = useState(SetDate(false))
   console.log(enddate.toString())
   console.log(startdate.toString()) 
+
   
 
-    function changeToRecipe() {
+    // function changeToRecipe() {
       
-      props.setRecipe(true)
-      props.setMeal(false)
+    //   props.setRecipe(true)
+    //   props.setMeal(false)
       
-    }
+    // }
      
-    function update(index) {
+    // function update(index) {
   
-        const tempCopy = [...props.mealList]
-        tempCopy[index] = {id: "", name: ""}
-        props.setMealList(tempCopy)
-    }
+    //     const tempCopy = [...props.mealList]
+    //     tempCopy[index] = {id: "", name: ""}
+    //     props.setMealList(tempCopy)
+    // }
 
-    console.log(mealList)
+    // console.log(mealList)
     
     return (
       <div className="backgroundImage">
       <div className="mealPlanPage">
         <h1 className="title">Meal Plan</h1>
-        <div className="dayOfTheWeek">
+        <h2 >{startdate.getMonth() + 1}/{startdate.getDate()} - {enddate.getMonth() + 1}/{enddate.getDate()}</h2>
+        {/* <div className="dayOfTheWeek">
           <p className="dayLabel">
             Sunday
                  <AddBoxIcon className="dayLabelAdd" onClick={changeToRecipe} sx={{ color: "black" }} /> 
@@ -323,7 +334,7 @@ function MealPlan(props) {
               </button>
            
           </p></> )}
-        </div>
+        </div> */}
       </div>
       </div>
     );
