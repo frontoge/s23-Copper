@@ -20,6 +20,8 @@ function MealPlan() {
     function changeToRecipe() {
 
     }
+
+    console.log(mealList)
     
     return (
       <div className="backgroundImage">

@@ -6,8 +6,7 @@ import {ThemeProvider} from "@mui/material/styles"
 import theme from "./theme";
 import LogIn from "./components/logIn";
 import GroceryList from "./components/groceryList";
-import Household_Profile from "./components/household";
-import Recipe from "./components/recipe";
+// import Recipe from "./components/recipe";
 import MealPlan from "./components/mealPlan";
 import StoreRec from "./components/storeRecs";
 import Account from "./components/account"

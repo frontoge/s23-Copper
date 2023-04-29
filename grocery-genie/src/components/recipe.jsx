@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
 
 
+
 function Recipe(props) {
   const [showPopUp, setShowPopUp] = useState(false)
   const [mealId, setMealId] = useState(null);
@@ -158,6 +159,7 @@ function Recipe(props) {
                 </div>
               ))
             : null}
+            </Grid>
 
         </div>
 

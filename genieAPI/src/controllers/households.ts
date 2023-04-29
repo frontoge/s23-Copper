@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import db from "../db_connect";
 
 interface HouseholdMember {
+    owner: number
     name: string,
     diet: string,
     restrictions: string,
@@ -29,6 +30,7 @@ const createHousehold = (req: Request, res: Response, next: NextFunction) => {
     const name = req.body.name
     const diet = req.body.diet
     const restrictions = req.body.restrictions
+
     console.log(req.body);
     //Check for params
     if (owner === undefined || name === undefined) {

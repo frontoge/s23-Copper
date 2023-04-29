@@ -153,10 +153,7 @@ function Household_Profile() {
 
   const onAddBtnClick = (event) => {
     setInputList(inputList.concat(<Profile key={Profile.length} />));
-  };
-
-
- 
+  }; 
 
   useEffect(() => {
     //console.log("household page id", userId)
@@ -166,11 +163,6 @@ function Household_Profile() {
 
     //}
   }, []);
-
-
- 
-
- 
 
   async function displayProfiles() {
     await fetch(`http://localhost:4000/api/households/${userData.id}`)
@@ -226,9 +218,6 @@ function Household_Profile() {
     cookies.set('diet', dietString, {path: "/"})
 
   }
-
-
-  
 
   function deleteMember(name) {
     fetch(
@@ -363,7 +352,6 @@ function Household_Profile() {
                   <ListItemText sx={{ backgroundColor: "#79b989", padding: "10px", fontWeight: "bold" }} disableTypography>
                     Allergies: {profile.restrictions}
                   </ListItemText>
-
                   <TextField color="primary" sx={{backgroundColor: "white", input: {color: "black"}}} 
                   onChange={(restrictions) => setRestrictions(restrictions.target.value)}></TextField>
                   <Button variant="contained" 

@@ -3,38 +3,41 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import "../styles/logInStyles.css"
-import banner from "../images/branding/banner.png"
+import banner from "../images/branding/banner.png";
 import {useNavigate} from "react-router-dom"
 import Cookies from "universal-cookie";
-
-window.mealList = [
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-    {id: "", name: "", ingredients: {}},
-]
 
 function LogIn(props) {
 
     const [user, setUser] = useState(undefined);
     const [pass, setPass] = useState(undefined);
+    const [showForgotPassword, setShowForgotPassword] =useState(false)
+    var nav = useNavigate()
+
+    const cookies = new Cookies();
+    const login = async () => {
+        const res = await fetch(`http://localhost:4000/api/accounts/${user}`);
+        if (res.status === 404){
+            //Some code to display invalid login here.
+        } else {
+            const data = await res.json();
+            cookies.set('login', {...data}, {path: "/"})
+            nav("/household")
+        }
+    }
+
+    function forgotPassword() {
+        setShowForgotPassword(true)
+    }
+
+    function closePopup() {
+        setShowForgotPassword(false)
+    }
+
+    function create() {
+        nav("/account")
+    }
+
 
     const cookies = new Cookies();
     const login = async () => {
@@ -98,12 +101,18 @@ function LogIn(props) {
     }
 
     return (
+<Box sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+        }}>
         <Box sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center"
         }}>
         <Box sx={{
+
             width: "50%",
             display: "flex",
             flexDirection: "column",
@@ -118,6 +127,7 @@ function LogIn(props) {
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}} value ={user} onChange = {(e) => {setUser(e.target.value)}}/>
             <TextField label={"Password"} color={"primary"} variant={"outlined"} type={"password"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px", color: "black" }, 
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}}/>
+
             <Box>
             <div className={"buttons"}>
                 <Button onClick={login}>Log In</Button>

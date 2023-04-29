@@ -14,7 +14,6 @@ function Account() {
   const [input, setInput] = useState(null)
   var nav = useNavigate()
 
-
   function changePage() {
     nav("/");
   }
