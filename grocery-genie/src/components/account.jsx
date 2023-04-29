@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import banner from "../images/branding/banner.png";
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import validator from 'validator'
 
 function Account() {
   const [pass, setPass] = useState(null);
@@ -12,12 +13,67 @@ function Account() {
   const [email, setEmail] = useState(null);
   const [confirm, setConfirm] = useState(null);
   const [input, setInput] = useState(null)
+  const [passwordMessage, setPasswordMessage] = useState(null)
+  const [confirmMessage, setConfirmMessage] = useState(null)
+  const [userMessage, setUserMessage] = useState(null)
+  const [isDisabled, setIsDisabled] = useState(false)
   var nav = useNavigate()
 
   function changePage() {
     nav("/");
   }
  
+  function createUser() {
+
+    fetch(
+      `http://localhost:4000/api/accounts/`, {
+        method: "POST", 
+        headers: { 'Content-Type': 'application/json'},
+         body: JSON.stringify({username: user, password: pass})
+      }
+    )
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+  }
+
+  function validateInput() {
+    if (pass !== confirm) {
+      setConfirmMessage("Passwords do not match")
+      setIsDisabled(true)
+    }
+    else {
+      setConfirmMessage("")
+    }
+    if (!validator.isStrongPassword(pass, {
+      minLength: 12, minLowerCase: 1, minUppercase: 1,
+      minNumbers: 1, minSymbols: 1
+    })) {
+      setPasswordMessage("Password is not strong enough.")
+      setIsDisabled(true)
+      console.log("password message is", passwordMessage)
+    }
+    else {
+      setPasswordMessage("")
+    }
+    if (user === null) {
+      setUserMessage("Username cannot be empty")
+      setIsDisabled(true)
+    }
+    else {
+      setUserMessage("")
+    }
+    if (pass === confirm && validator.isStrongPassword(pass, {
+      minLength: 12, minLowerCase: 1, minUppercase: 1,
+      minNumbers: 1, minSymbols: 1
+    }) && user !== null) {
+      setIsDisabled(false)
+    }
+  }
 
 
   return (
@@ -75,7 +131,13 @@ function Account() {
           onChange={(e) => {
             setUser(e.target.value);
           }}
+          onKeyUp={validateInput}
         />
+        {userMessage === '' ? null :
+        <span style={{
+            fontWeight: 'bold',
+            color: 'red',
+        }}>{userMessage}</span>}
         <TextField
           style={{
             border: "1px dotted #79b989",
@@ -94,7 +156,14 @@ function Account() {
           onChange={(e) => {
             setPass(e.target.value);
           }}
+          onKeyUp={validateInput}
         />
+        {passwordMessage === '' ? null :
+        <span style={{
+            fontWeight: 'bold',
+            color: 'red',
+        }}>{passwordMessage}</span>}
+
          <TextField
           style={{
             border: "1px dotted #79b989",
@@ -112,7 +181,14 @@ function Account() {
           onChange={(e) => {
             setConfirm(e.target.value);
           }}
+          onKeyUp={validateInput}
         />
+        
+          {confirmMessage === '' ? null :
+            <span style={{
+              fontWeight: 'bold',
+              color: 'red',
+          }}>{confirmMessage}</span>}
         <Button
           style={{
             backgroundColor: "#79b989",
@@ -122,8 +198,10 @@ function Account() {
             color: "white",
           }}
           onClick={() => {
-            changePage();
+            createUser()
+            changePage()
           }}
+          disabled = {isDisabled}
         >
           Create Account
         </Button>
