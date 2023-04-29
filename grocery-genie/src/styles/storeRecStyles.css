@@ -36,6 +36,6 @@
 .link {
     width: 30%;
 }
-h5{
-    padding-left: 5rem;
+.storeList{
+    white-space: pre-line;
 }
