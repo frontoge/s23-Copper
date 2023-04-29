@@ -39,30 +39,6 @@ function LogIn(props) {
     }
 
 
-    const cookies = new Cookies();
-    const login = async () => {
-        console.log("username", user)
-        const res = await fetch(`http://localhost:4000/api/accounts/${user}`);
-        if (res.status === 404){
-            //Some code to display invalid login here.
-        } else {
-            console.log("else triggered")
-            const data = await res.json();
-            console.log("data.id is ", data.id)
-            cookies.set('login', {...data}, {path: "/"})
-            console.log("cookie is ", cookies.get('login'))
-            nav("/household")
-        }
-    }
-
-
-    //const [userInfo, setUserInfo] = useState(undefined);
-    const [showForgotPassword, setShowForgotPassword] =useState(false)
-    var nav = useNavigate()
-
-    localStorage.setItem('meal', JSON.stringify(window.mealList));
-
-
     async function getUserInfo() {
         await fetch (
             `http://localhost:4000/api/accounts/${user}`
@@ -144,7 +120,7 @@ function LogIn(props) {
         </Box>
         ) : null }
         </Box>
-
+    </Box>
 
     )
 
