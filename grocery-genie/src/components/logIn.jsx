@@ -39,6 +39,43 @@ function LogIn(props) {
     }
 
 
+    async function getUserInfo() {
+        await fetch (
+            `http://localhost:4000/api/accounts/${user}`
+        )
+        .then(response => response.json())
+        .then(data => {
+            setUserInfo(data)
+            localStorage.setItem('User_ID', JSON.stringify(data.id))
+
+            console.log("get data function", localStorage.getItem('User_ID'))
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
+    }
+
+    function validateSignIn() {
+        if (user) {
+            getUserInfo()
+        }
+        if (userInfo) {
+            nav("/household")
+        }
+    }
+
+    function forgotPassword() {
+        setShowForgotPassword(true)
+    }
+
+    function closePopup() {
+        setShowForgotPassword(false)
+    }
+
+    function create() {
+        nav("/account")
+    }
+
     return (
 <Box sx={{
             display: "flex",
@@ -46,6 +83,12 @@ function LogIn(props) {
             justifyContent: "center"
         }}>
         <Box sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+        }}>
+        <Box sx={{
+
             width: "50%",
             display: "flex",
             flexDirection: "column",
@@ -59,7 +102,8 @@ function LogIn(props) {
             <TextField label={"Username"} color={"primary"} variant={"outlined"} type={"username"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px", color: "black" }, 
             input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}} value ={user} onChange = {(e) => {setUser(e.target.value)}}/>
             <TextField label={"Password"} color={"primary"} variant={"outlined"} type={"password"} sx={{width: "75%", border: "1px dotted #79b989", "& .MuiInputLabel-root": { fontSize: "25px", color: "black" }, 
-            input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}} value ={pass} onChange = {(e) => {setPass(e.target.value)}}/>
+            input: {color: "#468656", fontWeight: "bold", fontSize: "1.25em"}}}/>
+
             <Box>
             <div className={"buttons"}>
                 <Button onClick={login}>Log In</Button>
@@ -76,6 +120,7 @@ function LogIn(props) {
         </Box>
         ) : null }
         </Box>
+    </Box>
 
     )
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -8,10 +8,16 @@ let grocerySearch = "";
 function Grocery(props) {
   const [groceries, setGroceries] = useState(null);
   const [value, setValue] = useState(null);
+  const [groceryList, setGroceryList] = useState(null)
 
+  useEffect(() => {
+    getGroceryString()
+    getGroceryItem()
+  }, []);
 
   function getGroceryString() {
-    props.mealList.forEach((element) => {
+    var meal = JSON.parse(localStorage.getItem('meal'))
+    meal.forEach((element) => {
       if (element.id) {
         if (!grocerySearch) {
           grocerySearch = element.id;
@@ -31,6 +37,7 @@ function Grocery(props) {
       .then((data) => {
         setGroceries(data);
         createGroceryList(data);
+        console.log("groceries", groceries)
       })
       .catch(() => {
         console.log("error");
@@ -38,42 +45,33 @@ function Grocery(props) {
   }
 
   function addToList() {
-    if (!props.groceryList) {
+    if (!groceryList) {
       let temp = { id: value, nameClean: value, amount: 1 };
-      props.setGroceryList(temp);
+      setGroceryList(temp);
     } else {
-      const temp = [...props.groceryList];
+      const temp = [...groceryList];
       let temp1 = { id: value, nameClean: value, amount: 1 };
       temp.push(temp1);
-      props.setGroceryList(temp);
+      setGroceryList(temp);
     }
   }
 
   function deleteItem(id) {
-    let tempList = props.groceryList.filter(item => item.id !== id)
-    props.setGroceryList(tempList)
-  }
-
-
-
-  function getGroceries() {
-
-    getGroceryString()
-    if (grocerySearch)
-      getGroceryItem()
+    let tempList = groceryList.filter(item => item.id !== id)
+    setGroceryList(tempList)
   }
 
   function addAmount(index) {
-    const temp = [...props.groceryList];
+    const temp = [...groceryList];
     temp[index].amount++;
-    props.setGroceryList(temp)
+    setGroceryList(temp)
 
    }
 
    function subAmount(index) {
-    const temp = [...props.groceryList];
+    const temp = [...groceryList];
     temp[index].amount--;
-    props.setGroceryList(temp)
+    setGroceryList(temp)
    }
 
 
@@ -83,27 +81,21 @@ function Grocery(props) {
 
     data.forEach((element) => {
       return element.extendedIngredients.forEach((item) => {
+        item.amount = 1;
         l.push(item)
       })
     })
-    props.setGroceryList(l)
+    setGroceryList(l)
   }
 
   return (
     <div className="backgroundImage">
       <h1 className="title">Ingredient List</h1>
       <div className="groceryPage">
-          <button className ="groceryButton"
-            onClick={() => {
-              getGroceries();
-            }}
-          >
-            Get Grocery List{" "}
-          </button>
         </div>
       <div>
-        {props.groceryList
-          ? props.groceryList.map((grocery, index) => (
+        {groceryList
+          ? groceryList.map((grocery, index) => (
             <div className="groceryList">
               <li key={grocery.id}>
                   {grocery.amount} {grocery.nameClean}

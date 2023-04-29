@@ -28,6 +28,9 @@ const getHousehold = (req: Request, res: Response, next: NextFunction) => {
 const createHousehold = (req: Request, res: Response, next: NextFunction) => {
     const owner = req.body.owner
     const name = req.body.name
+    const diet = req.body.diet
+    const restrictions = req.body.restrictions
+
     console.log(req.body);
     //Check for params
     if (owner === undefined || name === undefined) {
@@ -37,7 +40,8 @@ const createHousehold = (req: Request, res: Response, next: NextFunction) => {
     }
     db.connect((err: Error) =>{
         if (err) throw err;
-        db.query(`INSERT INTO profiles (owner, name) VALUES (${owner}, '${name}')`, (err: Error, results: Array<HouseholdMember>) => {
+        console.log(`INSERT INTO profiles (owner, name, diet, restrictions) VALUES (${owner}, '${name}', '${diet}', '${restrictions}')`)
+        db.query(`INSERT INTO profiles (owner, name, diet, restrictions) VALUES (${owner}, '${name}', '${diet}', '${restrictions}')`, (err: Error, results: Array<HouseholdMember>) => {
             if (err) {
                 return res.status(400).json({
                     message: `Failed to make SQL Query: ${err.message}`

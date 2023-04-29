@@ -14,23 +14,8 @@ function Account() {
   const [input, setInput] = useState(null)
   var nav = useNavigate()
 
-  function createUser() {
-
-    fetch(
-      `http://localhost:4000/api/accounts/`, {
-        method: "POST", 
-        headers: { 'Content-Type': 'application/json'},
-         body: JSON.stringify({username: user, password: pass})
-      }
-    )
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.message)
-        nav("/");
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
+  function changePage() {
+    nav("/");
   }
  
 
@@ -137,7 +122,7 @@ function Account() {
             color: "white",
           }}
           onClick={() => {
-            createUser();
+            changePage();
           }}
         >
           Create Account
