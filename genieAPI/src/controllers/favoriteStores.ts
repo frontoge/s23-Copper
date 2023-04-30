@@ -50,6 +50,26 @@ const addFavoritestore = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
+const deleteFavoritestore = (req: Request, res: Response, next: NextFunction) => {
+    const params = req.params;
+    db.connect((err: Error) => {
+        if (err) {
+            return res.status(400).json({
+                message: `Failed to connect to DB: ${err.message}`
+            })
+        }
+        db.query(`DELETE FROM favorite_stores WHERE owner = ${params.owner} AND store = '${params.store}'`, (err: Error, results: Array<favStores>) =>{
+            if (err) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+            return res.status(200).json({
+                message: "Successfully deleted."
+            })
+        })
+    })
+}
 
 
-export default {getFavStores, addFavoritestore}
+export default {getFavStores, addFavoritestore, deleteFavoritestore}
