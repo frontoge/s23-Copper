@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import "../styles/groceryStyles.css"
 
 
 let grocerySearch = "";

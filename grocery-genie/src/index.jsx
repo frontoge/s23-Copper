@@ -14,17 +14,12 @@ import {Settings} from "./components/settings";
 import Upload from "./components/upload";
 import Household_Profile from "./components/household";
 import Recipe from "./components/recipe";
-import "./styles/mealPlanStyles.css"
-import "./styles/uploadStyles.css"
-import "./styles/recipe.css";
-import "./styles/storeRecStyles.css";
-import "./styles/groceryStyles.css";
 
 function App(props) {
     return (
         <BrowserRouter>
         <Routes>
-            <Route path={"/"} element={<LogIn />} />
+            <Route path={"/login"} index element={<LogIn />} />
             <Route path={"account"} element={<Account />}></Route>
             <Route path="/" element={<Layout />}>
                 <Route path={"grocerylist"} element={<GroceryList />}></Route>
