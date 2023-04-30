@@ -1,19 +1,19 @@
 import React from "react"
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import ReactDOM from "react-dom/client"
-import Layout from "./components/Layout"
+import Layout from "./extras/components/Layout"
 import {ThemeProvider} from "@mui/material/styles"
 import theme from "./theme";
-import LogIn from "./components/logIn";
-import GroceryList from "./components/groceryList";
+import LogIn from "./login/logIn";
+import GroceryList from "./groceries/groceryList";
 // import Recipe from "./components/recipe";
-import MealPlan from "./components/mealPlan";
-import StoreRec from "./components/storeRecs";
-import Account from "./components/account"
-import {Settings} from "./components/settings";
-import Upload from "./components/upload";
-import Household_Profile from "./components/household";
-import Recipe from "./components/recipe";
+import MealPlan from "./mealplan/mealPlan";
+import StoreRec from "./stores/storeRecs";
+import Account from "./login/account"
+import {Settings} from "./extras/components/settings";
+import Upload from "./recipes/upload";
+import Household_Profile from "./household/household";
+import Recipe from "./recipes/recipe";
 
 function App(props) {
     return (
