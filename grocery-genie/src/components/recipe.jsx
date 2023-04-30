@@ -159,7 +159,6 @@ function Recipe(props) {
                 </div>
               ))
             : null}
-            </Grid>
 
         </div>
 
