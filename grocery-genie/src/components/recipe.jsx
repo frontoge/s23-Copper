@@ -5,15 +5,19 @@ import IconButton from "@mui/material/IconButton";
 import Heart from "@mui/icons-material/Favorite";
 import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
+import { TextField } from "@mui/material";
 
 
 
-function Recipe(props) {
+function Recipe() {
   const [showPopUp, setShowPopUp] = useState(false)
   const [mealId, setMealId] = useState(null);
   const [mealTemp, setMealTemp] = useState("test")
   const [mealData, setMealData] = useState(null)
   const refArray = useRef([]);
+  const [url, setUrl] = useState(undefined);
+  const [extractData, setExtractData] = useState(null);
+  const [recipeList, setRecipeList] = useState([]);
   const cookies = new Cookies();
   const dietString = cookies.get("diet");
   const excludeString = cookies.get("restrictions");
@@ -67,10 +71,108 @@ function Recipe(props) {
     getMealData();
   }, []);
 
+  const UrlRecipe = (props) => {
+    console.log("urlRecipe", props.extractData)
+    const ref = useRef();
+
+    const clickHandler = () => {
+      if (ref.current.style.visibility === "visible")
+        ref.current.style.visibility = "hidden";
+      else ref.current.style.visibility = "visible";
+    };
+
+    const showRecipe = (event) => {
+      event.preventDefault();
+      extractRecipe();
+      setExtractData(null);
+      setUrl(null)
+    };
+
+    return (
+      <>
+        {props.extractData ? (
+          <div onClick={clickHandler} className="recipe">
+          <p className="recipeNameLabel" key={props.extractData.title}>
+            {props.extractData.title}
+          </p>
+
+          <Heart
+            //className={}
+            style={{
+              color: "red",
+              position: "relative",
+              top: "45px",
+              zIndex: "2",
+              visibility: "hidden",
+            }}
+            ref={ref} 
+          />
+          <img
+            src={props.extractData.image}
+            alt={props.extractData.title}
+          ></img><button style={{marginRight: "20px", postion: "relative", bottom: "20px", right: "10px"}}  onClick={() => {addRecipe()}}>Save</button>
+        </div>) : null}
+        
+      </>
+    );
+  };
+
+  const onShowRecipe = (event) => {
+    setRecipeList(recipeList.concat(<UrlRecipe extractData= {extractData} key={UrlRecipe.length} />));
+  };
+
+  function extractRecipe() {
+    console.log(url);
+
+    fetch(
+      `https://api.spoonacular.com/recipes/extract?apiKey=ce57a3f8165c4485a55fb8654a2ba593&url=${url}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setExtractData(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  function test(event) {
+   // onShowRecipe(event)
+    extractRecipe()
+    onShowRecipe(event)
+   // setUrl(null)
+
+  }
 
   return (
     <div className="backgroundImage">
       <h1 className="title">Recipes</h1>
+      <div style={{display: "flex", justifyContent: "flex-start"}}>
+      <TextField
+          label={"recipe URL"}
+          value={url}
+          onChange={(e) => {
+            setUrl(e.target.value);
+          }}
+          sx={{
+            width: "45%", marginRight: "20px",
+            "& .MuiInputLabel-root": { fontSize: "20px", color: "black" }, //styles the label
+            input: { color: "#468656", fontWeight: "bold", fontSize: "1em" },
+          }}
+          style={{
+            border: "1px dotted #79b989",
+            borderRadius: "5px",
+            backgroundColor: "white",
+          }}
+        ></TextField>
+        
+
+      <Button style={{backgroundColor: "#afcfcf", color: "white", margin: "0 10px"}} onClick={(e) => {test(e)}}>Extract</Button>
+
+      </div>
+
+
       <div className="buttonDisplay">
 
         <Button style={{
@@ -120,6 +222,8 @@ function Recipe(props) {
 
         <div style={{ clear: "right" }}>
         <div className="displayRecipes">
+
+        {recipeList}
         {mealData
             ? mealData.results.map((meal, index) => (
                 <div className="recipe">
