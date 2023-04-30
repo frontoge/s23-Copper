@@ -49,4 +49,25 @@ const addFavRecipe = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-export default {getFavRecipes, addFavRecipe}
+const deleteFavRecipe = (req: Request, res: Response, next: NextFunction) => {
+    const params = req.params;
+    db.connect((err: Error) => {
+        if (err) {
+            return res.status(400).json({
+                message: `Failed to connect to DB: ${err.message}`
+            })
+        }
+        db.query(`DELETE FROM favorite_recipies WHERE owner = ${params.owner} AND recipeid = ${params.recipeid}`, (err: Error, results: Array<FavRecipes>) =>{
+            if (err) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+            return res.status(200).json({
+                message: "Successfully deleted."
+            })
+        })
+    })
+}
+
+export default {getFavRecipes, addFavRecipe, deleteFavRecipe}
