@@ -64,7 +64,7 @@ export default function RecipeCard(props) {
                     <Typography variant="h5" sx={{marginBottom: "0.1rem"}}>Ingredients:</Typography>
                     <List sx={{paddingTop: "0"}}>
                         {props.ingredients.map((value) =>
-                            <Typography ListItem>{value.quantity}{value.units} {value.name}</Typography>
+                            <Typography ListItem>{value.quantity} {value.units} {value.name}</Typography>
                         )}
                     </List>
                     <Typography variant="h5" sx={{marginBottom: "0.1rem", marginTop: "0.5rem"}}>Steps</Typography>

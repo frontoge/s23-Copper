@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add';
 import "../styles/createRecipe.css"
 import { red } from '@mui/material/colors'
+import Button from "@mui/material/Button";
 
 
 const UnitSelect = (props) => {
@@ -93,8 +94,8 @@ export default function CreateRecipe(props) {
                     alignItems: "center"
                 }}>
                     <Typography variant='h2' sx={{textAlign: "center"}}>Editor</Typography>
-                    <TextField variant="outlined" label="Name" focused sx={editorTextStyle}/>
-                    <TextField variant="outlined" label="Description" focused multiline rows={4} sx={editorTextStyle}/>
+                    <TextField variant="outlined" label="Name" focused sx={editorTextStyle} value={name} onChange={(e) => setName(e.target.value)}/>
+                    <TextField variant="outlined" label="Description" focused multiline rows={4} sx={editorTextStyle} value={desc} onChange={(e) => setDesc(e.target.value)}/>
                     <Typography variant='h4' sx={{marginBottom: "0"}}>Ingredients</Typography>
                     <List sx={{marginTop: "0", width: "80%"}}>
                         {
@@ -109,6 +110,26 @@ export default function CreateRecipe(props) {
                         }
                         <NewIngredient onSubmit={handleNewIngredient}/>
                     </List>
+                    <Typography variant='h4' sx={{marginBottom: "0"}}>Steps</Typography>
+                    <List sx={{marginTop: "0", width: "80%"}}>
+                        {
+                            steps.map((val, index) =>
+                                <ListItem sx={{display: "flex"}}>
+                                    <Typography variant='body1' sx={{fontSize: "13pt", flexGrow: 1}}>{index + 1}. {val}</Typography>
+                                    <IconButton color={"error"} >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </ListItem>
+                            )
+                        }
+                        <ListItem sx={{display: "flex"}}>
+                            <TextField label={"New Step"} multiline rows={4} sx={{flexGrow: 1}}/>
+                            <IconButton color={"success"} >
+                                <AddIcon />
+                            </IconButton>
+                        </ListItem>
+                    </List>
+                    <Button variant={"outlined"} color={"success"} sx={{marginBottom: "1rem"}}>Finish</Button>
                 </Paper>
             </Box>
         </div>
