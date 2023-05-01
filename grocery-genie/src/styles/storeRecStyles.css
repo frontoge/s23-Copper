@@ -30,12 +30,15 @@
 }
 
 .KrogerPic {
-    width: 100%
+    width: 100%;
 }
-
+.targetPic{
+    width:100%;
+}
 .link {
     width: 30%;
 }
 .storeList{
     white-space: pre-line;
 }
+
