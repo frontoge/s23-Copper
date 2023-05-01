@@ -35,7 +35,7 @@ export default function RecipeCard(props) {
             <CardMedia 
             component="img" 
             height={194}
-            image={`data:image/jpeg;base64,${props.image}`}
+            image={props.image ? `data:image/jpeg;base64,${props.image}` : undefined}
             alt="Recipe image"
             />
             <CardContent>
