@@ -1,13 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Switch from '@mui/material/Switch';
 import { color, textAlign, width } from '@mui/system';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Select from '@mui/base/Select';
-import Option from '@mui/base/Option';
 import walmart from '../images/walmart_logo.png'
 import kroger from '../images/kroger_logo.png'
 import aldi from '../images/aldi_logo.jpg'
