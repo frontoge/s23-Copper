@@ -41,6 +41,9 @@ const NewIngredient = (props) =>{
 
     const handleSubmit = () => {
         props.onSubmit({name, quantity, units})
+        setName('')
+        setQuantity(1)
+        setUnits('')
     }
 
 
@@ -56,20 +59,62 @@ const NewIngredient = (props) =>{
     )
 }
 
+const NewStep = (props) =>{
+    const [value, setValue] = useState('')
+
+
+    const handleSubmit = () => {
+        props.onSubmit(value)
+        setValue('')
+    }
+
+    return (
+        <ListItem sx={{display: "flex"}}>
+            <TextField label={"New Step"} multiline rows={4} sx={{flexGrow: 1}} value={value} onChange={(e) => setValue(e.target.value)}/>
+            <IconButton color={"success"} onClick={handleSubmit} >
+                <AddIcon />
+            </IconButton>
+        </ListItem>
+    )
+}
+
 export default function CreateRecipe(props) {
     const [name, setName] = useState("Name")
     const [desc, setDesc] = useState("Some descriptive text here")
     const [ingredients, setIngredients] = useState([])
     const [steps, setSteps] = useState(["Cook food", "Eat food"])
+    const [img, setImg] = useState(undefined)
 
     const editorTextStyle = {
         width: "80%"
     }
 
+    const getBase64 = (file, cb) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+            cb(reader.result)
+        };
+        reader.onerror = (err) => {
+            console.log(err.message)
+        }
+    }
+
     const handleNewIngredient = (obj) => {
         setIngredients((prev) => {
-            const joined = prev.concat(obj)
-            return joined
+            return prev.concat(obj)
+        })
+    }
+
+    const handleNewStep = (value) => {
+        setSteps((prev) => {
+            return prev.concat(value)
+        })
+    }
+
+    const handleImage = (e) => {
+        getBase64(Array.from(e.target.files)[0], (result) => {
+            setImg(result)
         })
     }
     
@@ -81,7 +126,7 @@ export default function CreateRecipe(props) {
                 alignItems: "center"
             }}>
                 <Typography variant='h2'>Preview</Typography>
-                <RecipeCard name={name} description={desc} ingredients={ingredients} steps={steps}/>
+                <RecipeCard name={name} description={desc} ingredients={ingredients} steps={steps} image={img}/>
             </Box>
             <Box className="editor" sx={{
                 width: "25%"
@@ -122,13 +167,12 @@ export default function CreateRecipe(props) {
                                 </ListItem>
                             )
                         }
-                        <ListItem sx={{display: "flex"}}>
-                            <TextField label={"New Step"} multiline rows={4} sx={{flexGrow: 1}}/>
-                            <IconButton color={"success"} >
-                                <AddIcon />
-                            </IconButton>
-                        </ListItem>
+                        <NewStep onSubmit={handleNewStep}/>
                     </List>
+                    <Button variant="contained" component="label">
+                        Upload
+                        <input hidden accept="*.jpg" type="file" onChange={handleImage}/>
+                    </Button>
                     <Button variant={"outlined"} color={"success"} sx={{marginBottom: "1rem"}}>Finish</Button>
                 </Paper>
             </Box>
