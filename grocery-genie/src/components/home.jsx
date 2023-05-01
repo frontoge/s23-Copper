@@ -15,6 +15,9 @@ import "../styles/navigationStyles.css"
 import Upload from "./upload"
 import "../styles/uploadStyles.css"
 import StoreRec from "./storeRecs"
+import walmart from '../images/walmart_logo.png'
+import kroger from '../images/kroger_logo.png'
+import aldi from '../images/aldi_logo.jpg'
 import "../styles/storeRecStyles.css"
 
 import {Outlet} from "react-router-dom";
@@ -33,6 +36,7 @@ function Home(props) {
     const [nav, setNav] = useState(false);
     const [sub, setSub] = useState(false);
     const [store, setStore] = useState(false);
+   // const [storeList, setstoreList] = useState([]);
     const [mealList, setMealList] = useState([
         { id: "", name: "" },
         { id: "", name: "" },
@@ -136,6 +140,9 @@ function Home(props) {
                         setGroceryList={setGroceryList}
                     /> : null}
                     {store ? <StoreRec
+                    groceryList={groceryList}
+                    setGroceryList={setGroceryList}
+
                     /> : null}
 
                 </div>
