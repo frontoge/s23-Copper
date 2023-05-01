@@ -16,6 +16,7 @@
     "react-dom": "^18.2.0",
     "spoonacular-api-library": "^1.0.5",
     "universal-cookie": "^4.0.4",
+    "validator": "^13.9.0",
     "vite": "^4.2.1",
     "web-vitals": "^2.1.4"
   },

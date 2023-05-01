@@ -22,4 +22,52 @@ const getFavRecipes = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-export default {getFavRecipes}
+const addFavRecipe = (req: Request, res: Response, next: NextFunction) => {
+    const owner = req.body.owner
+    const recipeid = req.body.recipeid
+
+    console.log(req.body);
+    //Check for params
+    if (owner === undefined || recipeid === undefined) {
+        return res.status(400).json({
+            message: "Missing required parameters for create."
+        })
+    }
+    db.connect((err: Error) =>{
+        if (err) throw err;
+        console.log(`INSERT INTO favorite_recipies (owner, recipeid) VALUES (${owner}, ${recipeid})`)
+        db.query(`INSERT INTO favorite_recipies (owner, recipeid) VALUES (${owner}, ${recipeid})`, (err: Error, results: Array<FavRecipes>) => {
+            if (err) {
+                return res.status(400).json({
+                    message: `Failed to make SQL Query: ${err.message}`
+                })
+            }
+            return res.status(200).json({
+                message: "Successfully added."
+            })
+        })
+    })
+}
+
+const deleteFavRecipe = (req: Request, res: Response, next: NextFunction) => {
+    const params = req.params;
+    db.connect((err: Error) => {
+        if (err) {
+            return res.status(400).json({
+                message: `Failed to connect to DB: ${err.message}`
+            })
+        }
+        db.query(`DELETE FROM favorite_recipies WHERE owner = ${params.owner} AND recipeid = ${params.recipeid}`, (err: Error, results: Array<FavRecipes>) =>{
+            if (err) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+            return res.status(200).json({
+                message: "Successfully deleted."
+            })
+        })
+    })
+}
+
+export default {getFavRecipes, addFavRecipe, deleteFavRecipe}

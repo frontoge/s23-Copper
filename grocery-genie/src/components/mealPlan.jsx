@@ -5,20 +5,20 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 
 
 
-function MealPlan(props) {
+function MealPlan() {
+  const [mealList, setMealList] = useState(JSON.parse(localStorage.getItem('meal')))
 
-    function changeToRecipe() {
-      
-      props.setRecipe(true)
-      props.setMeal(false)
-      
-    }
      
     function update(index) {
   
-        const tempCopy = [...props.mealList]
+        const tempCopy = [...mealList]
         tempCopy[index] = {id: "", name: ""}
-        props.setMealList(tempCopy)
+        setMealList(tempCopy)
+        localStorage.setItem('meal', JSON.stringify(mealList))
+    }
+
+    function changeToRecipe() {
+
     }
 
     console.log(mealList)
@@ -34,11 +34,11 @@ function MealPlan(props) {
           </p>
   
           <div className="dayMeals">
-            {!props.mealList[0].name ? null : (
+            {!mealList[0].name ? null : (
               <>
                 <p className="mealLabel">Breakfast</p>
                 <p className="recipeName">
-                  {props.mealList[0].name }
+                  {mealList[0].name }
   
                   <button onClick={() => update(0)}>
                     <DeleteIcon />
@@ -46,11 +46,11 @@ function MealPlan(props) {
                 </p>
               </>
             )}
-            {props.mealList[1].name === "" ? null : (
+            {mealList[1].name === "" ? null : (
               <>
             <p className="mealLabel">Lunch</p>
             <p className="recipeName">
-              {props.mealList[1].name}
+              {mealList[1].name}
               
                 <button onClick={() => update(1)}>
                   <DeleteIcon />
@@ -59,11 +59,11 @@ function MealPlan(props) {
             </p>
             </>
             )}
-            {!props.mealList[2].name ? null : (
+            {!mealList[2].name ? null : (
               <>
             <p className="mealLabel">Dinner</p>
             <p className="recipeName">
-              {props.mealList[2].name}
+              {mealList[2].name}
               
                 <button onClick={() => update(2)}>
                   <DeleteIcon />
@@ -81,11 +81,11 @@ function MealPlan(props) {
             <AddBoxIcon className="dayLabelAdd" onClick={changeToRecipe} sx={{ color: "black" }} /> 
           </p>
           <div className="dayMeals">
-            {!props.mealList[3].name ? null : (
+            {!mealList[3].name ? null : (
               <>
             <p className="mealLabel">Breakfast</p>
             <p className="recipeName">
-              {props.mealList[3].name}
+              {mealList[3].name}
               
                 <button onClick={() => update(3)}>
                   <DeleteIcon />
@@ -94,10 +94,10 @@ function MealPlan(props) {
             </p>
             </>
             )}
-            {!props.mealList[4].name ? null : ( <>
+            {!mealList[4].name ? null : ( <>
             <p className="mealLabel">Lunch</p>
             <p className="recipeName" id="sunB">
-              {props.mealList[4].name}
+              {mealList[4].name}
               
                 <button onClick={() => update(4)}>
                   <DeleteIcon />
@@ -106,10 +106,10 @@ function MealPlan(props) {
             </p>
             </>
             )}
-            {!props.mealList[5].name ? null : ( <>
+            {!mealList[5].name ? null : ( <>
             <p className="mealLabel">Dinner</p>
             <p className="recipeName" id="sunB">
-              {props.mealList[5].name}
+              {mealList[5].name}
               
                 <button onClick={() => update(5)}>
                   <DeleteIcon />
@@ -128,10 +128,10 @@ function MealPlan(props) {
           </p>
         </div>
         <div className="dayMeals">
-          {!props.mealList[6].name ? null : ( <>
+          {!mealList[6].name ? null : ( <>
           <p className="mealLabel">Breakfast</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[6].name}
+            {mealList[6].name}
             
               <button onClick={() => update(6)}>
                 <DeleteIcon />
@@ -140,10 +140,10 @@ function MealPlan(props) {
           </p>
           </>
           )} 
-          {!props.mealList[7].name? null : ( <>
+          {!mealList[7].name? null : ( <>
           <p className="mealLabel">Lunch</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[7].name}
+            {mealList[7].name}
            
               <button onClick={() => update(7)}>
                 <DeleteIcon />
@@ -152,10 +152,10 @@ function MealPlan(props) {
           </p> 
           </>
           )}
-          {!props.mealList[8].name ? null : ( <>
+          {!mealList[8].name ? null : ( <>
           <p className="mealLabel">Dinner</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[8].name}
+            {mealList[8].name}
             
               <button onClick={() => update(8)}>
                 <DeleteIcon />
@@ -172,30 +172,30 @@ function MealPlan(props) {
           </p>
         </div>
         <div className="dayMeals">
-          {!props.mealList[9].name ? null : ( <>
+          {!mealList[9].name ? null : ( <>
           <p className="mealLabel">Breakfast</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[9].name}
+            {mealList[9].name}
             
               <button onClick={() => update(9)}>
                 <DeleteIcon />
               </button>
            
           </p></> )}
-          {!props.mealList[10].name ? null : ( <>
+          {!mealList[10].name ? null : ( <>
           <p className="mealLabel">Lunch</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[10].name}
+            {mealList[10].name}
             
               <button onClick={() => update(10)}>
                 <DeleteIcon />
               </button>
            
           </p></> )}
-          {!props.mealList[11].name ? null : ( <>
+          {!mealList[11].name ? null : ( <>
           <p className="mealLabel">Dinner</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[11].name}
+            {mealList[11].name}
             
               <button onClick={() => update(11)}>
                 <DeleteIcon />
@@ -211,30 +211,30 @@ function MealPlan(props) {
           </p>
         </div>
         <div className="dayMeals">
-          {!props.mealList[12].name ? null : ( <>
+          {!mealList[12].name ? null : ( <>
           <p className="mealLabel">Breakfast</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[12].name}
+            {mealList[12].name}
             
               <button onClick={() => update(12)}>
                 <DeleteIcon />
               </button>
             
           </p></>)}
-          {!props.mealList[13].name ? null : ( <>
+          {!mealList[13].name ? null : ( <>
           <p className="mealLabel">Lunch</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[13].name}
+            {mealList[13].name}
             
               <button onClick={() => update(13)}>
                 <DeleteIcon />
               </button>
             
           </p></>)}
-          {!props.mealList[14].name ? null : ( <>
+          {!mealList[14].name ? null : ( <>
           <p className="mealLabel">Dinner</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[14].name}
+            {mealList[14].name}
             
               <button onClick={() => update(14)}>
                 <DeleteIcon />
@@ -249,30 +249,30 @@ function MealPlan(props) {
           </p>
         </div>
         <div className="dayMeals">
-          {!props.mealList[15].name  ? null : ( <>
+          {!mealList[15].name  ? null : ( <>
           <p className="mealLabel">Breakfast</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[15].name}
+            {mealList[15].name}
             
               <button onClick={() => update(15)}>
                 <DeleteIcon />
               </button>
             
           </p></>)}
-          {!props.mealList[16].name ? null : ( <>
+          {!mealList[16].name ? null : ( <>
           <p className="mealLabel">Lunch</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[16].name}
+            {mealList[16].name}
             
               <button onClick={() => update(16)}>
                 <DeleteIcon />
               </button>
            
           </p></> )}
-          {!props.mealList[17].name ? null : ( <>
+          {!mealList[17].name ? null : ( <>
           <p className="mealLabel">Dinner</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[17].name}
+            {mealList[17].name}
             
               <button onClick={() => update(17)}>
                 <DeleteIcon />
@@ -287,30 +287,30 @@ function MealPlan(props) {
           </p>
         </div>
         <div className="dayMeals">
-          {!props.mealList[18].name ? null : ( <>
+          {!mealList[18].name ? null : ( <>
           <p className="mealLabel">Breakfast</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[18].name}
+            {mealList[18].name}
             
               <button onClick={() => update(18)}>
                 <DeleteIcon />
               </button>
             
           </p></>)}
-          {!props.mealList[19].name  ? null : ( <>
+          {!mealList[19].name  ? null : ( <>
           <p className="mealLabel">Lunch</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[19].name}
+            {mealList[19].name}
             
               <button onClick={() => update(19)}>
                 <DeleteIcon />
               </button>
             
           </p></>)}
-          {!props.mealList[20].name ? null : ( <>
+          {!mealList[20].name ? null : ( <>
           <p className="mealLabel">Dinner</p>
           <p className="recipeName" id="sunB">
-            {props.mealList[20].name}
+            {mealList[20].name}
             
               <button onClick={() => update(20)}>
                 <DeleteIcon />

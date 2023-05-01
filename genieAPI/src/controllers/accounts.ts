@@ -30,4 +30,30 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-export default {getUser}
+const createUser = (req: Request, res: Response, next: NextFunction) => {
+    const username = req.body.username
+    const password = req.body.password
+    console.log(req.body);
+    //Check for params
+    if (username === undefined || password === undefined) {
+        return res.status(400).json({
+            message: "Missing required parameters for create."
+        })
+    }
+    db.connect((err: Error) =>{
+        if (err) throw err;
+        console.log(`INSERT INTO users (username, password) VALUES ('${username}', '${password}')`)
+        db.query(`INSERT INTO users (username, password) VALUES ('${username}', '${password}')`, (err: Error, results: Array<User>) => {
+            if (err) {
+                return res.status(400).json({
+                    message: `Failed to make SQL Query: ${err.message}`
+                })
+            }
+            return res.status(200).json({
+                message: "Successfully added."
+            })
+        })
+    })
+}
+
+export default {getUser, createUser}
