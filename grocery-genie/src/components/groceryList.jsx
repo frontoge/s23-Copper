@@ -88,6 +88,53 @@ function Grocery(props) {
     setGroceryList(l)
   }
 
+  function customQuantity(){   
+
+  const Product = ({ product }) => {
+  const [quantity, setQuantity] = useState(product.quantity);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/update-quantity', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          productId: product.id,
+          newQuantity: quantity
+        })
+      });
+
+      const updatedProduct = await response.json();
+      setQuantity(updatedProduct.quantity);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <div>
+      <h2>{product.name}</h2>
+      <p>Price: {product.price}</p>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Quantity:
+          <input type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} />
+        </label>
+        <button type="submit">Update Quantity</button>
+      </form>
+    </div>
+  );
+};
+
+
+
+
+  }
+
   return (
     <div className="backgroundImage">
       <h1 className="title">Ingredient List</h1>
@@ -129,4 +176,4 @@ function Grocery(props) {
   );
 }
 
-export default Grocery;
+export default Grocery, Product;
