@@ -131,8 +131,6 @@ function Grocery(props) {
 };
 
 
-
-
   }
 
   return (
@@ -176,4 +174,23 @@ function Grocery(props) {
   );
 }
 
-export default Grocery, Product;
+function PriceEstimation() {
+  const [quantity, setQuantity] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const handleQuantityChange = (event) => {
+    const value = event.target.value;
+    setQuantity(value);
+    setTotalPrice(value * price);
+  };
+
+  const handlePriceChange = (event) => {
+    const value = event.target.value;
+    setPrice(value);
+    setTotalPrice(value * quantity);
+  };
+
+
+}
+export default Grocery, Product, PriceEstimation;
