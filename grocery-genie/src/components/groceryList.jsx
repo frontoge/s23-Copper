@@ -191,6 +191,38 @@ function PriceEstimation() {
     setTotalPrice(value * quantity);
   };
 
+  return (
+    <div>
+      <label htmlFor="quantity">Quantity:</label>
+      <input
+        type="number"
+        id="quantity"
+        name="quantity"
+        value={quantity}
+        onChange={handleQuantityChange}
+      />
+      <br />
 
+      <label htmlFor="price">Price:</label>
+      <input
+        type="number"
+        id="price"
+        name="price"
+        value={price}
+        onChange={handlePriceChange}
+      />
+      <br />
+
+      <label htmlFor="total-price">Total Price:</label>
+      <input
+        type="number"
+        id="total-price"
+        name="total-price"
+        value={totalPrice}
+        disabled
+      />
+    </div>
+  );
+  
 }
 export default Grocery, Product, PriceEstimation;
