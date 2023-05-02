@@ -8,8 +8,8 @@ interface Ingredients {
 }
 
 const getIngredients = async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.params.recipeId;
-    const ingredientId = req.params.userId;
+    const userId = req.params.userId;
+    const ingredientId = req.params.ingredientId;
 
     db.connect((err: Error) => {
         if(err) throw err;
@@ -28,4 +28,26 @@ const getIngredients = async (req: Request, res: Response, next: NextFunction) =
     })
 }
 
-export default {getIngredients}
+const deleteIngredients = async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.userId;
+    const ingredientId = req.params.ingredientId;
+
+    db.connect((err: Error) => {
+        if(err) throw err;
+        db.query(`DELETE FROM ingredients, WHERE owner = ${req.params.userId} AND ingredients = '${req.params.ingredientId}'`, (err: Error, results: Array<Ingredients>, fields: Array<any>) => {
+            if (err) {
+                return res.status(400).json({
+                    message: `ERROR executing deleteIngredients ${err.message}`
+
+                })
+            }
+             return res.status(200).json({
+                    message: "Succesfully deleted"
+             })   
+        })
+
+    })
+
+}
+
+export default {getIngredients, deleteIngredients}
