@@ -36,6 +36,7 @@ const createMealPlan = (req: Request, res: Response, next: NextFunction) => {
     const recpieID = req.body.recpieID
     const date = req.body.date
     const type = req.body.type
+    const title = req.body.title
     console.log(req.body);
     if (owner === undefined || recpieID === undefined) {
         return res.status(400).json({
