@@ -25,4 +25,24 @@ function MealPlan() {
   console.log(enddate.toString())
   console.log(startdate.toString())
 
+  const [mealList, setMealList] = useState();
+
+  const cookies = new Cookies();
+  const userData = cookies.get("login");
+
+  useEffect(() => {
+    getMealPlan();
+  }, []);
+
+  async function getMealPlan() {
+    await fetch('http://localhost:4000/api/mealplans/${userData.id}')
+      .then((response) => response.json())
+      .then((data) => {
+        setMealList(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
 }
