@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/:userId', controller.getIngredients);
 
+router.delete('/:userId&:ingredientsId', controller.deleteIngredients)
+
 export = router;
