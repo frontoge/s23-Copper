@@ -4,7 +4,8 @@ import db from "../db_connect";
 
 interface grocerylist {
     item: string,
-    quantity: number
+    quantity: number,
+    groceryList: JSON
 
 }
 
@@ -37,32 +38,30 @@ const getGroceryList = (req: Request, res: Response, next: NextFunction)=>{
     })
 }
 
-const creategrocerylist = (req: Request, res: Response, next: NextFunction)=>{
+const creategrocerylist = (req: Request, res: Response, next: NextFunction) => {
+    const owner = req.body.owner
+    const item = req.body.item
+    const quantity = req.body.quantity
+    const groceryList = req.body.groceryList
 
-    const owner = req.body.owner;
-    const item = req.body.item;
-    const quantity = req.body.quantity;
-    if (owner === undefined || item === undefined){
+    console.log(req.body);
+    //Check for params
+    if ( owner === undefined) {
         return res.status(400).json({
-            message: "Missing required parameters for create"
+            message: "Missing required parameters for create."
         })
     }
-    db.connect((err: Error)=>{
-        if(err) {
-            return res.status(400).json({
-                message:err.message
-            })
-        }
-        console.log(`INSERT INTO grocerylist(owner,item,quantity) VALUES (${owner},'${item}',${quantity})`)
-        db.query(`INSERT INTO grocerylist (owner,item,quantity) VALUES (${owner},'${item}',${quantity})`,
-        (err: Error, results: Array<grocerylist>) => {
-            if (err){
-                return res.status(400).json ({
-                    message: `Failed to make SQL query: ${err.message}`
+    db.connect((err: Error) =>{
+        if (err) throw err;
+        console.log(`INSERT INTO  gorcerylist (owner, item, quantity, groceryList) VALUES (${owner}, '${item}', ${quantity}, '${groceryList}')`)
+        db.query(`INSERT INTO grocerylist (owner, item, quantity, groceryList) VALUES (${owner}, '${item}', ${quantity}, '${groceryList}')`, (err: Error, results: Array<grocerylist>) => {
+            if (err) {
+                return res.status(400).json({
+                    message: `Failed to make SQL Query: ${err.message}`
                 })
             }
             return res.status(200).json({
-                message: "Successful added"
+                message: "Successfully added."
             })
         })
     })
