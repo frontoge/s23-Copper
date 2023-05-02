@@ -42,7 +42,7 @@ router.use('/api/accounts', userRoutes);
 router.use('/api/households', householdRoutes);
 router.use('/api/favoriteRecipes', favRecipeRoutes);
 router.use('/api/mealplans', mealPlanRoutes);
-
+router.use('/api/grocerylists', groceryListRoutes);
 /** Error handling */
 router.use((req, res, next) => {
     const error = new Error('not found');

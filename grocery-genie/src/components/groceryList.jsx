@@ -100,6 +100,24 @@ function Grocery(props) {
     })
     setGroceryList(l)
   }
+
+  function saveList() {
+    fetch(
+      `http://localhost:4000/api/grocerylists/`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({owner: userData.id, item: '', quantity: 0, groceryList: JSON.stringify(groceryList) })
+      }
+    )
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message)
+        //window.location.reload(false);
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+   }
   return (
     <div className="backgroundImage">
       <h1 className="title">Ingredient List</h1>
@@ -140,6 +158,7 @@ function Grocery(props) {
     </div>
   );
 }
+
 
 
 
