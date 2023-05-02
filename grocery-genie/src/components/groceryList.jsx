@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from "react";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-
-
-let grocerySearch = "";
+import Cookies from "universal-cookie";
 
 function Grocery(props) {
   const [groceries, setGroceries] = useState(null);
   const [value, setValue] = useState(null);
-  const [groceryList, setGroceryList] = useState(null)
+  const [groceryList, setGroceryList] = useState(null);
+  const cookies = new Cookies();
+  const userData = cookies.get("login");
 
   useEffect(() => {
-    getGroceryString()
-    getGroceryItem()
+    getMeals()
+    console.log(groceryList)
   }, []);
 
+  async function getMeals() {
+    await fetch(`http://localhost:4000/api/mealplans/${userData.id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setGroceries(data);
+      getGroceryString(data)
+      console.log(data)
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+  }
+  
   function getGroceryString() {
     var meal = JSON.parse(localStorage.getItem('meal'))
     meal.forEach((element) => {
@@ -87,6 +100,47 @@ function Grocery(props) {
     })
     setGroceryList(l)
   }
+  return (
+    <div className="backgroundImage">
+      <h1 className="title">Ingredient List</h1>
+      <div className="groceryPage">
+        </div>
+      <div>
+        {groceryList
+          ? groceryList.map((grocery, index) => (
+            <div className="groceryList">
+              <li key={grocery.id}>
+                  {grocery.amount} {grocery.nameClean}
+                </li>
+                <div style={{display: 'flex', alignItems: 'center'}}>
+                <button className="deleteButton"
+                  onClick={() => {
+                    deleteItem(grocery.id);
+                  }}
+                >
+                  Delete
+                </button>
+                <div className = "addDeleteDisplay">
+                  <button className="PlusMinusButtons" onClick={() => addAmount(index)}>
+                      <AddIcon style={{color: "#609f9f", fontSize: '1.25em', margin: '0'}}/>
+                  </button>
+                  <button className="PlusMinusButtons" onClick={() => subAmount(index)}>
+                      <RemoveIcon style={{color: "#609f9f", fontSize: '1.25em', margin: '0'}}/>
+                  </button>
+                </div>
+                </div>
+              </div>
+
+            ))  : null}
+      </div>
+      <div className="groceryList">
+        <input className="inputs" value={value} onChange={(e) => { setValue(e.target.value) }} />
+        <button className="addButton" onClick={addToList}>Add</button>
+      </div>
+    </div>
+  );
+}
+
 
 
 export default Grocery;
