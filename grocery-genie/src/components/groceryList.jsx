@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import Cookies from "universal-cookie";
+import Cookies from "universal-cookie"
+import Button from "@mui/material/Button";
+
 
 function Grocery(props) {
   const [groceries, setGroceries] = useState(null);
   const [value, setValue] = useState(null);
-  const [groceryList, setGroceryList] = useState(null);
+  const [groceryList, setGroceryList] = useState(null)
   const cookies = new Cookies();
-  const userData = cookies.get("login");
+  const userData = cookies.get("login")
 
   useEffect(() => {
-    getMeals()
-    console.log(groceryList)
+     getMeal()
+     console.log(groceryList)
   }, []);
 
-  async function getMeals() {
+  async function getMeal() {
     await fetch(`http://localhost:4000/api/mealplans/${userData.id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setGroceries(data);
-      getGroceryString(data)
-      console.log(data)
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setGroceries(data);
+        getGroceryString(data)
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
 
   function getGroceryString(data) {
@@ -33,15 +35,15 @@ function Grocery(props) {
     data.data.forEach((element) => {
       if (element.recpieID) {
         if (!grocery) {
-          grocery = element.recpieID;
+           grocery = element.recpieID;
         } else {
           grocery += "," + element.recpieID;
         }
       }
     });
     getGroceryItem(grocery)
+    
   }
-
 
   function getGroceryItem(grocerySearch) {
     fetch(
@@ -51,7 +53,6 @@ function Grocery(props) {
       .then((data) => {
         setGroceries(data);
         createGroceryList(data);
-        console.log("groceries", groceries)
       })
       .catch(() => {
         console.log("error");
@@ -79,6 +80,7 @@ function Grocery(props) {
     const temp = [...groceryList];
     temp[index].amount++;
     setGroceryList(temp)
+
    }
 
    function subAmount(index) {
@@ -87,21 +89,7 @@ function Grocery(props) {
     setGroceryList(temp)
    }
 
-
-
-  function createGroceryList(data) {
-    let l = []
-
-    data.forEach((element) => {
-      return element.extendedIngredients.forEach((item) => {
-        item.amount = 1;
-        l.push(item)
-      })
-    })
-    setGroceryList(l)
-  }
-
-  function saveList() {
+   function saveList() {
     fetch(
       `http://localhost:4000/api/grocerylists/`, {
         method: "POST",
@@ -118,10 +106,39 @@ function Grocery(props) {
         console.log(err.message)
       })
    }
+
+  function createGroceryList(data) {
+    let l = []
+
+    data.forEach((element) => {
+      return element.extendedIngredients.forEach((item) => {
+        if (!(l.some(it => it.id === item.id))) {
+          item.amount = 1
+          l.push(item)
+        }
+      })
+    })
+    setGroceryList(l)
+  }
+
   return (
     <div className="backgroundImage">
       <h1 className="title">Ingredient List</h1>
       <div className="groceryPage">
+      <Button
+          style={{
+            backgroundColor: "#afcfcf",
+            color: "white",
+            margin: "0 10px",
+          }}
+          onClick={() => {
+            saveList()
+            
+          }}
+        >
+          Save List
+        </Button>
+          
         </div>
       <div>
         {groceryList
@@ -151,15 +168,12 @@ function Grocery(props) {
 
             ))  : null}
       </div>
-      <div className="groceryList">
+      <div className="groceryList" style={{marginBottom: "15px"}}>
         <input className="inputs" value={value} onChange={(e) => { setValue(e.target.value) }} />
         <button className="addButton" onClick={addToList}>Add</button>
       </div>
     </div>
   );
 }
-
-
-
 
 export default Grocery;
