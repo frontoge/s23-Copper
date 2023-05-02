@@ -27,18 +27,19 @@ function Grocery(props) {
       console.log(err.message);
     });
   }
-  
-  function getGroceryString() {
-    var meal = JSON.parse(localStorage.getItem('meal'))
-    meal.forEach((element) => {
-      if (element.id) {
-        if (!grocerySearch) {
-          grocerySearch = element.id;
+
+  function getGroceryString(data) {
+    var grocery = ""
+    data.data.forEach((element) => {
+      if (element.recpieID) {
+        if (!grocery) {
+          grocery = element.recpieID;
         } else {
-          grocerySearch += "," + element.id;
+          grocery += "," + element.recpieID;
         }
       }
     });
+    getGroceryItem(grocery)
   }
 
 
