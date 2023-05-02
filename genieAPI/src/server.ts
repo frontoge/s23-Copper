@@ -8,6 +8,7 @@ import householdRoutes from './routes/households';
 import households from "./controllers/households";
 import favRecipeRoutes from "./routes/favoriteRecipes";
 import mealPlanRoutes from "./routes/mealplans";
+import groceryListRoutes from "./routes/grocerylists";
 const dotenv = require("dotenv");
 dotenv.config();
 
