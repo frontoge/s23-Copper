@@ -43,7 +43,7 @@ function Grocery(props) {
   }
 
 
-  function getGroceryItem() {
+  function getGroceryItem(grocerySearch) {
     fetch(
       `https://api.spoonacular.com/recipes/informationBulk?apiKey=ce57a3f8165c4485a55fb8654a2ba593&&ids=${grocerySearch}`
     )
@@ -79,7 +79,6 @@ function Grocery(props) {
     const temp = [...groceryList];
     temp[index].amount++;
     setGroceryList(temp)
-
    }
 
    function subAmount(index) {

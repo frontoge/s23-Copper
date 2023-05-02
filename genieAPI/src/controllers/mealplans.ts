@@ -12,6 +12,7 @@ interface MealPlan {
     date: Date
     type: MealType
     quantity: number
+    title: string
 
 }
 
