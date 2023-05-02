@@ -6,7 +6,7 @@
 
 .Information {
     margin-right: 50px;
-    position: relative;
+    
     
 }
 
@@ -19,6 +19,7 @@
     margin-bottom: 5px;
     padding: 10px;
     align-items: center;
+    position: relative;
 }
 
 .AldiPic {
@@ -41,5 +42,11 @@
 }
 .storeList{
     white-space: pre-line;
+}
+.goToStore{
+    position: 'absolute';
+    right: 0;
+    bottom: 0;
+    background-color: solid #afcfcf;
 }
 
