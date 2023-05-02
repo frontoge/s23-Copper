@@ -44,7 +44,41 @@ function MealPlan(props) {
       <div className="mealPlanPage">
         <h1 className="title">Meal Plan</h1>
         <h2 >{startdate.getMonth() + 1}/{startdate.getDate()} - {enddate.getMonth() + 1}/{enddate.getDate()}</h2>
-        {/* <div className="dayOfTheWeek">
+        <div className="backgroundImage">
+      <h1 className="title">Meal Plan</h1>
+      {mealList
+        ? mealList.data.map((meal, index) => (
+            <>
+              <Box key={meal.recipieID}
+                sx={{
+                  displayDirection: "column",
+                  margin: "auto",
+                  width: "50%",
+                  backgroundColor: "white",
+                  marginTop: "10px",
+                  border: "2px solid #afcfcf",
+                  borderRadius: "10px",
+                  padding: "15px"
+                }}
+              >
+                <Box sx={{ display: "flex" }}>
+                  <ListItem>{new Date(meal.date).toLocaleDateString()}</ListItem>
+                  <ListItem>{meal.type}</ListItem>
+                </Box>
+                <Box sx={{ display: "flex" }}>
+                  <ListItem>{meal.title}</ListItem>
+                  <Button onClick={() => update(0)}>
+
+                    <DeleteIcon onClick={() => deleteMeal(meal.recpieID)} />
+                  </Button>
+                </Box>
+              </Box>
+            </>
+          ))
+        : null}
+    </div>
+        { 
+        /* <div className="dayOfTheWeek">
           <p className="dayLabel">
             Sunday
                  <AddBoxIcon className="dayLabelAdd" onClick={changeToRecipe} sx={{ color: "black" }} /> 
