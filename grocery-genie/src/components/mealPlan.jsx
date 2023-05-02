@@ -45,7 +45,22 @@ function MealPlan() {
         console.log(err.message);
       });
   }
-}
+
+  function deleteMeal(id) {
+    console.log("id", id)
+    fetch('http://localhost:4000/api/mealplans/${userData.id}&${id}', {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
 
 return (
   <div className="backgroundImage">
@@ -90,5 +105,6 @@ return (
       </div>
     );
   
-
+          
+          }      
   export default MealPlan;
