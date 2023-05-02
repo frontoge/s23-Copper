@@ -19,3 +19,10 @@ function SetDate(start){
 }
 
 function MealPlan() {
+  const d = new Date()
+  const [startdate, setstartDate] = useState(SetDate(true))
+  const [enddate, setendDate] = useState(SetDate(false))
+  console.log(enddate.toString())
+  console.log(startdate.toString())
+
+}
