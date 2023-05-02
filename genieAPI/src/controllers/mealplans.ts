@@ -56,4 +56,55 @@ const createMealPlan = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-export default {getMealPlan, createMealPlan}
+const updateMealPlan = (req: Request, res: Response, next: NextFunction) => {
+    const data = req.body
+    if (data.quantity === undefined){
+        return res.status(400).json({
+            message: "Missing body parameters"
+        })
+    }
+
+    if (req.params.owner === undefined || req.params.recpieID === undefined) {
+        return res.status(400).json({
+            message: "Invalid parameters to query"
+        })
+    }
+    console.log(`UPDATE mealplan SET quantity = '${data.quantity}' WHERE owner = ${req.params.owner} AND recpieID = ${req.params.recpieID}`)
+    db.connect((err: Error) =>{
+        if (err) throw err;
+        db.query(`UPDATE mealplan SET quantity = '${data.quantity}' WHERE owner = ${req.params.owner} AND recpieID = '${req.params.recpieID}'`,
+            (err: Error, results: Array<MealPlan>) => {
+                if (err) {
+                    return res.status(400).json({
+                        message: `Invalid SQL Query: ${err.message}`
+                    });
+                }
+                return res.status(200).json({
+                    message: "Successfully updated"
+                })
+            })
+    })
+}
+
+const deleteMealPlan = (req: Request, res: Response, next: NextFunction) => {
+    const params = req.params;
+    db.connect((err: Error) => {
+        if (err) {
+            return res.status(400).json({
+                message: `Failed to connect to DB: ${err.message}`
+            })
+        }
+        db.query(`DELETE FROM mealplan WHERE owner = ${params.owner} AND recpieID = '${params.recpieID}'`, (err: Error, results: Array<MealPlan>) =>{
+            if (err) {
+                return res.status(400).json({
+                    message: err.message
+                })
+            }
+            return res.status(200).json({
+                message: "Successfully deleted."
+            })
+        })
+    })
+}
+
+export default {getMealPlan, createMealPlan, updateMealPlan, deleteMealPlan}
