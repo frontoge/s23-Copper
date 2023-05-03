@@ -35,6 +35,7 @@ const getMealPlan = (req: Request, res: Response, next: NextFunction) => {
 const createMealPlan = (req: Request, res: Response, next: NextFunction) => {
     const owner = req.body.owner
     const recpieID = req.body.recpieID
+    const quantity = req.body.quantity
     const date = req.body.date
     const type = req.body.type
     const title = req.body.title
@@ -46,8 +47,8 @@ const createMealPlan = (req: Request, res: Response, next: NextFunction) => {
     }
     db.connect((err: Error) => {
         if (err) throw err;
-        console.log(`INSERT INTO mealplan (owner, recpieID, date, type) VALUES (${owner}, ${recpieID}, ${date}, ${type})`)
-        db.query(`INSERT INTO mealplan (owner, recpieID) VALUES (${owner}, ${recpieID}, ${date}, ${type})`, (err: Error, results: Array<MealPlan>) => {
+        console.log(`INSERT INTO mealplan (owner, recpieID, date, quantity, type, title) VALUES (${owner}, '${recpieID}', '${date}', ${quantity}, '${type}', '${title}', )`)
+        db.query(`INSERT INTO mealplan (owner, recpieID, date, quantity, type, title) VALUES (${owner}, '${recpieID}', '${date}', ${quantity}, '${type}', '${title}')`, (err: Error, results: Array<MealPlan>) => {
             if (err) {
                 return res.status(400).json({
                     message: `Failed to make SQL Query: ${err.message}`
