@@ -8,6 +8,7 @@ import householdRoutes from './routes/households';
 import households from "./controllers/households";
 import favRecipeRoutes from "./routes/favoriteRecipes";
 import mealPlanRoutes from "./routes/mealplans";
+import groceryListRoutes from "./routes/grocerylists";
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -35,12 +36,14 @@ router.use((req, res, next) => {
     next();
 });
 
+
 /** Routes */
 router.use('/api/examples', exampleRoutes);
 router.use('/api/accounts', userRoutes);
 router.use('/api/households', householdRoutes);
 router.use('/api/favoriteRecipes', favRecipeRoutes);
 router.use('/api/mealplans', mealPlanRoutes);
+router.use('/api/grocerylists', groceryListRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
