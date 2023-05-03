@@ -6,7 +6,14 @@ import Heart from "@mui/icons-material/Favorite";
 import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
 import { TextField } from "@mui/material";
-
+import { CardContent } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Box from "@mui/material/Box";
+import ListItem from "@mui/material/ListItemText";
 
 
 function Recipe() {
@@ -16,11 +23,15 @@ function Recipe() {
   const [mealData, setMealData] = useState(null)
   const refArray = useRef([]);
   const [url, setUrl] = useState(undefined);
+  const [quantity , setQuantity] = useState(null)
   const [extractData, setExtractData] = useState(null);
   const [recipeList, setRecipeList] = useState([]);
   const cookies = new Cookies();
   const dietString = cookies.get("diet");
   const excludeString = cookies.get("restrictions");
+  const userData = cookies.get('login')
+  const [date, setDate] = useState(null);
+  const [type, setType] = useState(null);
 
   var move = useNavigate()
 
@@ -29,26 +40,24 @@ function Recipe() {
   }
 
   const triggerHandler = (index) => {
-    if (refArray.current[index].style.visibility === "visible")
-      refArray.current[index].style.visibility = "hidden";
-    else refArray.current[index].style.visibility = "visible";
+    if (refArray.current[index].style.color === "gray")
+      refArray.current[index].style.color = "red";
+    else refArray.current[index].style.color = "gray";
   };
 
 
 
-
-  function updateMeal(title, id) {
+  function updateMeal(title, id, amount) {
     setMealId(id)
     setMealTemp(title)
+    if (amount) {
+      setQuantity(amount)
+    }
+    else {
+      setQuantity(1)
+    }
     console.log("mealId ", mealId)
     setShowPopUp(true)
-  }
-
-  function updateMealList(name, id, index) {
-    var meal = JSON.parse(localStorage.getItem('meal'))
-    meal[index] = {id: id, name: name, ingredients: {}}
-    localStorage.setItem('meal', JSON.stringify(meal));
-    setShowPopUp(false)
   }
 
   function getMealData() {
@@ -65,6 +74,30 @@ function Recipe() {
       .catch(() => {
         console.log("error here")
       })
+  }
+
+  function AddToMealPlan() {
+    fetch(`http://localhost:4000/api/mealplans/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        owner: userData.id,
+        recpieID: mealId,
+        type: type,
+        quantity: quantity,
+        date: date,
+        title: mealTemp,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+         console.log(data.message)
+         setShowPopUp(false)
+        })
+         
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
 
   useEffect(() => {
@@ -224,80 +257,121 @@ function Recipe() {
         <div className="displayRecipes">
 
         {recipeList}
-        {mealData
+          {mealData
             ? mealData.results.map((meal, index) => (
-                <div className="recipe">
-                  <p
-                    className="recipeNameLabel"
-                    key={meal.id}
+                <Card //className={styles.root}
+                  sx={{
+                    width: "350px",
+                    boxShadow: "10px 10px 5px #afcfcf",
+                    marginBottom: "15px",
+                    backgroundColor: "#ffffff",
+                  }}
+                  key={meal.recpieID}
+                >
+                  <CardHeader
+                    sx={{
+                      backgroundColor: "#ffffff",
+                      color: "#000000",
+                      height: "50px",
+                    }}
+                    title={meal.title}
                     onClick={() => {
                       triggerHandler(index);
                     }}
-                  >
-                    {meal.title}
-                  </p>
-
-                  <Heart
-                    className={meal.id}
-                    style={{
-                      color: "red",
-                      position: "relative",
-                      top: "45px",
-                      zIndex: "2",
-                      visibility: "hidden",
+                    action={
+                      <IconButton aria-label="settings">
+                        <FavoriteIcon
+                          sx={{ color: "gray" }}
+                          ref={(ref) => {
+                            refArray.current[index] = ref;
+                          }}
+                        />
+                      </IconButton>
+                    }
+                  />
+                  <CardMedia
+                    image={meal.image}
+                    title={meal.title}
+                    sx={{
+                      height: 0,
+                      paddingTop: "56.25%", // 16:9,
+                      marginTop: "20px",
+                      marginBottom: "0",
                     }}
-                    ref={(ref) => {
-                      refArray.current[index] = ref; 
+                    onClick={() => {
+                      updateMeal(meal.title, meal.id, meal.servings);
                     }}
                   />
-                  <img
-                    style={{
-                      position: "absoltue",
-                    }}
-                    src={meal.image}
-                    alt={meal.title}
-                    onClick={() => {
-                      updateMeal(meal.title, meal.id);
-                    }}
-                  ></img>
-                </div>
+                  <CardContent sx={{height: "10px", padding: "10px"}}></CardContent>
+                </Card>
               ))
             : null}
-
         </div>
 
         {showPopUp ? (
+          <Box style={{position: "fixed", top: "30%", left: '25%', backgroundColor: "#ffffff"}} >
+            <TextField
+              label={"Date YYYY-MM-DD"}
+              value={date}
+              onChange={(e) => {
+                setDate(e.target.value);
+              }}
+              sx={{
+                width: "45%",
+                marginRight: "20px",
+                "& .MuiInputLabel-root": { fontSize: "20px", color: "black" }, //styles the label
+                input: {
+                  color: "#468656",
+                  fontWeight: "bold",
+                  fontSize: "1em",
+                },
+              }}
+              style={{
+                border: "1px dotted #79b989",
+                borderRadius: "5px",
+                backgroundColor: "white",
+              }}
+            ></TextField>
 
-          <ul className="daySelection">
-            <li onClick={() => { updateMealList(mealTemp, mealId, 0) }}>Sunday Breakfast</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 1) }}>Sunday Lunch</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 2) }} >Sunday Dinner</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 3) }}>Monday Breakfast</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 4) }}>Monday Lunch</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 5) }} >Monday Dinner</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 6) }}>Tuesday Breakfast</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 7) }}>Tuesday Lunch</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 8) }} >Tuesday Dinner</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 9) }}>Wednesday Breakfast</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 10) }}>Wednesday Lunch</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 11) }} >Wednesday Dinner</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 12) }}>Thursday Breakfast</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 13) }}>Thursday Lunch</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 14) }} >Thursday Dinner</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 15) }}>Friday Breakfast</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 16) }}>Friday Lunch</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 17) }} >Friday Dinner</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 18) }}>Saturday Breakfast</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 19) }}>Saturday Lunch</li>
-            <li onClick={() => { updateMealList(mealTemp, mealId, 20) }} >Saturday Dinner</li>
-          </ul>
-
-        ) : null
-        }
-
-        </div>
+            <TextField
+              label={"Type i.e Breakfast Lunch or Dinner"}
+              value={type}
+              onChange={(e) => {
+                setType(e.target.value);
+              }}
+              sx={{
+                width: "45%",
+                marginRight: "20px",
+                "& .MuiInputLabel-root": { fontSize: "20px", color: "black" }, //styles the label
+                input: {
+                  color: "#468656",
+                  fontWeight: "bold",
+                  fontSize: "1em",
+                },
+              }}
+              style={{
+                border: "1px dotted #79b989",
+                borderRadius: "5px",
+                backgroundColor: "white",
+              }}
+            ></TextField>
+            <Button
+              style={{
+                backgroundColor: "#afcfcf",
+                color: "white",
+                margin: "0 10px",
+              }}
+              onClick={() => {
+                AddToMealPlan();
+              }}
+            >
+              Add To Plan
+            </Button>
+          </Box>
+        ) : null}
+      </div>
     </div>
-  )
+  );
 }
 
 export default Recipe;
