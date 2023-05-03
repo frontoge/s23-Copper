@@ -216,16 +216,7 @@ function Recipe() {
         justifyContent: "space-around"
       }}>
 
-        <Button style={{
-          backgroundColor: "#afcfcf", color: 'white', height: '90%', margin: '0 10px'
-          }} onClick={getUpload}>My Recipes
-        </Button>
-        <input
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          id="contained-button-file"
-        />
+
         <label htmlFor="contained-button-file">
           <Button
             variant="contained"
