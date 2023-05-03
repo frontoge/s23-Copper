@@ -12,13 +12,14 @@ interface MealPlan {
     date: Date
     type: MealType
     quantity: number
+    title: string
 
 }
 
 const getMealPlan = (req: Request, res: Response, next: NextFunction) => {
     db.connect((err: Error) => {
         if (err) throw  err;
-        db.query(`SELECT recpieID, date, type, quantity FROM mealplan WHERE owner = ${req.params.userID}`, (err: Error, results: Array<MealPlan>, fields: Array<any>) => {
+        db.query(`SELECT recpieID, date, type, quantity, title FROM mealplan WHERE owner = ${req.params.userID}`, (err: Error, results: Array<MealPlan>, fields: Array<any>) => {
             if (err) {
                 return res.status(400).json({
                     message: err.message
@@ -36,6 +37,7 @@ const createMealPlan = (req: Request, res: Response, next: NextFunction) => {
     const recpieID = req.body.recpieID
     const date = req.body.date
     const type = req.body.type
+    const title = req.body.title
     console.log(req.body);
     if (owner === undefined || recpieID === undefined) {
         return res.status(400).json({
