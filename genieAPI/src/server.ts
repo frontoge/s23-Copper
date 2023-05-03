@@ -40,7 +40,7 @@ router.use('/api/examples', exampleRoutes);
 router.use('/api/accounts', userRoutes);
 router.use('/api/households', householdRoutes);
 router.use('/api/favoriteRecipes', favRecipeRoutes);
-router.use('api/mealplans', mealPlanRoutes);
+router.use('/api/mealplans', mealPlanRoutes);
 
 
 /** Error handling */
