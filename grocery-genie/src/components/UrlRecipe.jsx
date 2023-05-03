@@ -1,3 +1,4 @@
+import React, {useState, useRef, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { CardContent, TextField } from "@mui/material";
@@ -8,6 +9,9 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
+import Heart from "@mui/icons-material/Favorite";
+import Button from "@mui/material/Button";
 
 const UrlRecipe = (props) => {
     const cookies = new Cookies();
@@ -84,7 +88,7 @@ const UrlRecipe = (props) => {
         console.log("get sub ", subString)
         
         fetch(
-          `https://api.spoonacular.com/food/ingredients/substitutes?apiKey=28ae15fcd30248a7bdf22580850a23be&&ingredientName=${subString}`
+          `https://api.spoonacular.com/food/ingredients/substitutes?apiKey=a1f18c67ada64f37ad105b89010df3f9&&ingredientName=${subString}`
         )
           .then((response) => response.json())
           .then((data) => {
