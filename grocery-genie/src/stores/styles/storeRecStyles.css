@@ -7,6 +7,7 @@
 .Information {
     margin-right: 50px;
     
+    
 }
 
 .Store {
@@ -18,6 +19,7 @@
     margin-bottom: 5px;
     padding: 10px;
     align-items: center;
+    position: relative;
 }
 
 .AldiPic {
@@ -30,9 +32,21 @@
 }
 
 .KrogerPic {
-    width: 100%
+    width: 100%;
 }
-
+.targetPic{
+    width:100%;
+}
 .link {
     width: 30%;
 }
+.storeList{
+    white-space: pre-line;
+}
+.goToStore{
+    position: 'absolute';
+    right: 0;
+    bottom: 0;
+    background-color: solid #afcfcf;
+}
+

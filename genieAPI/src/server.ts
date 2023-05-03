@@ -8,6 +8,11 @@ import userRoutes from './routes/accounts';
 import householdRoutes from './routes/households';
 import households from "./controllers/households";
 import favRecipeRoutes from "./routes/favoriteRecipes";
+import mealPlanRoutes from "./routes/mealplans";
+import groceryListRoutes from "./routes/grocerylists";
+import recipeRoutes from "./routes/recipes";
+import favStoreRoutes from "./routes/favoriteStores";
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -28,17 +33,22 @@ router.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
     // set the CORS method headers
     if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST');
+        res.header('Access-Control-Allow-Methods', 'GET, PUT, DELETE, POST');
         return res.status(200).json({});
     }
     next();
 });
+
 
 /** Routes */
 router.use('/api/examples', exampleRoutes);
 router.use('/api/accounts', userRoutes);
 router.use('/api/households', householdRoutes);
 router.use('/api/favoriteRecipes', favRecipeRoutes);
+router.use('/api/mealplans', mealPlanRoutes);
+router.use('/api/grocerylists', groceryListRoutes);
+router.use('/api/recipes', recipeRoutes);
+router.use('/api/favoriteStores', favStoreRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
