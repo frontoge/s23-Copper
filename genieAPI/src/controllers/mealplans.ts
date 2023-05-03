@@ -19,7 +19,7 @@ interface MealPlan {
 const getMealPlan = (req: Request, res: Response, next: NextFunction) => {
     db.connect((err: Error) => {
         if (err) throw  err;
-        db.query(`SELECT recpieID, date, type, quantity, title FROM mealplan WHERE owner = ${req.params.userID}`, (err: Error, results: Array<MealPlan>, fields: Array<any>) => {
+        db.query(`SELECT recpieID, date, type, quantity, title FROM mealplan WHERE owner = ${req.params.userID} ORDER BY date, type`, (err: Error, results: Array<MealPlan>, fields: Array<any>) => {
             if (err) {
                 return res.status(400).json({
                     message: err.message

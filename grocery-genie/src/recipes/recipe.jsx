@@ -207,7 +207,14 @@ function Recipe() {
       </div>
 
 
-      <div className="buttonDisplay">
+      <div style={{
+        display: "flex",
+        margin: "auto",
+        width: "400",
+        flexWrap: "wrap",
+        float: "right",
+        justifyContent: "space-around"
+      }}>
 
         <Button style={{
           backgroundColor: "#afcfcf", color: 'white', height: '90%', margin: '0 10px'

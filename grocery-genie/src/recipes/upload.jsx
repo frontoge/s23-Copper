@@ -35,7 +35,7 @@ function Upload(props) {
 
   function getSub() {
     fetch(
-      `https://api.spoonacular.com/food/ingredients/substitutes?apiKey=28ae15fcd30248a7bdf22580850a23be&&ingredientName=${subString}`
+      `https://api.spoonacular.com/food/ingredients/substitutes?apiKey=a1f18c67ada64f37ad105b89010df3f9&&ingredientName=${subString}`
     )
       .then((response) => response.json())
       .then((data) => {
