@@ -4,7 +4,8 @@ import db from "../db_connect"
 
 interface Ingredients {
     userId: string,
-    ingredientId: string
+    ingredientId: string,
+    quantity: number
 }
 
 const getIngredients = async (req: Request, res: Response, next: NextFunction) => {
@@ -50,4 +51,71 @@ const deleteIngredients = async (req: Request, res: Response, next: NextFunction
 
 }
 
-export default {getIngredients, deleteIngredients}
+const addIngredients = async(req: Request, res: Response, next: NextFunction)=>{
+
+    const userId = req.body.userId;
+    const item = req.body.item;
+    const quantity = req.body.quantity;
+    if (userId === undefined || item === undefined){
+        return res.status(400).json({
+            message: "Missing required parameters for create"
+        })
+    }
+
+    db.connect((err: Error)=>{
+        if(err) {
+            return res.status(400).json({
+                message:err.message
+            })
+        }
+        console.log(`ADD ingredients(owner,item,quantity) VALUES (${userId},'${item}',${quantity})`)
+        db.query(`ADD ingredients(owner,item,quantity) VALUES (${userId},'${item}',${quantity})`,
+        (err: Error, results: Array<Ingredients>) => {
+            if (err){
+                return res.status(400).json ({
+                    message: `Failed to make SQL query: ${err.message}`
+                })
+            }
+            return res.status(200).json({
+                message: "Successful added"
+            })
+        })
+    })
+}
+
+
+const updateIngredients = async(req: Request, res: Response, next: NextFunction) => {
+    const data = req.body
+    if (data.quantity == undefined){
+        return res.status(400).json({
+            message: "Missing body parameters"
+        })
+    }
+    if (req.params.userId === undefined || req.params.ingredientId === undefined) {
+        return res.status(400).json({
+            message: "Invalid parameters to query"
+        })
+    }
+    db.connect((err: Error) =>{
+        if (err) throw err;
+        db.query(`UPDATE ingredients SET quantity = ${data.quantity} WHERE owner = ${req.params.userID} and item = '${req.params.item}'`,
+            (err: Error, results: Array<Ingredients>) => {
+                if (err) {
+                    return res.status(400).json({
+                        message: `Invalid SQL Query: ${err.message}`
+                    });
+                }
+                return res.status(200).json({
+                    message: "Successfully updated"
+                })
+            })
+    })
+
+
+}
+
+
+
+
+
+export default {getIngredients, deleteIngredients,addIngredients,updateIngredients}
