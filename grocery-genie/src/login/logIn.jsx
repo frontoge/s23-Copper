@@ -48,6 +48,7 @@ function LogIn(props) {
     }
 
     function create() {
+        console.log("in create")
         navigate("/account")
     }
 
@@ -73,21 +74,11 @@ function LogIn(props) {
             getUserInfo()
         }
         if (userInfo) {
-            nav("/household")
+            navigate("/household")
         }
     }
 
-    function forgotPassword() {
-        setShowForgotPassword(true)
-    }
 
-    function closePopup() {
-        setShowForgotPassword(false)
-    }
-
-    function create() {
-        nav("/account")
-    }
 
     return (
 <Box sx={{

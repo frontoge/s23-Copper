@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItemText";
+import UrlRecipe from "../components/UrlRecipe";
 
 
 function Recipe() {
@@ -65,7 +66,7 @@ function Recipe() {
     fetch(
 
 
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=ce57a3f8165c4485a55fb8654a2ba593&diet=${dietString}&excludeIngredients=${excludeString}`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=a1f18c67ada64f37ad105b89010df3f9&diet=${dietString}&excludeIngredients=${excludeString}`
     )
       .then(response => response.json())
       .then(data => {
@@ -104,7 +105,7 @@ function Recipe() {
     getMealData();
   }, []);
 
-  const UrlRecipe = (props) => {
+  /*const UrlRecipe = (props) => {
     console.log("urlRecipe", props.extractData)
     const ref = useRef();
 
@@ -148,7 +149,7 @@ function Recipe() {
         
       </>
     );
-  };
+  };*/
 
   const onShowRecipe = (event) => {
     setRecipeList(recipeList.concat(<UrlRecipe extractData= {extractData} key={UrlRecipe.length} />));
@@ -158,7 +159,7 @@ function Recipe() {
     console.log(url);
 
     fetch(
-      `https://api.spoonacular.com/recipes/extract?apiKey=ce57a3f8165c4485a55fb8654a2ba593&url=${url}`
+      `https://api.spoonacular.com/recipes/extract?apiKey=a1f18c67ada64f37ad105b89010df3f9&url=${url}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -179,7 +180,7 @@ function Recipe() {
   }
 
   return (
-    <div className="backgroundImage">
+    <div>
       <h1 className="title">Recipes</h1>
       <div style={{display: "flex", justifyContent: "flex-start"}}>
       <TextField
@@ -206,18 +207,16 @@ function Recipe() {
       </div>
 
 
-      <div className="buttonDisplay">
+      <div style={{
+        display: "flex",
+        margin: "auto",
+        width: "400",
+        flexWrap: "wrap",
+        float: "right",
+        justifyContent: "space-around"
+      }}>
 
-        <Button style={{
-          backgroundColor: "#afcfcf", color: 'white', height: '90%', margin: '0 10px'
-          }} onClick={getUpload}>My Recipes
-        </Button>
-        <input
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          id="contained-button-file"
-        />
+
         <label htmlFor="contained-button-file">
           <Button
             variant="contained"
@@ -254,7 +253,10 @@ function Recipe() {
         </div>
 
         <div style={{ clear: "right" }}>
-        <div className="displayRecipes">
+        <div style={{display: "flex", 
+        flexWrap: "wrap", 
+        justifyContent: "space-around", 
+        alignItems: "flex-end"}}>
 
         {recipeList}
           {mealData

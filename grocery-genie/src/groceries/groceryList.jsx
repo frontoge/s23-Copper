@@ -3,6 +3,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import Cookies from "universal-cookie"
 import Button from "@mui/material/Button";
+import "./styles/groceryStyles.css";
 
 
 function Grocery(props) {
@@ -47,7 +48,7 @@ function Grocery(props) {
 
   function getGroceryItem(grocerySearch) {
     fetch(
-      `https://api.spoonacular.com/recipes/informationBulk?apiKey=ce57a3f8165c4485a55fb8654a2ba593&&ids=${grocerySearch}`
+      `https://api.spoonacular.com/recipes/informationBulk?apiKey=a1f18c67ada64f37ad105b89010df3f9&&ids=${grocerySearch}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -94,7 +95,7 @@ function Grocery(props) {
       `http://localhost:4000/api/grocerylists/`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({owner: userData.id, item: '', quantity: 0, groceryList: JSON.stringify(groceryList) })
+        body: JSON.stringify({owner: userData.id, item: '', quantity: 0, list: JSON.stringify(groceryList) })
       }
     )
       .then(response => response.json())
@@ -123,7 +124,7 @@ function Grocery(props) {
 
   return (
     <div className="backgroundImage">
-      <h1 className="title">Ingredient List</h1>
+      <h1 style={{textAlign: "center"}}>Ingredient List</h1>
       <div className="groceryPage">
       <Button
           style={{

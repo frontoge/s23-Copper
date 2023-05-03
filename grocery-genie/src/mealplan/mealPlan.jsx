@@ -22,7 +22,7 @@ function MealPlan() {
   const d = new Date()
   const [startdate, setstartDate] = useState(SetDate(true))
   const [enddate, setendDate] = useState(SetDate(false))
-  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  const options = { weekday: 'short', month: 'short', day: 'numeric' };
   console.log(enddate.toString())
   console.log(startdate.toString())
 
@@ -56,6 +56,7 @@ function MealPlan() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.message);
+        window.location.reload(false)
       })
       .catch((err) => {
         console.log(err.message);
@@ -64,10 +65,10 @@ function MealPlan() {
 
 
 return (
-  <div className="backgroundImage">
+  <div>
   <div className="mealPlanPage">
-    <h1 className="title">Meal Plan</h1>
-    <h2 >{startdate.getMonth() + 1}/{startdate.getDate()} - {enddate.getMonth() + 1}/{enddate.getDate()}</h2>
+    <h1 style={{textAlign: "center"}}>Meal Plan</h1>
+    <h2 style={{textAlign: "center"}}>{startdate.getMonth() + 1}/{startdate.getDate()} - {enddate.getMonth() + 1}/{enddate.getDate()}</h2>
     <div className="backgroundImage">
   {mealList
     ? mealList.data.map((meal, index) => (
