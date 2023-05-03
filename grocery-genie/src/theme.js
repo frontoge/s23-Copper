@@ -1,5 +1,5 @@
 import {createTheme} from "@mui/material/styles";
-import "./styles/fonts.css"
+import "./extras/styles/fonts.css"
 
 const themeOptions = {
     palette: {
@@ -19,15 +19,15 @@ const themeOptions = {
     },
     typography: {
         fontFamily: '"Kanit", "Helvetica", "Arial", sans-serif',
-        body1: {
-            fontFamily: '"Abel", "Helvetica", "Arial", sans-serif',
-        },
-        body2: {
-            fontFamily: '"Abel", "Helvetica", "Arial", sans-serif',
-        },
-        caption: {
-            fontFamily: '"Kanit", "Helvetica", "Arial", sans-serif',
-        },
+        // body1: {
+        //     fontFamily: '"Abel", "Helvetica", "Arial", sans-serif',
+        // },
+        // body2: {
+        //     fontFamily: '"Abel", "Helvetica", "Arial", sans-serif',
+        // },
+        // caption: {
+        //     fontFamily: '"Kanit", "Helvetica", "Arial", sans-serif',
+        // },
     },
 };
 

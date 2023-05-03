@@ -14,7 +14,6 @@ function Household_Profile() {
   const [inputList, setInputList] = useState([]);
   const [diet, setDiet] = useState(null);
   const [restrictions, setRestrictions] = useState(null);
-  const [status, setStatus] = useState(null);
 
   const cookies = new Cookies();
   const userData = cookies.get("login")

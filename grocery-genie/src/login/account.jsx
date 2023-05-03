@@ -1,9 +1,8 @@
 import Button from "@mui/material/Button";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import banner from "../images/branding/banner.png";
-import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import validator from 'validator'
 

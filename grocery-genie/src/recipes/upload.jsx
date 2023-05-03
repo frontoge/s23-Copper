@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import image from "../images/garlicButterWing.jpg";
 let subString = "";
 let loc = ""

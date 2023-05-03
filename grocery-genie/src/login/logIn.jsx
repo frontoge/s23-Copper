@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import "../styles/logInStyles.css"
+import "./styles/logInStyles.css"
 import banner from "../images/branding/banner.png";
 import {useNavigate} from "react-router-dom"
 import Cookies from "universal-cookie";
