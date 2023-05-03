@@ -22,6 +22,7 @@ function MealPlan() {
   const d = new Date()
   const [startdate, setstartDate] = useState(SetDate(true))
   const [enddate, setendDate] = useState(SetDate(false))
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
   console.log(enddate.toString())
   console.log(startdate.toString())
 
@@ -68,7 +69,6 @@ return (
     <h1 className="title">Meal Plan</h1>
     <h2 >{startdate.getMonth() + 1}/{startdate.getDate()} - {enddate.getMonth() + 1}/{enddate.getDate()}</h2>
     <div className="backgroundImage">
-  <h1 className="title">Meal Plan</h1>
   {mealList
     ? mealList.data.map((meal, index) => (
         <>
@@ -85,7 +85,7 @@ return (
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <ListItem>{new Date(meal.date).toLocaleDateString()}</ListItem>
+            <ListItem>{new Date(meal.date).toLocaleDateString(undefined, options)}</ListItem>
               <ListItem>{meal.type}</ListItem>
             </Box>
             <Box sx={{ display: "flex" }}>
