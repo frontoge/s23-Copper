@@ -7,6 +7,7 @@ import kroger from '../images/kroger_logo.png'
 import aldi from '../images/aldi_logo.jpg'
 import target from '../images/target_logo.png'
 import foodlion from "../images/foodLion_logo.png"
+import "./styles/storeRecStyles.css";
 
 const storeList = [
     {id: 1, name:'Walmart',image:walmart, favorite: "yes", address: "7530 Tidewater Dr",location: 5.5, price:100, in_stock: 12, cname:"WalmartPic",link: 'https://www.walmart.com/cp/976759?&adid=22222222220221176149&wmlspartner=wmtlabs&wl0=e&wl1=g&wl2=c&wl3=193590193349&wl4=aud-1651068664266:kwd-667579415&wl5=9008553&wl6=&wl7=&wl8=&veh=sem&gclid=CjwKCAjwrpOiBhBVEiwA_473dBKP0ffG4wqCJX38ZbJUwECrYGszdswQGq1i8Ch47dpGU1S_GgsylRoCeEoQAvD_BwE&gclsrc=aw.ds'},
