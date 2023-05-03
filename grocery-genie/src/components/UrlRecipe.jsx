@@ -196,6 +196,7 @@ const UrlRecipe = (props) => {
             <>
               <h2 className="title">Substitutions</h2>
               <h2 className="title">{subList.ingredient}</h2>
+              <h3>Disclaimer: Customers are responsible for verifying their substitutes.</h3>
               <hr></hr>
             </>
           ) : null}
