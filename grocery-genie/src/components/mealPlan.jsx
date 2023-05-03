@@ -35,7 +35,7 @@ function MealPlan() {
   }, []);
 
   async function getMealPlan() {
-    await fetch('http://localhost:4000/api/mealplans/${userData.id}')
+    await fetch(`http://localhost:4000/api/mealplans/${userData.id}`)
       .then((response) => response.json())
       .then((data) => {
         setMealList(data);
@@ -48,7 +48,7 @@ function MealPlan() {
 
   function deleteMeal(id) {
     console.log("id", id)
-    fetch('http://localhost:4000/api/mealplans/${userData.id}&${id}', {
+    fetch(`http://localhost:4000/api/mealplans/${userData.id}&${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
