@@ -13,8 +13,8 @@ import {Settings} from "./extras/components/settings";
 import Upload from "./recipes/upload";
 import Household_Profile from "./household/household";
 import Recipe from "./recipes/recipe";
-import RecipeCard from "./recipes/components/recipeCard";
 import CreateRecipe from "./recipes/components/createRecipe";
+import NotFound from "./extras/components/NotFound"
 
 function App(props) {
     return (
@@ -32,6 +32,7 @@ function App(props) {
                 <Route path={"stores"} element={<StoreRec />}></Route>
                 <Route path={"settings"} element={<Settings />}></Route>
             </Route>
+            <Route path="*" element={<NotFound />}></Route>
         </Routes>
         </BrowserRouter>
     )
