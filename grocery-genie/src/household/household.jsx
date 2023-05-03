@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Switch from "@mui/material/Switch";
@@ -40,6 +40,7 @@ function Household_Profile() {
        .then(response => response.json())
        .then(data => {
          console.log(data.message)
+         window.location.reload(false);
        })
        .catch((err) => {
          console.log(err.message)
@@ -65,7 +66,6 @@ function Household_Profile() {
           justifyContent: "center",
         }}
       >   
-       <form onSubmit={handleClickEvent}>
         <TextField
           style={{
             width: "20%",
@@ -127,8 +127,10 @@ function Household_Profile() {
             setMemberInfo({ ...memberInfo, allergy: e.target.value });
           }}
         />
-         <input type="submit" value="Submit" />
-         </form >
+      <Button variant="contained"
+      onClick={(e) => {handleClickEvent(e)}}>
+        Create Profile
+      </Button>
         
       </Box>
     );
@@ -212,6 +214,7 @@ function Household_Profile() {
     .then(response => response.json())
        .then(data => {
          console.log(data.message)
+         window.location.reload(false);
        })
        .catch((err) => {
          console.log(err.message)
@@ -236,6 +239,7 @@ function Household_Profile() {
        .then(data => {
          console.log(data.message)
          console.log("status is ", status)
+         window.location.reload(false);
        })
        .catch((err) => {
          console.log(err.message)
@@ -264,6 +268,7 @@ function Household_Profile() {
     .then(response => response.json())
        .then(data => {
          console.log(data.message)
+         window.location.reload(false);
        })
        .catch((err) => {
          console.log(err.message)
