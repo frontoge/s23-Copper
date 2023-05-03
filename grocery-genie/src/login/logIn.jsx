@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -12,9 +12,22 @@ function LogIn(props) {
     const [user, setUser] = useState(undefined);
     const [pass, setPass] = useState(undefined);
     const [showForgotPassword, setShowForgotPassword] =useState(false)
-    var nav = useNavigate()
+    const [userData, setUserData] = useState(undefined)
 
     const cookies = new Cookies();
+
+    const navigate = useNavigate();
+
+    useEffect(() =>{
+        setUserData(cookies.get("login"))
+    }, [])
+
+    useEffect(() => {
+        if (userData !== undefined) {
+          navigate("/", {replace: true})
+        }
+      }, [userData])
+
     const login = async () => {
         const res = await fetch(`http://localhost:4000/api/accounts/${user}`);
         if (res.status === 404){
@@ -22,7 +35,7 @@ function LogIn(props) {
         } else {
             const data = await res.json();
             cookies.set('login', {...data}, {path: "/"})
-            nav("/household")
+            setUserData({...data})
         }
     }
 
@@ -35,7 +48,7 @@ function LogIn(props) {
     }
 
     function create() {
-        nav("/account")
+        navigate("/account")
     }
 
 
