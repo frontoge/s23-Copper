@@ -7,4 +7,8 @@ router.get('/:userId', controller.getIngredients);
 
 router.delete('/:userId&:ingredientsId', controller.deleteIngredients)
 
+router.put('/:userId&:ingredientsId', controller.updateIngredients)
+
+router.post('/:userId&:ingredientsId', controller.addIngredients)
+
 export = router;
